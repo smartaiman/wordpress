@@ -1,12 +1,12 @@
 // Porto Config Scss Theme File
-// Created at 2016-07-10 08:22:35
+// Created at 2016-09-17 20:39:50
 
 //** Padding between columns. Gets divided in half for the left and right.
-$grid-gutter-width:         30px !default;
+$grid-gutter-width:         20px !default;
 
 // Large screen / wide screen
 $container-large-desktop: (1140px) !default;
-$screen-large: "(max-width: 1169px)";
+$screen-large: "(max-width: 1159px)";
 
 // Border radius
     $border-xs:     1px;
