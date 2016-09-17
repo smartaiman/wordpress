@@ -30,7 +30,7 @@ rm -rf *
 cd ../
 mkdir staging
 cd staging
-git clone https://github.com/andrewpuch/wordpress_4_1_1.git .
+git clone https://github.com/smartaiman/wordpress.git .
 chmod -R 744 .
 chown -R www-data:www-data .
 
