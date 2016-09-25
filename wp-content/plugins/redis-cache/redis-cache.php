@@ -2,8 +2,8 @@
 /*
 Plugin Name: Redis Object Cache
 Plugin URI: https://wordpress.org/plugins/redis-cache/
-Description: A persistent object cache backend powered by Redis. Supports Predis, PhpRedis, HHVM, replication and clustering.
-Version: 1.3.3
+Description: A persistent object cache backend powered by Redis. Supports Predis, PhpRedis, HHVM, replication, clustering and WP-CLI.
+Version: 1.3.4
 Text Domain: redis-cache
 Domain Path: /languages
 Author: Till Krüss
@@ -12,7 +12,13 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	require_once dirname( __FILE__ ) . '/includes/wp-cli-commands.php';
+}
 
 class RedisObjectCache {
 
@@ -24,9 +30,11 @@ class RedisObjectCache {
 
 		load_plugin_textdomain( 'redis-cache', false, 'redis-cache/languages' );
 
-		register_deactivation_hook(__FILE__, array( $this, 'on_deactivation' ) );
+		register_activation_hook( __FILE__, 'wp_cache_flush' );
 
 		$this->page = is_multisite() ? 'settings.php?page=redis-cache' : 'options-general.php?page=redis-cache';
+
+		add_action( 'deactivate_plugin', array( $this, 'on_deactivation' ) );
 
 		add_action( is_multisite() ? 'network_admin_menu' : 'admin_menu', array( $this, 'add_admin_menu_page' ) );
 		add_action( 'admin_notices', array( $this, 'show_admin_notices' ) );
@@ -213,7 +221,7 @@ class RedisObjectCache {
 
 			} else {
 
-				$message = sprintf( __( 'Another object cache drop-in was found. To use Redis, <a href="%s">please replace it now</a>.', 'redis-cache' ), $url );
+				$message = sprintf( __( 'An unknown object cache drop-in was found. To use Redis, <a href="%s">please replace it now</a>.', 'redis-cache' ), $url );
 
 			}
 
@@ -256,10 +264,10 @@ class RedisObjectCache {
 					$error = __( 'Object Cache could not be flushed.', 'redis-cache' );
 					break;
 				case 'dropin-updated':
-					$message = __( 'Drop-in updated.', 'redis-cache' );
+					$message = __( 'Updated object cache drop-in and enabled Redis object cache.', 'redis-cache' );
 					break;
 				case 'update-dropin-failed':
-					$error = __( 'Drop-in could not be updated.', 'redis-cache' );
+					$error = __( 'Object cache drop-in could not be updated.', 'redis-cache' );
 					break;
 
 			}
@@ -361,16 +369,22 @@ class RedisObjectCache {
 
 	}
 
-	public function on_deactivation() {
+	public function on_deactivation( $plugin ) {
 
 		global $wp_filesystem;
 
-		if ( $this->validate_object_cache_dropin() && $this->initialize_filesystem( '', true ) ) {
-			$wp_filesystem->delete( WP_CONTENT_DIR . '/object-cache.php' );
+		if ( $plugin === plugin_basename( __FILE__ ) ) {
+
+			wp_cache_flush();
+
+			if ( $this->validate_object_cache_dropin() && $this->initialize_filesystem( '', true ) ) {
+				$wp_filesystem->delete( WP_CONTENT_DIR . '/object-cache.php' );
+			}
+
 		}
 
 	}
 
 }
 
-new RedisObjectCache;
+$GLOBALS[ 'redisObjectCache' ] = new RedisObjectCache;

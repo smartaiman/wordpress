@@ -4,16 +4,16 @@ Donate link: https://www.paypal.me/tillkruss
 Tags: redis, predis, hhvm, pecl, caching, cache, object cache, wp object cache, server, performance, optimize, speed, load, replication, clustering
 Requires at least: 3.3
 Tested up to: 4.6
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-A persistent object cache backend powered by Redis. Supports Predis, PhpRedis (PECL), HHVM, replication and clustering.
+A persistent object cache backend powered by Redis. Supports Predis, PhpRedis, HHVM, replication, clustering and WP-CLI.
 
 
 == Description ==
 
-A persistent object cache backend powered by Redis. Supports [Predis](https://github.com/nrk/predis/), [PhpRedis (PECL)](https://github.com/phpredis/phpredis), [HHVM](https://github.com/facebook/hhvm/tree/master/hphp/system/php/redis), replication and clustering.
+A persistent object cache backend powered by Redis. Supports [Predis](https://github.com/nrk/predis/), [PhpRedis (PECL)](https://github.com/phpredis/phpredis), [HHVM](https://github.com/facebook/hhvm/tree/master/hphp/system/php/redis), replication, clustering and [WP-CLI](http://wp-cli.org/).
 
 To adjust the connection parameters, prefix cache keys or configure replication/clustering, please see [Other Notes](http://wordpress.org/extend/plugins/redis-cache/other_notes/).
 
@@ -24,7 +24,7 @@ Forked from Eric Mann's and Erick Hitter's [Redis Object Cache](https://github.c
 
 For detailed installation instructions, please read the [standard installation procedure for WordPress plugins](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins).
 
-1. Make sure Redis in installed and running.
+1. Make sure [Redis in installed and running](http://redis.io/topics/quickstart).
 2. Install and activate plugin.
 3. Enable the object cache under _Settings -> Redis_.
 4. If necessary, adjust [connection parameters](http://wordpress.org/extend/plugins/redis-cache/other_notes/).
@@ -44,7 +44,7 @@ To adjust the connection parameters, define any of following constants in your `
 
   * `WP_REDIS_SCHEME` [default: `tcp`]
 
-      Specifies the protocol used to communicate with an instance of Redis. Internally the client uses the connection class associated to the specified connection scheme. Supports `tcp` (TCP/IP), `unix` (UNIX domain sockets) or `http` (HTTP protocol through Webdis).
+      Specifies the protocol used to communicate with an instance of Redis. Internally the client uses the connection class associated to the specified connection scheme. Supports `tcp` (TCP/IP), `unix` (UNIX domain sockets), `tls` (transport layer security) or `http` (HTTP protocol through Webdis).
 
   * `WP_REDIS_HOST` [default: `127.0.0.1`]
 
@@ -79,11 +79,11 @@ To adjust the configuration, define any of the following constants in your `wp-c
 
     Set maximum time-to-live (in seconds) for cache keys with an expiration time of `0`.
 
-  * `WP_REDIS_GLOBAL_GROUPS` (default: `['users', 'userlogins', 'usermeta', 'site-options', 'site-lookup', 'blog-lookup', 'blog-details', 'rss']`)
+  * `WP_REDIS_GLOBAL_GROUPS` (default: `['blog-details', 'blog-id-cache', 'blog-lookup', 'global-posts', 'networks', 'rss', 'sites', 'site-details', 'site-lookup', 'site-options', 'site-transient', 'users', 'useremail', 'userlogins', 'usermeta', 'user_meta', 'userslugs']`)
 
     Set the list of network-wide cache groups that should not be prefixed with the blog-id _(Multisite only)_.
 
-  * `WP_REDIS_IGNORED_GROUPS` (default: `['comment', 'counts']`)
+  * `WP_REDIS_IGNORED_GROUPS` (default: `['counts', 'plugins']`)
 
     Set the cache groups that should not be cached in Redis.
 
@@ -112,6 +112,31 @@ __Clustering via Client-side Sharding Example:__
     ] );
 
 
+== WP-CLI Commands ==
+
+To use the WP-CLI commands, make sure the plugin is activated:
+
+    wp plugin activate redis-cache
+
+The following commands are supported:
+
+  * `wp redis status`
+
+    Show the Redis object cache status and (when possible) client.
+
+  * `wp redis enable`
+
+    Enables the Redis object cache. Default behavior is to create the object cache drop-in, unless an unknown object cache drop-in is present.
+
+  * `wp redis disable`
+
+    Disables the Redis object cache. Default behavior is to delete the object cache drop-in, unless an unknown object cache drop-in is present.
+
+  * `wp redis update-dropin`
+
+    Updates the Redis object cache drop-in. Default behavior is to overwrite any existing object cache drop-in.
+
+
 == Screenshots ==
 
 1. Plugin settings, connected to a single Redis server.
@@ -120,6 +145,13 @@ __Clustering via Client-side Sharding Example:__
 
 
 == Changelog ==
+
+= 1.3.4 =
+
+  * Added WP-CLI support
+  * Show host and port unless scheme is unix
+  * Updated default global and ignored groups
+  * Do a cache flush when activating, deactivating and uninstalling
 
 = 1.3.3 =
 
@@ -183,7 +215,7 @@ __Clustering via Client-side Sharding Example:__
 
   * Added support for HHVM's Redis extension
   * Added support for PECL Redis extension
-  * Added `WP_REDIS_CLIENT` constant, to set prefered Redis client
+  * Added `WP_REDIS_CLIENT` constant, to set preferred Redis client
   * Added `WP_REDIS_MAXTTL` constant, to force expiration of cache keys
   * Improved `add_or_replace()`, `get()`, `set()` and `delete()` methods
   * Improved admin screen styles

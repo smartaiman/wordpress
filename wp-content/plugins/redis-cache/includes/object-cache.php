@@ -2,8 +2,8 @@
 /*
 Plugin Name: Redis Object Cache
 Plugin URI: http://wordpress.org/plugins/redis-cache/
-Description: A persistent object cache backend powered by Redis. Supports HHVM's Redis extension, the PECL Redis Extension and the Predis library for PHP.
-Version: 1.3.3
+Description: A persistent object cache backend powered by Redis. Supports Predis, PhpRedis, HHVM, replication, clustering and WP-CLI.
+Version: 1.3.4
 Author: Till Krüss
 Author URI: https://till.im/
 License: GPLv3
@@ -280,14 +280,32 @@ class WP_Object_Cache {
 	 *
 	 * @var array
 	 */
-	public $global_groups = array( 'users', 'userlogins', 'usermeta', 'site-options', 'site-lookup', 'blog-lookup', 'blog-details', 'rss' );
+	public $global_groups = array(
+		'blog-details',
+		'blog-id-cache',
+		'blog-lookup',
+		'global-posts',
+		'networks',
+		'rss',
+		'sites',
+		'site-details',
+		'site-lookup',
+		'site-options',
+		'site-transient',
+		'users',
+		'useremail',
+		'userlogins',
+		'usermeta',
+		'user_meta',
+		'userslugs',
+	);
 
 	/**
 	 * List of groups not saved to Redis.
 	 *
 	 * @var array
 	 */
-	public $ignored_groups = array( 'comment', 'counts' );
+	public $ignored_groups = array( 'counts', 'plugins' );
 
 	/**
 	 * Prefix used for global groups.
