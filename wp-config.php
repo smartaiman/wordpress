@@ -15,7 +15,6 @@
  */
 
 define('WP_REDIS_HOST', 'wordpess-001.krhfze.0001.use1.cache.amazonaws.com');
-define('WP_REDIS_HOST', 'wordpess-002.krhfze.0001.use1.cache.amazonaws.com');
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
@@ -71,7 +70,7 @@ $table_prefix  = 'wp_';
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
  * in their development environments.
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
 
 /* That's all, stop editing! Happy blogging. */
 
