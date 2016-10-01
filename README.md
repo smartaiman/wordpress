@@ -1,6 +1,7 @@
 Wordpress Staging
 -----------------
 ```
+sudo su
 apt-get -y update
 add-apt-repository ppa:ondrej/php
 apt-get -y update
