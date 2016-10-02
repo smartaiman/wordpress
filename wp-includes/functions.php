@@ -5464,3 +5464,5 @@ function wp_raise_memory_limit( $context = 'admin' ) {
 
 	return false;
 }
+
+remove_action('shutdown', 'wp_ob_end_flush_all', 1);
