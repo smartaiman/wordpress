@@ -15,6 +15,7 @@
  */
 
 define('WP_REDIS_HOST', 'wordpess.krhfze.ng.0001.use1.cache.amazonaws.com');
+define('WPLANG', '');
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
@@ -33,7 +34,7 @@ define('DB_HOST', 'wordpress.cftqt4jaczzg.us-east-1.rds.amazonaws.com');
 define('DB_CHARSET', 'utf8');
 
 /** The Database Collate type. Don't change this if in doubt. */
-define('DB_COLLATE', '');
+define('DB_COLLATE', 'utf8_general_ci');
 
 /**#@+
  * Authentication Unique Keys and Salts.
