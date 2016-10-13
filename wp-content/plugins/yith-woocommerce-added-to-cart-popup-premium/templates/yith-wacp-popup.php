@@ -18,7 +18,7 @@
 		<div class="yith-wacp-main">
 
 			<div class="yith-wacp-head">
-				<a href="#" class="yith-wacp-close">X <?php echo __('Close', 'yith-wacp') ?></a>
+				<a href="#" class="yith-wacp-close">X <?php echo __('Close', 'yith-woocommerce-added-to-cart-popup') ?></a>
 			</div>
 
 			<div class="yith-wacp-content"></div>

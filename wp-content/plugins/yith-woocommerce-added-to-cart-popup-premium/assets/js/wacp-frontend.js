@@ -57,38 +57,54 @@ jQuery(document).ready(function($) {
 
             if ( key == 'yith_wacp_message' ) {
 
-                $(document).trigger( 'yith_wacp_popup_before_opening', [ popup ] );
+                // add content
+                var popup_content = popup.find('.yith-wacp-content');
+                popup_content.html( value );
 
-                popup.find('.yith-wacp-content').html( value );
+                // check if popup is still open, if yes, update it.
+                if( popup.hasClass('open') ) {
 
-                // init action in popup
-                init_action_popup();
-
-                // position popup
-                center_popup();
-
-                //scroll
-                if( typeof $.fn.perfectScrollbar != 'undefined' ) {
-                    popup.find('.yith-wacp-content').perfectScrollbar({
-                        suppressScrollX : true
-                    });
-                }
-
-                if( yith_wacp.is_mobile ) {
-                    // add class to html for prevent page scroll on mobile device
-                    $('html').addClass( 'yith_wacp_open' );
-                }
-                popup.addClass('open');
-
-                popup.find( 'a.continue-shopping' ).on( 'click', function (e) {
-                    if( $(this).attr('href') != '#' ) {
-                        return;
+                    // update scroll
+                    if( typeof $.fn.perfectScrollbar != 'undefined' ) {
+                        popup_content.perfectScrollbar('update');
                     }
-                    e.preventDefault();
-                    close_popup();
-                });
+                    // then scroll to Top
+                    popup_content.scrollTop(0);
 
-                $(document).trigger( 'yith_wacp_popup_after_opening', [ popup ] );
+                    $(document).trigger( 'yith_wacp_popup_changed', [ popup ] );
+                }
+                else {
+                    $(document).trigger( 'yith_wacp_popup_before_opening', [ popup ] );
+
+                    // init action in popup
+                    init_action_popup();
+
+                    // position popup
+                    center_popup();
+
+                    //scroll
+                    if( typeof $.fn.perfectScrollbar != 'undefined' ) {
+                        popup.find('.yith-wacp-content').perfectScrollbar({
+                            suppressScrollX : true
+                        });
+                    }
+
+                    if( yith_wacp.is_mobile ) {
+                        // add class to html for prevent page scroll on mobile device
+                        $('html').addClass( 'yith_wacp_open' );
+                    }
+                    popup.addClass('open');
+
+                    popup.find( 'a.continue-shopping' ).on( 'click', function (e) {
+                        if( $(this).attr('href') != '#' ) {
+                            return;
+                        }
+                        e.preventDefault();
+                        close_popup();
+                    });
+
+                    $(document).trigger( 'yith_wacp_popup_after_opening', [ popup ] );
+                }
 
                 return false;
             }
@@ -106,7 +122,7 @@ jQuery(document).ready(function($) {
 
     var init_action_popup = function(){
         // remove from cart ajax
-        $( '.yith-wacp-remove-cart').off('click').on( 'click', function(ev) {
+        $( document ).on( 'click', '.yith-wacp-remove-cart', function(ev) {
             ev.preventDefault();
 
 
@@ -129,16 +145,12 @@ jQuery(document).ready(function($) {
             $.ajax({
                 url: yith_wacp.ajaxurl.toString().replace( '%%endpoint%%', yith_wacp.actionremove ),
                 data: data,
-                dataType: 'json',
+                dataType: 'html',
                 success: function( res ) {
 
-                    $( '.yith-wacp-content table.cart-list' ).replaceWith( $( res.html ).filter( 'table.cart-list' ) );
-                    $( '.yith-wacp-content div.cart-info' ).replaceWith( $( res.html ).filter( 'div.cart-info' ) );
+                    popup.find('.yith-wacp-content').html( res );
 
-                    // re-init action in popup
-                    init_action_popup();
-
-                    $( window ).trigger( 'yith_wacp_popup_changed' );
+                    $(document).trigger( 'yith_wacp_popup_changed', [ popup ] );
                 }
             });
         })
@@ -148,10 +160,7 @@ jQuery(document).ready(function($) {
      ADD TO CART AJAX IN SINGLE PRODUCT PAGE
     ########################################*/
 
-    var form_cart_single = $( 'div.summary form.cart, div.summary form.bundle_form' );
-    if( ! form_cart_single.length ) {
-        form_cart_single = $( 'div.product-box form.cart, #product-box form.cart' );
-    }
+    var form_cart_single = $( yith_wacp.form_selectors );
 
     form_cart_single.on( 'submit', function( ev ) {
 
@@ -159,12 +168,26 @@ jQuery(document).ready(function($) {
             return;
         }
 
-        // check if exluded
-        var t = $(this),
+        var $supports_html5_storage,
+            $private = false,
+            t = $(this),
             button = t.find( 'button[type="submit"]'),
             exclude = t.find( 'input[name="yith-wacp-is-excluded"]' );
 
-        if( exclude.length )
+        try {
+            $supports_html5_storage = ( 'sessionStorage' in window && window.sessionStorage !== null );
+
+            window.sessionStorage.setItem( 'wc', 'test' );
+            window.sessionStorage.removeItem( 'wc' );
+        } catch( err ) {
+            $supports_html5_storage = false;
+            if ( err.code == DOMException.QUOTA_EXCEEDED_ERR && window.sessionStorage.length == 0) {
+                $private = true
+            }
+        }
+
+        // check if exluded
+        if( exclude.length || $private )
             return;
 
         ev.preventDefault();
@@ -202,23 +225,13 @@ jQuery(document).ready(function($) {
                 }
 
                 // refresh fragments
-                var $supports_html5_storage,
-                    $ajax_url,
+                var $ajax_url,
                     $data_ajax = {
                         product_id: res.prod_id,
                         variation_id: res.variation_id,
                         ywacp_is_single: 'yes',
                         context: 'frontend'
                     };
-
-                try {
-                    $supports_html5_storage = ( 'sessionStorage' in window && window.sessionStorage !== null );
-
-                    window.sessionStorage.setItem( 'wc', 'test' );
-                    window.sessionStorage.removeItem( 'wc' );
-                } catch( err ) {
-                    $supports_html5_storage = false;
-                }
 
                 /** Support wc 2.3.x **/
                 if( typeof wc_cart_fragments_params.wc_ajax_url !== 'undefined' ) {
@@ -258,4 +271,16 @@ jQuery(document).ready(function($) {
             }
         });
     });
+
+
+    $(document).on( 'yith_wacp_popup_after_opening yith_wacp_popup_changed', function() {
+        if( typeof $.yith_wccl != 'undefined' && typeof $.fn.wc_variation_form != 'undefined' ) {
+            // not initialized
+            $(document).find( '.variations_form:not(.initialized)' ).each( function() {
+                $(this).wc_variation_form();
+            });
+            $.yith_wccl();
+        }
+    });
+
 });

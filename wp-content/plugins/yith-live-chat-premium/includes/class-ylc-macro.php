@@ -118,7 +118,7 @@ if ( ! class_exists( 'YLC_Macro' ) ) {
 				'exclude_from_search' => true,
 				'menu_icon'           => 'dashicons-awards',
 				'capability_type'     => 'ylc-macro',
-				'capabilities'        => $this->get_capabilities(),
+//				'capabilities'        => $this->get_capabilities(),
 				'map_meta_cap'        => true,
 				'rewrite'             => false,
 				'publicly_queryable'  => false,

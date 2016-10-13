@@ -75,6 +75,7 @@ if ( ! class_exists( 'YITH_Livechat_Premium' ) ) {
 				add_filter( 'ylc_autoplay_opts', array( $this, 'get_autoplay_opts' ) );
 				add_filter( 'ylc_company_avatar', array( $this, 'get_company_avatar' ) );
 				add_filter( 'ylc_can_show_chat', array( $this, 'show_chat_button' ), 10, 1 );
+				add_filter( 'ylc_frontend_opts', array( $this, 'set_frontend_opts' ), 10 );
 
 			} else {
 
@@ -714,6 +715,24 @@ if ( ! class_exists( 'YITH_Livechat_Premium' ) ) {
 				'animation_type' => $this->options['chat-animation'],
 				'autoplay'       => false,//(int) $this->set_chat_autoplay( $this->options['autoplay-enabled'] ),
 				'autoplay_delay' => $this->set_autoplay_delay( $this->options['autoplay-delay'] )
+			);
+
+		}
+
+		/**
+		 * Set Frontend Options
+		 *
+		 * @since   1.2.1
+		 * @return  array
+		 * @author  Alberto Ruggiero
+		 */
+		public function set_frontend_opts() {
+
+			return array(
+				'button_type' => $this->get_chat_button_type(),
+				'button_pos'  => $this->get_chat_position( 'y' ),
+				'form_width'  => 'width: ' . $this->options['form-width'] . 'px;',
+				'chat_width'  => 'width: ' . $this->options['chat-conversation-width'] . 'px;',
 			);
 
 		}

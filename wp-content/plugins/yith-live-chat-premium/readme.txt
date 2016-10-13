@@ -4,11 +4,15 @@ Contributors: yithemes
 Tags: yit, yith, yithemes, live chat, real time, firebase, ajax, customer help, customer support, free chat, live help, online support, helpdesk, chat, wordpress chat, free live chat, group chat, online live chat, online support, plugin chat, private message, chat support, live customer support, live support chat, web chat, live chat, livechat
 Requires at least: 4.0
 Tested up to: 4.6
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog ==
+
+= 1.2.1 =
+
+* Added: support for CJK characters
 
 = 1.2.0 =
 

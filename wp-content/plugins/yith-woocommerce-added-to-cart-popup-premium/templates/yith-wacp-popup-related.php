@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 exit; // Exit if accessed directly
 }
 
-global $product;
+global $product, $woocommerce_loop;
 
 $loop = 0;
 $args = apply_filters( 'yith_wacp_related_products_args', array(
@@ -22,7 +22,8 @@ $args = apply_filters( 'yith_wacp_related_products_args', array(
 	'no_found_rows'        => 1,
 	'posts_per_page'       => $posts_per_page,
 	'post__in'             => $items,
-	'post__not_in'         => array( $current_product_id )
+	'post__not_in'         => array( $current_product_id ),
+	'orderby'              => 'rand'
 ) );
 
 $products = new WP_Query( $args );
@@ -40,17 +41,10 @@ if ( $products->have_posts() ) : ?>
 	while ( $products->have_posts() ) :
 		$products->the_post();
 
-		// Increase loop count
-		$loop++;
-
 		// Extra post classes
-		$classes = array( 'product', 'yith-wacp-related-product' );
-		if ( 0 == ( $loop - 1 ) % $columns || 1 == $columns ) {
-			$classes[] = 'first';
-		}
-		if ( 0 == $loop % $columns ) {
-			$classes[] = 'last';
-		}
+		$classes = array( 'yith-wacp-related-product' );
+		// set column
+		$woocommerce_loop['columns'] = $columns;
 		?>
 
 		<li <?php post_class( $classes ); ?>>
@@ -73,6 +67,10 @@ if ( $products->have_posts() ) : ?>
 				<div class="product-price">
 					<?php wc_get_template( 'loop/price.php' ); ?>
 				</div>
+
+				<?php if( $show_add_to_cart ) {
+					echo do_shortcode( '[add_to_cart id="' . get_the_ID() . '" style="" show_price="false"]');
+				} ?>
 
 			</a>
 

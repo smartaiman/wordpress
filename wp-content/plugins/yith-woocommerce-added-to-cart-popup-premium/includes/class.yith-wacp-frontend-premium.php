@@ -37,6 +37,22 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 		public $version = YITH_WACP_VERSION;
 
 		/**
+		 * Plugin enable on single product page
+		 *
+		 * @var boolean
+		 * @since 1.1.0
+		 */
+		public $enable_single = false;
+
+		/**
+		 * Plugin enable on archive
+		 *
+		 * @var boolean
+		 * @since 1.1.0
+		 */
+		public $enable_loop = false;
+
+		/**
 		 * Remove action
 		 *
 		 * @var string
@@ -76,6 +92,9 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 
 			parent::__construct();
 
+			$this->enable_single = get_option( 'yith-wacp-enable-on-single' ) == 'yes';
+			$this->enable_loop   = get_option( 'yith-wacp-enable-on-archive' ) == 'yes';
+
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_premium' ), 20 );
 
 			if( version_compare( WC()->version, '2.4', '>=' ) ){
@@ -95,6 +114,8 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 
 			// prevent redirect after ajax add to cart
 			add_filter( 'woocommerce_add_to_cart_redirect', array( $this, 'prevent_redirect_url' ), 100, 1 );
+			// prevent woocommerce option Redirect to the cart page after successful addition
+			add_filter( 'pre_option_woocommerce_cart_redirect_after_add', array( $this, 'prevent_cart_redirect' ), 10, 2 );
 
 			// prevent add to cart ajax
 			add_action( 'woocommerce_before_add_to_cart_button', array( $this, 'exclude_single' ) );
@@ -108,6 +129,9 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 
 			// add args to popup template
 			add_filter( 'yith_wacp_popup_template_args', array( $this, 'popup_args' ), 10, 1 );
+			
+			// compatibility with YITH WooCommerce Cart Messages
+			add_action( 'yith_wacp_before_popup_content', array( $this, 'cart_messages' ), 15, 1 );
 
 		}
 
@@ -127,16 +151,17 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 
 			// scroll plugin
 			wp_enqueue_style( 'wacp-scroller-plugin-css', YITH_WACP_ASSETS_URL . '/css/perfect-scrollbar.css' );
-			wp_enqueue_script( 'wacp-scroller-plugin-js', YITH_WACP_ASSETS_URL . '/js/perfect-scrollbar' . $min .'.js', array('jquery'), false, true );
+			wp_enqueue_script( 'wacp-scroller-plugin-js', YITH_WACP_ASSETS_URL . '/js/perfect-scrollbar' . $min .'.js', array('jquery'), $this->version, true );
 
 			wp_localize_script( 'yith-wacp-frontend-script', 'yith_wacp', array(
-					'ajaxurl'       => version_compare( WC()->version, '2.4', '>=' ) ? WC_AJAX::get_endpoint( "%%endpoint%%" ) : admin_url( 'admin-ajax.php', 'relative' ),
-					'actionadd'     => $this->action_add,
-					'actionremove'  => $this->action_remove,
-					'loader'        => YITH_WACP_ASSETS_URL . '/images/loader.gif',
-					'enable_single' => get_option( 'yith-wacp-enable-on-single' ) == 'yes' ? true : false,
-					'is_mobile'     => wp_is_mobile(),
-					'popup_size'    => get_option( 'yith-wacp-box-size' )
+					'ajaxurl'           => version_compare( WC()->version, '2.4', '>=' ) ? WC_AJAX::get_endpoint( "%%endpoint%%" ) : admin_url( 'admin-ajax.php', 'relative' ),
+					'actionadd'         => $this->action_add,
+					'actionremove'      => $this->action_remove,
+					'loader'            => YITH_WACP_ASSETS_URL . '/images/loader.gif',
+					'enable_single'     => $this->enable_single,
+					'is_mobile'         => wp_is_mobile(),
+					'popup_size'        => get_option( 'yith-wacp-box-size' ),
+					'form_selectors'    => apply_filters( 'yith_wacp_form_selectors_filter', 'body.single-product form.cart:not(.in_loop), body.single-product form.bundle_form' )
 			) );
 		}
 
@@ -161,18 +186,20 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 		 *
 		 * @access public
 		 * @since 1.0.0
-		 * @param object|boolean $product current product added
+		 * @param boolean|object $product current product added
+		 * @param string $layout Layout to load
 		 * @return mixed
 		 * @author Francesco Licandro
 		 */
-		private function get_popup_content( $product = false ) {
+		private function get_popup_content( $product, $layout = '' ) {
 
-			$layout = get_option( 'yith-wacp-layout-popup', 'product' );
+			! $layout && $layout = get_option( 'yith-wacp-layout-popup', 'product' );
 			// set args
 			$args = array(
-				'thumb'          => get_option( 'yith-wacp-show-thumbnail' ) == 'yes' ? true : false,
-				'cart_total'     => get_option( 'yith-wacp-show-cart-totals' ) == 'yes' ? true : false,
-				'cart_shipping'  => get_option( 'yith-wacp-show-cart-shipping' ) == 'yes' ? true : false,
+				'thumb'          => get_option( 'yith-wacp-show-thumbnail', 'yes' ) == 'yes',
+				'cart_total'     => get_option( 'yith-wacp-show-cart-totals', 'yes' ) == 'yes',
+				'cart_shipping'  => get_option( 'yith-wacp-show-cart-shipping', 'yes' ) == 'yes',
+				'cart_tax'       => get_option( 'yith-wacp-show-cart-tax', 'yes' ) == 'yes',
 				'product'        => $product
 			);
 
@@ -198,9 +225,7 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 		 */
 		public function add_to_cart_success_ajax( $datas ) {
 
-			$enable = get_option( 'yith-wacp-enable-on-archive' ) == 'yes' ? true : false;
-
-			if ( ! isset( $_REQUEST['product_id' ] ) || ( ! isset( $_REQUEST['ywacp_is_single'] ) && ! $enable ) ) {
+			if ( ! isset( $_REQUEST['product_id' ] ) || ( ! isset( $_REQUEST['ywacp_is_single'] ) && ! $this->enable_loop  ) ) {
 				return $datas;
 			}
 
@@ -236,22 +261,14 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 			// remove item
 			WC()->cart->remove_cart_item( $item_key );
 
-			// then reload cart popup content
-			$args = array(
-				'thumb'          => get_option( 'yith-wacp-show-thumbnail' ) == 'yes' ? true : false,
-				'cart_total'     => get_option( 'yith-wacp-show-cart-totals' ) == 'yes' ? true : false,
-				'cart_shipping'  => get_option( 'yith-wacp-show-cart-shipping' ) == 'yes' ? true : false,
-			);
+			$cart = WC()->cart->get_cart();
+			$last = end( $cart );
+			$product = isset( $last['product_id'] ) ? wc_get_product( $last['product_id'] ) : false;
 
-			ob_start();
+			// remove popup message
+			remove_action( 'yith_wacp_before_popup_content', array( $this, 'add_message' ), 10 );
 
-			wc_get_template( 'yith-wacp-popup-cart.php', $args, '', YITH_WACP_TEMPLATE_PATH . '/' );
-
-			$html = ob_get_clean();
-
-			wp_send_json( array(
-				'html' => $html
-			));
+			echo $this->get_popup_content( $product, 'cart' );
 		}
 
 		/**
@@ -278,6 +295,10 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 					wc_print_notice( $value, 'error' );
 				}
 				$html = ob_get_clean();
+			}
+			else {
+				// trigger action for added to cart in ajax
+				do_action( 'woocommerce_ajax_added_to_cart', intval( $_REQUEST['add-to-cart'] ) );
 			}
 
 			// clear other notice
@@ -339,6 +360,16 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 		}
 
 		/**
+		 * This method handle the YITH WooCommerce Cart Messages Premium Compatibility
+		 * 
+		 * @since 1.1.0
+		 * @author Francesco Licandro
+		 */
+		public function cart_messages(){
+			
+		}  
+
+		/**
 		 * Add action button to popup
 		 *
 		 * @access public
@@ -348,9 +379,9 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 		 */
 		public function add_actions_button( $product) {
 
-			$cart = get_option( 'yith-wacp-show-go-cart' ) == 'yes' ? true : false;
-			$checkout = get_option( 'yith-wacp-show-go-checkout' ) == 'yes' ? true : false;
-			$continue = get_option( 'yith-wacp-show-continue-shopping' ) == 'yes' ? true : false;
+			$cart = get_option( 'yith-wacp-show-go-cart' ) == 'yes';
+			$checkout = get_option( 'yith-wacp-show-go-checkout' ) == 'yes';
+			$continue = get_option( 'yith-wacp-show-continue-shopping' ) == 'yes';
 
 			if( ! $cart && ! $checkout && ! $continue ) {
 				return;
@@ -387,10 +418,10 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 		}
 
 		/**
-		 * Add related product to popup
+		 * Add suggested/related product to popup
 		 *
 		 * @access public
-		 * @since 1.0.0
+		 * @since 1.1.0
 		 * @param object $product
 		 * @author Francesco Licandro
 		 */
@@ -400,20 +431,39 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 				return;
 			}
 
-			$related = array_filter( explode( ',', get_option( 'yith-wacp-related-products' ) ) );
-			$layout = get_option( 'yith-wacp-layout-popup', 'product' );
+			$number_of_suggested = get_option( 'yith-wacp-related-number', 4 );
+			// first check in custom list
+			$suggested = array_filter( explode( ',', get_option( 'yith-wacp-related-products' ) ) );
 
 			// get standard WC related if option is empty
-			if( empty( $related ) ) {
-				$related = $layout == 'product' ? $product->get_related() : WC()->cart->get_cross_sells();
+			if( empty( $suggested ) ) {
+
+				$suggested_type = get_option( 'yith-wacp-suggested-products-type', 'related' );
+
+				switch( $suggested_type ) {
+					case 'crossell' :
+						$suggested = WC()->cart->get_cross_sells();
+						break;
+					case 'upsell' :
+						$suggested = $product ? $product->get_upsells() : array();
+						break;
+					default :
+						$suggested = $product ? $product->get_related( $number_of_suggested ) : array();
+						break;
+				}
+			}
+
+			if( empty( $suggested ) ) {
+				return;
 			}
 
 			$args = apply_filters( 'yith_wacp_popup_related_args', array(
-				'title' => get_option( 'yith-wacp-related-title', '' ),
-				'items' => $related,
-				'posts_per_page' => get_option( 'yith-wacp-related-number', 4 ),
-				'columns'   => get_option( 'yith-wacp-related-columns', 4 ),
-				'current_product_id' => $product->id
+				'title'                 => get_option( 'yith-wacp-related-title', '' ),
+				'items'                 => $suggested,
+				'posts_per_page'        => $number_of_suggested,
+				'columns'               => get_option( 'yith-wacp-related-columns', 4 ),
+				'current_product_id'    => $product->id,
+				'show_add_to_cart'      => get_option( 'yith-wacp-suggested-add-to-cart', 'yes' )
 			) );
 
 			wc_get_template( 'yith-wacp-popup-related.php', $args, '', YITH_WACP_TEMPLATE_PATH . '/' );
@@ -462,6 +512,23 @@ if ( ! class_exists( 'YITH_WACP_Frontend_Premium' ) ) {
 			}
 
 			return false;
+		}
+
+		/**
+		 * Prevent cart redirect. WC Option Redirect to the cart page after successful addition
+		 *
+		 * @since 1.1.0
+		 * @author Francesco Licandro
+		 * @param mixed $value
+		 * @param string $option
+		 * @return mixed
+		 */
+		public function prevent_cart_redirect( $value, $option ){
+			if( ( is_product() && $this->enable_single ) || $this->enable_loop ) {
+				return 'no';
+			}
+
+			return $value;
 		}
 	}
 }

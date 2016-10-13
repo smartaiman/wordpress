@@ -27,10 +27,12 @@ if ( ! function_exists( 'ylc_sanitize_text' ) ) {
 	 */
 	function ylc_sanitize_text( $string, $html = false ) {
 		if ( $html ) {
-			return html_entity_decode( addslashes( $string ) );
+			$result = html_entity_decode( addslashes( $string ) );
 		} else {
-			return addslashes( $string );
+			$result = addslashes( $string );
 		}
+
+		return esc_html( $result );
 	}
 
 }
@@ -44,7 +46,7 @@ if ( ! function_exists( 'ylc_get_plugin_options' ) ) {
 	 * @return  array
 	 * @author  Alberto ruggiero
 	 */
-	function ylc_get_plugin_options(  ) {
+	function ylc_get_plugin_options() {
 
 		$user_prefix = '';
 		$user_type   = 'visitor';
@@ -75,7 +77,7 @@ if ( ! function_exists( 'ylc_get_plugin_options' ) ) {
 			),
 		);
 
-		if ( ! is_admin() && defined( 'YLC_PREMIUM' ) ) {
+		if ( ! is_admin() && ylc_check_premium() ) {
 			$options['styles'] = apply_filters( 'ylc_plugin_opts_premium', array() );
 		}
 
@@ -168,7 +170,7 @@ if ( ! function_exists( 'ylc_set_defaults' ) ) {
 
 		$ylc_options_version = get_option( 'ylc_options_version' );
 
-		if ( empty( $ylc_options_version ) || version_compare( $ylc_options_version['number'], YLC_VERSION, '<' ) || ( $ylc_options_version['version'] == 'free' && defined( 'YLC_PREMIUM' ) ) ) {
+		if ( empty( $ylc_options_version ) || version_compare( $ylc_options_version['number'], YLC_VERSION, '<' ) || ( $ylc_options_version['version'] == 'free' && ylc_check_premium() ) ) {
 
 			$existing_options = get_option( 'yit_' . YITH_Live_Chat()->_options_name . '_options' );
 			$default_options  = YITH_Live_Chat()->defaults;
@@ -179,7 +181,7 @@ if ( ! function_exists( 'ylc_set_defaults' ) ) {
 
 			$ylc_options_version = array(
 				'number'  => YLC_VERSION,
-				'version' => defined( 'YLC_PREMIUM' ) ? 'premium' : 'free'
+				'version' => ylc_check_premium() ? 'premium' : 'free'
 			);
 
 			update_option( 'ylc_options_version', $ylc_options_version );
@@ -190,5 +192,22 @@ if ( ! function_exists( 'ylc_set_defaults' ) ) {
 
 	add_action( 'init', 'ylc_set_defaults' );
 
+
+}
+
+if ( ! function_exists( 'ylc_check_premium' ) ) {
+
+	/**
+	 * Check if premium version
+	 *
+	 * @since   1.2.1
+	 * @return  bool
+	 * @author  Alberto ruggiero
+	 */
+	function ylc_check_premium() {
+
+		return ( defined( 'YLC_PREMIUM' ) && YLC_PREMIUM );
+
+	}
 
 }

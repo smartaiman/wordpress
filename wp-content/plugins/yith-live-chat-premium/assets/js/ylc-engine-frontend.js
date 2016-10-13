@@ -2255,6 +2255,10 @@
          */
         trigger_premium   : function (event, p1, p2, p3, p4, p5, p6) {
 
+            if (!ylc.is_premium) {
+                return;
+            }
+
             return this.premium[event].call(this, p1, p2, p3, p4, p5, p6);
 
         },
@@ -2446,6 +2450,15 @@
              * \u1100-\u11FF    => Hangul Jamo set
              * \u3130-\u318F    => Hangul Compatibility Jamo
              * \uAC00-\uD7AF    => Hangul Syllables
+             * \u2E80-\u2EFF    => CJK Radicals Supplement
+             * \u3000-\u303F    => CJK Symbols and Punctuation
+             * \u31C0-\u31EF    => CJK Strokes
+             * \u3200-\u32FF    => Enclosed CJK Letters and Months
+             * \u3300-\u33FF    => CJK Compatibility
+             * \u3400-\u4DBF    => CJK Unified Ideographs Extension A
+             * \u4E00-\u9FFF    => CJK Unified Ideographs
+             * \uF900-\uFAFF    => CJK Compatibility Ideographs
+             * \uFE30-\uFE4F    => CJK Compatibility Forms
              * \u0020           => Basic Latin ( space )
              * \u002D           => Basic Latin ( - )
              * \u002E           => Basic Latin ( . )
@@ -2453,7 +2466,7 @@
              * \u005F           => Basic Latin ( _ )
              */
 
-            var re = /^[\u0030-\u0039\u0041-\u005A\u0061-\u007A\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF\u0100-\u017F\u0180-\u024F\u0370-\u03FF\u0400-\u04FF\u0530-\u058F\u0590-\u05FF\u0600-\u06FF\u1100-\u11FF\u3130-\u318F\uAC00-\uD7AF\u0020\u002D\u002E\u0040\u005F]+$/gim
+            var re = /^[\u0030-\u0039\u0041-\u005A\u0061-\u007A\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF\u0100-\u017F\u0180-\u024F\u0370-\u03FF\u0400-\u04FF\u0530-\u058F\u0590-\u05FF\u0600-\u06FF\u1100-\u11FF\u3130-\u318F\uAC00-\uD7AF\u2E80-\u2EFF\u3000-\u303F\u31C0-\u31EF\u3200-\u32FF\u3300-\u33FF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\uFE30-\uFE4F\u0020\u002D\u002E\u0040\u005F]+$/gim
             return re.test(username);
 
         },

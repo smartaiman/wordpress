@@ -244,6 +244,7 @@ html.yith_wacp_open body {
 .yith-wacp-content .product-price del {
     font-size: 80%;
     opacity: 0.6;
+    display: inline-block !important;
 }
 .yith-wacp-content .product-price ins {
     background-color: transparent;

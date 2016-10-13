@@ -60,20 +60,40 @@ if ( ! class_exists( 'YITH_WACP' ) ) {
 		public function __construct() {
 
 			// check if mobile
-			$enable = wp_is_mobile() && get_option( 'yith-wacp-enable-mobile' ) == 'no' ? false: true;
+			$enable = ! wp_is_mobile() || get_option( 'yith-wacp-enable-mobile' ) != 'no';
 
 			// Class admin
-			if ( is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_REQUEST['context'] ) && $_REQUEST['context'] == 'frontend' ) ) {
+			if ( $this->is_admin() ) {
 
 				// Load Plugin Framework
 				add_action( 'after_setup_theme', array( $this, 'plugin_fw_loader' ), 1 );
+
+				// require admin class
+				require_once( 'class.yith-wacp-admin.php' );
+				require_once( 'class.yith-wacp-admin-premium.php' );
+
+				// table
+				require_once( 'class.yith-wacp-exclusions-handler.php' );
+				require_once( 'admin-tables/class.yith-wacp-exclusions-prod-table.php' );
+				require_once( 'admin-tables/class.yith-wacp-exclusions-cat-table.php' );
 
 				YITH_WACP_Admin_Premium();
 				YITH_WACP_Exclusions_Handler();
 			}
 			elseif( $enable ) {
+
+				// require frontend class
+				require_once( 'class.yith-wacp-frontend.php' );
+				require_once( 'class.yith-wacp-frontend-premium.php' );
+
 				YITH_WACP_Frontend_Premium();
 			}
+
+			// load integrations class with YITH WooCommerce Cart Messages Premium
+			if( defined( 'YITH_YWCM_PREMIUM' ) && 'YITH_YWCM_PREMIUM' ) {
+				require_once( 'integrations/class.yith-wacp-ywcm-integration.php' );
+			}
+
 
 			add_action( 'init', array( $this, 'register_size' ) );
 		}
@@ -87,13 +107,29 @@ if ( ! class_exists( 'YITH_WACP' ) ) {
 		 * @author Andrea Grillo <andrea.grillo@yithemes.com>
 		 */
 		public function plugin_fw_loader() {
-
-			if ( ! defined( 'YIT' ) || ! defined( 'YIT_CORE_PLUGIN' ) ) {
-				require_once( YITH_WACP_DIR . '/plugin-fw/yit-plugin.php' );
+			if ( ! defined( 'YIT_CORE_PLUGIN' ) ) {
+				global $plugin_fw_data;
+				if( ! empty( $plugin_fw_data ) ){
+					$plugin_fw_file = array_shift( $plugin_fw_data );
+					require_once( $plugin_fw_file );
+				}
 			}
-
 		}
 
+		/**
+		 * Check if is admin
+		 * 
+		 * @since 1.1.0
+		 * @access public
+		 * @author Francesco Licandro
+		 * @return boolean
+		 */
+		public function is_admin(){
+			$context_check = isset( $_REQUEST['context'] ) && $_REQUEST['context'] == 'frontend';	
+			
+			return is_admin() && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX && $context_check );
+		}
+		
 		/**
 		 * Register size
 		 *

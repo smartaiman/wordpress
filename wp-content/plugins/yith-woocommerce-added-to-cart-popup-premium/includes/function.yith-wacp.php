@@ -82,33 +82,68 @@ if( ! function_exists( 'yith_wacp_get_style_options' ) ) {
 			}
 			.yith-wacp-content table.cart-list td.item-info .item-price,
 			.yith-wacp-content .product-price,
-			.yith-wacp-content ul.products li.product .price {
+			.yith-wacp-content ul.products li.product .price,
+			.yith-wacp-content ul.products li.product .price ins {
 				color: ' . get_option( 'yith-wacp-product-price-color' ) . ';
 			}';
 
 		return $inline_css;
 	}
+}
 
-    if( ! function_exists( 'get_array_column' ) ) {
+if( ! function_exists( 'get_array_column' ) ) {
 
-        /**
-         * Get column of last names from a recordset
-         *
-         * @since 1.0.0
-         * @author Alessio Torrisi
-         */
-        function get_array_column($array, $array_column)
-        {
-            if( function_exists('array_column') ) return array_column($array, $array_column);
+	/**
+	 * Get column of last names from a recordset
+	 *
+	 * @since 1.0.0
+	 * @author Alessio Torrisi
+	 */
+	function get_array_column($array, $array_column)
+	{
+		if( function_exists('array_column') ) return array_column($array, $array_column);
 
-            $return = array();
-            foreach ($array AS $row) {
-                if (isset($row[$array_column])) $return[] = $row[$array_column];
-            }
+		$return = array();
+		foreach ($array AS $row) {
+			if (isset($row[$array_column])) $return[] = $row[$array_column];
+		}
 
-            return $return;
-        }
+		return $return;
+	}
+}
 
-    }
+if( ! function_exists( 'yith_wacp_get_cart_info' ) ) {
+	/**
+	 * Get cart info for popup
+	 *
+	 * @since 1.1.0
+	 * @author Francesco Licandro
+	 * @return array
+	 */
+	function yith_wacp_get_cart_info(){
 
+		// first of all define cart constant for cart calculation
+		if( ! defined( 'WOOCOMMERCE_CART' ) ) {
+			define( 'WOOCOMMERCE_CART', true );
+		}
+
+		$cart_info = array();
+
+		//calculate totals
+		WC()->cart->calculate_totals();
+		
+		// build info array
+		if( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) {
+			$cart_info['shipping'] = WC()->cart->get_cart_shipping_total();
+		}
+		
+		if( wc_tax_enabled() ) {
+			$cart_info['tax'] = WC()->cart->get_cart_tax();
+		}
+		
+		$cart_info['total'] = WC()->cart->get_total();
+		
+		return apply_filters( 'yith_wacp_popup_cart_info', $cart_info );
+		
+	}
 }

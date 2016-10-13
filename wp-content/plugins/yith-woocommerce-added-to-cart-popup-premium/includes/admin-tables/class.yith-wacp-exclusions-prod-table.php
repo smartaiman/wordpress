@@ -127,7 +127,7 @@ class YITH_WACP_Exclusions_Prod_Table extends WP_List_Table {
 
         $status = $item['stock'];
 
-        $availability = ( isset( $status['availability'] ) && $status['availability'] != '' ) ? $status['availability'] : __( 'In Stock', 'yith-wacp' );
+        $availability = ( isset( $status['availability'] ) && $status['availability'] != '' ) ? $status['availability'] : __( 'In Stock', 'yith-woocommerce-added-to-cart-popup' );
         $class = ( isset( $status['class'] ) && $status['class'] != '' ) ? $status['class'] : 'in-stock';
 
         $column = '<span class="' . $class . '">' . $availability . '</span>';
@@ -149,7 +149,7 @@ class YITH_WACP_Exclusions_Prod_Table extends WP_List_Table {
             'remove_nonce'          => wp_create_nonce( 'yith_wacp_remove_exclusions_prod' )
         );
 
-        $column = sprintf( '<a href="%s" class="button button-secondary yith-wacp-remove-exclusion">%s</a>', esc_url( add_query_arg( $args ) ), __( 'Delete', 'yith-wacp' ) );
+        $column = sprintf( '<a href="%s" class="button button-secondary yith-wacp-remove-exclusion">%s</a>', esc_url( add_query_arg( $args ) ), __( 'Delete', 'yith-woocommerce-added-to-cart-popup' ) );
 
         return $column;
     }
@@ -162,11 +162,11 @@ class YITH_WACP_Exclusions_Prod_Table extends WP_List_Table {
      */
     public function get_columns(){
         $columns = array(
-            'image'     => __( 'Image', 'yith-wacp' ),
-            'product'   => __( 'Product', 'yith-wacp' ),
-            'price'     => __( 'Price', 'yith-wacp' ),
-            'stock'     => __( 'Stock Status', 'yith-wacp' ),
-            'actions'   => __( 'Actions', 'yith-wacp' )
+            'image'     => __( 'Image', 'yith-woocommerce-added-to-cart-popup' ),
+            'product'   => __( 'Product', 'yith-woocommerce-added-to-cart-popup' ),
+            'price'     => __( 'Price', 'yith-woocommerce-added-to-cart-popup' ),
+            'stock'     => __( 'Stock Status', 'yith-woocommerce-added-to-cart-popup' ),
+            'actions'   => __( 'Actions', 'yith-woocommerce-added-to-cart-popup' )
         );
 
         return $columns;

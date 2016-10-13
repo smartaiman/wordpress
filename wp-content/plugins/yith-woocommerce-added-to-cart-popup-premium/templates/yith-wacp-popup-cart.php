@@ -7,6 +7,14 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.gnu.org/licenses/gpl-3.0.txt
  */
+/**
+ * Popup cart template
+ *
+ * @version 1.1.0
+ */
+
+// get cart info
+$cart_info = yith_wacp_get_cart_info();
 ?>
 
 <table class="cart-list">
@@ -15,7 +23,7 @@
 	<tr class="single-cart-item">
 
 		<td class="item-remove">
-			<a href="<?php echo esc_url( WC()->cart->get_remove_url( $item_key ) ) ?>" class="yith-wacp-remove-cart" title="<?php _e( 'Remove item', 'yith-wacp' ) ?>"
+			<a href="<?php echo esc_url( WC()->cart->get_remove_url( $item_key ) ) ?>" class="yith-wacp-remove-cart" title="<?php _e( 'Remove item', 'yith-woocommerce-added-to-cart-popup' ) ?>"
 			   data-item_key="<?php echo $item_key ?>">X</a>
 		</td>
 
@@ -25,9 +33,10 @@
 			$thumbnail = $_product->get_image( 'shop_thumbnail' );
 
 			if ( ! $_product->is_visible() ) {
-			echo $thumbnail;
-			} else {
-			printf( '<a href="%s">%s</a>', esc_url( $_product->get_permalink( $item ) ), $thumbnail );
+				echo $thumbnail;
+			} 
+			else {
+				printf( '<a href="%s">%s</a>', esc_url( $_product->get_permalink( $item ) ), $thumbnail );
 			}
 			?>
 		</td>
@@ -55,31 +64,34 @@
 	</tbody>
 </table>
 
-<div class="cart-info">
+<?php if( ( $cart_shipping || $cart_total || $cart_tax ) ) : ?>
 
-	<?php if( $cart_shipping && WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) :
-		// calculate shipping
-		WC()->cart->calculate_shipping();
-		?>
+<div class="cart-info">
+	<?php if( $cart_shipping && isset( $cart_info['shipping'] ) ) :	?>
 		<div class="cart-shipping">
-			<?php echo __( 'Shipping Cost', 'yith-wacp' ) . ':' ?>
+			<?php echo __( 'Shipping Cost', 'yith-woocommerce-added-to-cart-popup' ) . ':' ?>
 			<span class="shipping-cost">
-				<?php echo WC()->cart->get_cart_shipping_total() ?>
-			</span>
+					<?php echo $cart_info['shipping']; ?>
+				</span>
 		</div>
 	<?php endif; ?>
 
-	<?php if( $cart_total ) : ?>
-		<div class="cart-totals">
-			<?php echo __( 'Cart Total', 'yith-wacp' ) . ':' ?>
-			<span class="cart-cost">
-				<?php
-				//calculate totals
-				WC()->cart->calculate_totals();
+	<?php if( $cart_tax && isset( $cart_info['tax'] ) ) :	?>
+		<div class="cart-tax">
+			<?php echo __( 'Tax Amount', 'yith-woocommerce-added-to-cart-popup' ) . ':' ?>
+			<span class="tax-cost">
+					<?php echo $cart_info['tax']; ?>
+				</span>
+		</div>
+	<?php endif; ?>
 
-				echo WC()->cart->get_cart_total();
-				?>
-			</span>
+	<?php if( $cart_total && isset( $cart_info['total'] ) ) : ?>
+		<div class="cart-totals">
+			<?php echo __( 'Cart Total', 'yith-woocommerce-added-to-cart-popup' ) . ':' ?>
+			<span class="cart-cost">
+					<?php echo $cart_info['total']; ?>
+				</span>
 		</div>
 	<?php endif; ?>
 </div>
+<?php endif; ?>

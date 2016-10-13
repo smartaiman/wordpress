@@ -16,7 +16,7 @@ $firebase_url = '<a target="_blank" href="http://www.firebase.com">http://www.fi
 
 $defaults = YITH_Live_Chat()->defaults;
 
-$vendor_only = ( defined( 'YLC_PREMIUM' ) && defined( 'YITH_WPV_PREMIUM' ) && YITH_WPV_PREMIUM ) ? array(
+$vendor_only = ( ylc_check_premium() && defined( 'YITH_WPV_PREMIUM' ) && YITH_WPV_PREMIUM ) ? array(
     'name' => __( 'Show popup only in vendors\' pages', 'yith-live-chat' ),
     'desc' => __( 'Show the chat popup only in vendors\' pages and hide it in entire shop pages (You must have enabled the premium version of YITH WooCommerce Multi Vendor)', 'yith-live-chat' ),
     'id'   => 'only-vendor-chat',
@@ -24,7 +24,7 @@ $vendor_only = ( defined( 'YLC_PREMIUM' ) && defined( 'YITH_WPV_PREMIUM' ) && YI
     'std'  => $defaults['only-vendor-chat'],
 ) : '';
 
-$show_all_pages = ( defined( 'YLC_PREMIUM' ) && YLC_PREMIUM ) ? array(
+$show_all_pages = ( ylc_check_premium() ) ? array(
     'name' => __( 'Show popup in all pages', 'yith-live-chat' ),
     'desc' => __( 'Show the chat popup in all pages', 'yith-live-chat' ),
     'id'   => 'showing-pages-all',
@@ -32,7 +32,7 @@ $show_all_pages = ( defined( 'YLC_PREMIUM' ) && YLC_PREMIUM ) ? array(
     'std'  => $defaults['showing-pages-all'],
 ) : '';
 
-$selected_pages = ( defined( 'YLC_PREMIUM' ) && YLC_PREMIUM ) ? array(
+$selected_pages = ( ylc_check_premium() ) ? array(
     'name' => __( 'Pages selection', 'yith-live-chat' ),
     'desc' => __( 'Select the pages where you want to show the chat popup', 'yith-live-chat' ),
     'id'   => 'showing-pages',

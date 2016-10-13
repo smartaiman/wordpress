@@ -12,7 +12,7 @@ if ( !defined( 'ABSPATH' ) ) {
     exit;
 } // Exit if accessed directly
 
-$videobox = defined( 'YLC_PREMIUM' ) ? array() : array(
+$videobox = ylc_check_premium() ? array() : array(
     'name'    => __( 'Upgrade to the PREMIUM VERSION', 'yith-live-chat' ),
     'type'    => 'videobox',
     'default' => array(

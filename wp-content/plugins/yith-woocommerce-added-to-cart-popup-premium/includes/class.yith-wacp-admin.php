@@ -119,9 +119,9 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 		 * @use plugin_action_links_{$plugin_file_name}
 		 */
 		public function action_links( $links ) {
-			$links[] = '<a href="' . admin_url( "admin.php?page={$this->_panel_page}" ) . '">' . __( 'Settings', 'yith-wacp' ) . '</a>';
+			$links[] = '<a href="' . admin_url( "admin.php?page={$this->_panel_page}" ) . '">' . __( 'Settings', 'yith-woocommerce-added-to-cart-popup' ) . '</a>';
 			if ( ! ( defined( 'YITH_WACP_PREMIUM' ) && YITH_WACP_PREMIUM ) ) {
-				$links[] = '<a href="' . $this->get_premium_landing_uri() . '" target="_blank">' . __( 'Premium Version', 'yith-wacp' ) . '</a>';
+				$links[] = '<a href="' . $this->get_premium_landing_uri() . '" target="_blank">' . __( 'Premium Version', 'yith-woocommerce-added-to-cart-popup' ) . '</a>';
 			}
 
 			return $links;
@@ -143,18 +143,18 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 			}
 
 			$admin_tabs = array(
-				'general' => __( 'Settings', 'yith-wacp' ),
+				'general' => __( 'Settings', 'yith-woocommerce-added-to-cart-popup' ),
 			);
 
 			if ( ! ( defined( 'YITH_WACP_PREMIUM' ) && YITH_WACP_PREMIUM ) ) {
-				$admin_tabs['premium'] = __( 'Premium Version', 'yith-wacp' );
+				$admin_tabs['premium'] = __( 'Premium Version', 'yith-woocommerce-added-to-cart-popup' );
 			}
 
 			$args = array(
 				'create_menu_page' => true,
 				'parent_slug'      => '',
-				'page_title'       => __( 'Added to Cart Popup', 'yith-wacp' ),
-				'menu_title'       => __( 'Added to Cart Popup', 'yith-wacp' ),
+				'page_title'       => __( 'Added to Cart Popup', 'yith-woocommerce-added-to-cart-popup' ),
+				'menu_title'       => __( 'Added to Cart Popup', 'yith-woocommerce-added-to-cart-popup' ),
 				'capability'       => 'manage_options',
 				'parent'           => '',
 				'parent_page'      => 'yit_plugin_panel',
@@ -210,7 +210,7 @@ if ( ! class_exists( 'YITH_WACP_Admin' ) ) {
 		public function plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data, $status ) {
 
 			if ( defined( 'YITH_WACP_INIT') && YITH_WACP_INIT == $plugin_file ) {
-				$plugin_meta[] = '<a href="' . $this->doc_url . '" target="_blank">' . __( 'Plugin Documentation', 'yith-wacp' ) . '</a>';
+				$plugin_meta[] = '<a href="' . $this->doc_url . '" target="_blank">' . __( 'Plugin Documentation', 'yith-woocommerce-added-to-cart-popup' ) . '</a>';
 			}
 
 			return $plugin_meta;

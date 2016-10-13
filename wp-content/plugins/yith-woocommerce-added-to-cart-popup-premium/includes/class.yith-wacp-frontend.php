@@ -83,7 +83,7 @@ if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 
 			wp_enqueue_style( 'yith-wacp-frontend', $stylesheet );
 
-			wp_register_script( 'yith-wacp-frontend-script', YITH_WACP_ASSETS_URL . '/js/wacp-frontend' . $min .'.js', array( 'jquery' ), false, true );
+			wp_register_script( 'yith-wacp-frontend-script', YITH_WACP_ASSETS_URL . '/js/wacp-frontend' . $min .'.js', array( 'jquery' ), $this->version, true );
 			wp_enqueue_script( 'yith-wacp-frontend-script' );
 
 			$background         = get_option( "yith-wacp-button-background" );
@@ -141,21 +141,21 @@ if ( ! class_exists( 'YITH_WACP_Frontend' ) ) {
 			<?php if ( isset( $_REQUEST['product_id'] ) ): ?>
 
 				<div class="product-info">
-					<p><?php echo get_the_title( $_REQUEST['product_id'] ) . ' ' . __( 'was added to your cart', 'yith-wacp' ) ?></p>
+					<p><?php echo get_the_title( $_REQUEST['product_id'] ) . ' ' . __( 'was added to your cart', 'yith-woocommerce-added-to-cart-popup' ) ?></p>
 				</div>
 
 			<?php else: ?>
 
-				<p><?php _e( 'Added to your cart', 'yith-wacp' ) ?></p>
+				<p><?php _e( 'Added to your cart', 'yith-woocommerce-added-to-cart-popup' ) ?></p>
 
 			<?php endif ?>
 
 			<div class="actions">
 				<?php if( $view_cart ) : ?>
-					<a class="<?php echo apply_filters( 'yith_wacp_go_cart_class', 'button go-cart' ) ?>" href="<?php echo $cart_url; ?>"><?php _e( 'View cart', 'yith-wacp' ) ?></a>
+					<a class="<?php echo apply_filters( 'yith_wacp_go_cart_class', 'button go-cart' ) ?>" href="<?php echo $cart_url; ?>"><?php _e( 'View cart', 'yith-woocommerce-added-to-cart-popup' ) ?></a>
 				<?php endif ?>
 				<?php if( $continue ) : ?>
-					<a class="<?php echo apply_filters( 'yith_wacp_continue_shopping_class', 'button continue-shopping' ) ?>" href="#"><?php _e( 'Continue shopping', 'yith-wacp' ) ?></a>
+					<a class="<?php echo apply_filters( 'yith_wacp_continue_shopping_class', 'button continue-shopping' ) ?>" href="#"><?php _e( 'Continue shopping', 'yith-woocommerce-added-to-cart-popup' ) ?></a>
 				<?php endif; ?>
 			</div>
 

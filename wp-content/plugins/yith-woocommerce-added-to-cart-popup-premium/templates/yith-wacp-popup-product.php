@@ -6,10 +6,18 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
  * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ */
+/**
+ * Popup product template
+ *
+ * @version 1.1.0
  */
 
 // get cart
 $cart = WC()->cart->get_cart();
+// get cart info
+$cart_info = yith_wacp_get_cart_info();
 
 ?>
 
@@ -52,32 +60,32 @@ $cart = WC()->cart->get_cart();
 		<?php endif; ?>
 	</div>
 
-	<?php if( ( $cart_shipping || $cart_total ) && ! empty( $cart ) ) : ?>
+	<?php if( ( $cart_shipping || $cart_total || $cart_tax ) && ! empty( $cart ) ) : ?>
 
 	<div class="cart-info">
-
-		<?php if( $cart_shipping && WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) :
-			// calculate shipping
-			WC()->cart->calculate_shipping();
-			?>
+		<?php if( $cart_shipping && isset( $cart_info['shipping'] ) ) :	?>
 			<div class="cart-shipping">
-				<?php echo __( 'Shipping Cost', 'yith-wacp' ) . ':' ?>
+				<?php echo __( 'Shipping Cost', 'yith-woocommerce-added-to-cart-popup' ) . ':' ?>
 				<span class="shipping-cost">
-					<?php echo WC()->cart->get_cart_shipping_total() ?>
+					<?php echo $cart_info['shipping']; ?>
 				</span>
 			</div>
 		<?php endif; ?>
 
-		<?php if( $cart_total ) : ?>
-			<div class="cart-totals">
-				<?php echo __( 'Cart Total', 'yith-wacp' ) . ':' ?>
-				<span class="cart-cost">
-					<?php
-					//calculate totals
-					WC()->cart->calculate_totals();
+		<?php if( $cart_tax && isset( $cart_info['tax'] ) ) :	?>
+			<div class="cart-tax">
+				<?php echo __( 'Tax Amount', 'yith-woocommerce-added-to-cart-popup' ) . ':' ?>
+				<span class="tax-cost">
+					<?php echo $cart_info['tax']; ?>
+				</span>
+			</div>
+		<?php endif; ?>
 
-					echo WC()->cart->get_cart_total();
-					?>
+		<?php if( $cart_total && isset( $cart_info['total'] ) ) : ?>
+			<div class="cart-totals">
+				<?php echo __( 'Cart Total', 'yith-woocommerce-added-to-cart-popup' ) . ':' ?>
+				<span class="cart-cost">
+					<?php echo $cart_info['total']; ?>
 				</span>
 			</div>
 		<?php endif; ?>

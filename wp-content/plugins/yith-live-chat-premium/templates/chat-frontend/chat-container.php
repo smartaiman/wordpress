@@ -1,10 +1,10 @@
 <div id="YLC">
 
-	<div id="YLC_chat_btn" class="chat-chat-btn <?php echo( $this->get_chat_button_type() == 'round' ? 'btn-round' : '' ) ?>">
+	<div id="YLC_chat_btn" class="chat-chat-btn btn-<?php echo $opts['button_type']; ?>">
 		<div class="chat-ico chat fa fa-comments"></div>
-		<div class="chat-ico ylc-toggle fa fa-angle-<?php echo( $this->get_chat_position( 'y' ) == 'bottom' ? 'up' : 'down' ) ?>"></div>
+		<div class="chat-ico ylc-toggle fa fa-angle-<?php echo( $opts['button_pos'] == 'bottom' ? 'up' : 'down' ) ?>"></div>
 		<div class="chat-title">
-			<?php echo ylc_sanitize_text( esc_html( $this->options['text-chat-title'] ) ) ?>
+			<?php echo ylc_sanitize_text( $this->options['text-chat-title'] ) ?>
 		</div>
 	</div>
 
@@ -12,17 +12,17 @@
 
 		<div id="YLC_chat_header" class="chat-header">
 			<div class="chat-ico chat fa fa-comments"></div>
-			<div class="chat-ico ylc-toggle fa fa-angle-<?php echo( $this->get_chat_position( 'y' ) == 'bottom' ? 'up' : 'down' ) ?>"></div>
+			<div class="chat-ico ylc-toggle fa fa-angle-<?php echo( $opts['button_pos'] == 'bottom' ? 'down' : 'up' ) ?>"></div>
 			<div class="chat-title">
-				<?php echo ylc_sanitize_text( esc_html( $this->options['text-chat-title'] ) ) ?>
+				<?php echo ylc_sanitize_text( $this->options['text-chat-title'] ) ?>
 			</div>
 			<div class="chat-clear"></div>
 		</div>
 
-		<div id="YLC_chat_body" class="chat-body chat-online" style="width:<?php echo $this->options['chat-conversation-width'] ?>px">
+		<div id="YLC_chat_body" class="chat-body chat-online" style="<?php echo $opts['chat_width'] ?>">
 			<div class="chat-cnv" id="YLC_cnv">
 				<div class="chat-welc">
-					<?php echo ylc_sanitize_text( esc_html( $this->options['text-start-chat'] ), true ) ?>
+					<?php echo ylc_sanitize_text( $this->options['text-start-chat'], true ) ?>
 				</div>
 			</div>
 			<div class="chat-tools">
@@ -39,18 +39,18 @@
 			</div>
 		</div>
 
-		<div id="YLC_connecting" class="chat-body chat-form" style="width:<?php echo $this->options['form-width'] ?>px">
+		<div id="YLC_connecting" class="chat-body chat-form" style="<?php echo $opts['form_width'] ?>">
 			<div class="chat-sending chat-conn">
 				<?php _e( 'Connecting', 'yith-live-chat' ) ?>...
 			</div>
 		</div>
 
-		<div id="YLC_offline" class="chat-body chat-form" style="width:<?php echo $this->options['form-width'] ?>px">
+		<div id="YLC_offline" class="chat-body chat-form" style="<?php echo $opts['form_width'] ?>">
 			<div class="chat-lead op-offline">
-				<?php echo ylc_sanitize_text( esc_html( $this->options['text-offline'] ), true ) ?>
+				<?php echo ylc_sanitize_text( $this->options['text-offline'], true ) ?>
 			</div>
 			<div class="chat-lead op-busy">
-				<?php echo ylc_sanitize_text( esc_html( $this->options['text-busy'] ), true ) ?>
+				<?php echo ylc_sanitize_text( $this->options['text-busy'], true ) ?>
 			</div>
 			<?php if ( file_exists( YLC_DIR . 'templates/chat-frontend/chat-offline-form-premium.php' ) ) : ?>
 
@@ -59,9 +59,9 @@
 			<?php endif; ?>
 		</div>
 
-		<div id="YLC_login" class="chat-body chat-form" style="width:<?php echo $this->options['form-width'] ?>px">
+		<div id="YLC_login" class="chat-body chat-form" style="<?php echo $opts['form_width'] ?>">
 			<div class="chat-lead">
-				<?php echo ylc_sanitize_text( esc_html( $this->options['text-welcome'] ), true ) ?>
+				<?php echo ylc_sanitize_text( $this->options['text-welcome'], true ) ?>
 			</div>
 			<form id="YLC_login_form" action="">
 				<label for="YLC_field_name">
@@ -87,9 +87,9 @@
 			</form>
 		</div>
 
-		<div id="YLC_end_chat" class="chat-body chat-form" style="width:<?php echo $this->options['form-width'] ?>px">
+		<div id="YLC_end_chat" class="chat-body chat-form" style="<?php echo $opts['form_width'] ?>">
 			<div class="chat-lead">
-				<?php echo ylc_sanitize_text( esc_html( $this->options['text-close'] ), true ); ?>
+				<?php echo ylc_sanitize_text( $this->options['text-close'], true ); ?>
 			</div>
 			<?php if ( file_exists( YLC_DIR . 'templates/chat-frontend/chat-end-chat-premium.php' ) ) : ?>
 

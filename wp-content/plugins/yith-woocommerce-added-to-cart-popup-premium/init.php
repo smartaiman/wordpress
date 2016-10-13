@@ -3,7 +3,7 @@
  * Plugin Name: YITH WooCommerce Added to Cart Popup Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-added-to-cart-popup/
  * Description: YITH WooCommerce Added to Cart Popup plugin allow to displays popup cart for add to cart action
- * Version: 1.0.7
+ * Version: 1.1.0
  * Author: YITHEMES
  * Author URI: https://yithemes.com/
  * Text Domain: yith-wacp
@@ -11,7 +11,7 @@
  *
  * @author Yithemes
  * @package YITH WooCommerce Added to Cart Popup Premium
- * @version 1.0.7
+ * @version 1.1.0
  */
 /*  Copyright 2015  Your Inspiration Themes  (email : plugins@yithemes.com)
 
@@ -38,7 +38,7 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
 function yith_wacp_premium_install_woocommerce_admin_notice() {
 	?>
 	<div class="error">
-		<p><?php _e( 'YITH WooCommerce Added to Cart Popup Premium is enabled but not effective. It requires WooCommerce in order to work.', 'yith-wacp' ); ?></p>
+		<p><?php _e( 'YITH WooCommerce Added to Cart Popup Premium is enabled but not effective. It requires WooCommerce in order to work.', 'yith-woocommerce-added-to-cart-popup' ); ?></p>
 	</div>
 <?php
 }
@@ -57,7 +57,7 @@ register_activation_hook( __FILE__, 'yith_plugin_registration_hook' );
 
 
 if ( ! defined( 'YITH_WACP_VERSION' ) ){
-	define( 'YITH_WACP_VERSION', '1.0.7' );
+	define( 'YITH_WACP_VERSION', '1.1.0' );
 }
 
 if ( ! defined( 'YITH_WACP_PREMIUM' ) ) {
@@ -100,25 +100,19 @@ if ( ! defined( 'YITH_WACP_SECRET_KEY' ) ) {
 	define( 'YITH_WACP_SECRET_KEY', 'T05qW0KkKsgW2B5PsTqS' );
 }
 
+/* Plugin Framework Version Check */
+if( ! function_exists( 'yit_maybe_plugin_fw_loader' ) && file_exists( YITH_WACP_DIR . 'plugin-fw/init.php' ) ) {
+	require_once( YITH_WACP_DIR . 'plugin-fw/init.php' );
+}
+yit_maybe_plugin_fw_loader( YITH_WACP_DIR  );
+
 function yith_wacp_premium_init() {
 
-	load_plugin_textdomain( 'yith-wacp', false, dirname( plugin_basename( __FILE__ ) ). '/languages/' );
-
+	load_plugin_textdomain( 'yith-woocommerce-added-to-cart-popup', false, dirname( plugin_basename( __FILE__ ) ). '/languages/' );
 
 	// Load required classes and functions
-	require_once('includes/class.yith-wacp.php');
-	require_once('includes/class.yith-wacp-admin.php');
-	require_once('includes/class.yith-wacp-admin-premium.php');
-	require_once('includes/class.yith-wacp-frontend.php');
-	require_once('includes/class.yith-wacp-frontend-premium.php');
-
-	// table
-	require_once('includes/class.yith-wacp-exclusions-handler.php');
-	require_once('includes/admin-tables/class.yith-wacp-exclusions-prod-table.php');
-	require_once('includes/admin-tables/class.yith-wacp-exclusions-cat-table.php');
-
-	// functions
 	require_once( 'includes/function.yith-wacp.php' );
+	require_once( 'includes/class.yith-wacp.php' );
 
 	// Let's start the game!
 	YITH_WACP();

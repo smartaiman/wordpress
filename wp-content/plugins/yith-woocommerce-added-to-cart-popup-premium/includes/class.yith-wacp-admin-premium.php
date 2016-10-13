@@ -169,9 +169,9 @@ if ( ! class_exists( 'YITH_WACP_Admin_Premium' ) ) {
 		 * @author Francesco Licandro
 		 */
 		public function add_tabs( $tabs ) {
-			$tabs['style'] = __( 'Style', 'yith-wacp' );
-			$tabs['exclusions-prod'] = __( 'Product Exclusion List', 'yith-wacp' );
-			$tabs['exclusions-cat'] = __( 'Category Exclusion List', 'yith-wacp' );
+			$tabs['style'] = __( 'Style', 'yith-woocommerce-added-to-cart-popup' );
+			$tabs['exclusions-prod'] = __( 'Product Exclusion List', 'yith-woocommerce-added-to-cart-popup' );
+			$tabs['exclusions-cat'] = __( 'Category Exclusion List', 'yith-woocommerce-added-to-cart-popup' );
 
 			return $tabs;
 		}
@@ -222,7 +222,7 @@ if ( ! class_exists( 'YITH_WACP_Admin_Premium' ) ) {
 			$min = ( ! defined('SCRIPT_DEBUG') || ! SCRIPT_DEBUG ) ? '.min' : '';
 
 			wp_register_style( 'yith-wacp-admin-style', YITH_WACP_ASSETS_URL . '/css/wacp-admin.css', false, 'all' );
-			wp_register_script( 'yith-wacp-admin-scripts', YITH_WACP_ASSETS_URL . '/js/wacp-admin'. $min . '.js', array( 'jquery', 'jquery-ui-slider' ), false, true );
+			wp_register_script( 'yith-wacp-admin-scripts', YITH_WACP_ASSETS_URL . '/js/wacp-admin'. $min . '.js', array( 'jquery', 'jquery-ui-slider' ), $this->version, true );
 
 			if ( isset( $_GET['page'] ) && $_GET['page'] == $this->_panel_page ) {
 				wp_enqueue_style( 'yith-wacp-admin-style' );
@@ -256,7 +256,7 @@ if ( ! class_exists( 'YITH_WACP_Admin_Premium' ) ) {
 				>
 				<input name="<?php echo esc_attr( $value['id'] ); ?>[width]" id="<?php echo esc_attr( $value['id'] ); ?>-width" type="text" size="3" value="<?php echo $width; ?>" /> &times; <input name="<?php echo esc_attr( $value['id'] ); ?>[height]" id="<?php echo esc_attr( $value['id'] ); ?>-height" type="text" size="3" value="<?php echo $height; ?>" />px
 
-				<label><input name="<?php echo esc_attr( $value['id'] ); ?>[crop]" id="<?php echo esc_attr( $value['id'] ); ?>-crop" type="checkbox" value="1" <?php checked( 1, $crop ); ?> /> <?php _e( 'Do you want to hard crop the image?', 'yith-wacp' ); ?></label>
+				<label><input name="<?php echo esc_attr( $value['id'] ); ?>[crop]" id="<?php echo esc_attr( $value['id'] ); ?>-crop" type="checkbox" value="1" <?php checked( 1, $crop ); ?> /> <?php _e( 'Do you want to hard crop the image?', 'yith-woocommerce-added-to-cart-popup' ); ?></label>
 
 				<div><span class="description"><?php echo $value['desc'] ?></span></div>
 

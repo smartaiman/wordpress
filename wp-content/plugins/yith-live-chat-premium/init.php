@@ -5,7 +5,7 @@
  * Description: Pre-sales question? Needs support? Chat with your customers!
  * Author: YITHEMES
  * Text Domain: yith-live-chat
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author URI: http://yithemes.com/
  */
 
@@ -29,7 +29,7 @@ if ( function_exists( 'yith_deactive_jetpack_module' ) ) {
 }
 
 if ( !defined( 'YLC_VERSION' ) ) {
-    define( 'YLC_VERSION', '1.2.0' );
+    define( 'YLC_VERSION', '1.2.1' );
 }
 
 if ( !defined( 'YLC_INIT' ) ) {

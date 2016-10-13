@@ -103,7 +103,7 @@ if ( !function_exists( 'ylc_ajax_save_chat' ) ) {
 
         $msg = array( 'msg' => __( 'Successfully closed!', 'yith-live-chat' ) );
 
-        if ( defined( 'YLC_PREMIUM' ) ) {
+        if ( ylc_check_premium() ) {
 
             $msg = ylc_save_chat_data( $data );
         }

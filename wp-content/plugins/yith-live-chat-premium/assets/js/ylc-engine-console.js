@@ -1925,6 +1925,10 @@
          */
         trigger_premium   : function (event, p1, p2, p3, p4, p5, p6) {
 
+            if (!ylc.is_premium) {
+                return;
+            }
+
             return this.premium[event].call(this, p1, p2, p3, p4, p5, p6);
 
         },
