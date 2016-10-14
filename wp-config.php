@@ -15,7 +15,7 @@
  */
 
 define('WP_REDIS_HOST', 'wordpess.krhfze.ng.0001.use1.cache.amazonaws.com');
-define('WPLANG', '');
+
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
@@ -72,6 +72,9 @@ $table_prefix  = 'wp_';
  * in their development environments.
  */
 define('WP_DEBUG', true);
+define( 'WP_DEBUG_LOG', true );
+define( 'WP_DEBUG_DISPLAY', false );
+
 
 /* That's all, stop editing! Happy blogging. */
 
