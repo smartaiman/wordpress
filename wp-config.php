@@ -28,13 +28,13 @@ define('DB_USER', 'wordpress');
 define('DB_PASSWORD', 'wordpress');
 
 /** MySQL hostname */
-define('DB_HOST', 'wordpress.cftqt4jaczzg.us-east-1.rds.amazonaws.com');
+define('DB_HOST', 'wordpress.cluster-cftqt4jaczzg.us-east-1.rds.amazonaws.com');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
 
 /** The Database Collate type. Don't change this if in doubt. */
-define('DB_COLLATE', 'utf8_general_ci');
+define('DB_COLLATE', '');
 
 /**#@+
  * Authentication Unique Keys and Salts.
@@ -73,7 +73,7 @@ $table_prefix  = 'wp_';
  */
 define('WP_DEBUG', true);
 define( 'WP_DEBUG_LOG', true );
-define( 'WP_DEBUG_DISPLAY', false );
+define( 'WP_DEBUG_DISPLAY', true );
 
 
 /* That's all, stop editing! Happy blogging. */
