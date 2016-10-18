@@ -171,7 +171,7 @@ function porto_breadcrumbs_link($title, $link = '') {
     $delimiter = '';
     if ( $link ) {
         $output = sprintf( '<a %s href="%s" >%s</a>', $microdata_url, $link, $output );
-        $delimiter = '<i class="delimiter"></i>';
+        $delimiter = '<i class="delimiter' . ($porto_settings['breadcrumbs-delimiter'] ? ' ' . $porto_settings['breadcrumbs-delimiter'] : '') . '"></i>';
         $before = sprintf( '<li %s>', $microdata_itemscope );
     } else {
         $before = '<li>';

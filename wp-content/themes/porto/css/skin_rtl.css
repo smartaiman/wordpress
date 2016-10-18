@@ -299,7 +299,7 @@ section.toggle label {
 section.toggle.active > label {
   background-color: #0088cc;
   border-color: #0088cc;
-  color: #FFF;
+  color: #ffffff;
 }
 .toggle-simple section.toggle > label:after {
   background-color: #0088cc;
@@ -314,9 +314,9 @@ html .toggle-primary .toggle.active > label {
   border-color: #0088cc;
   color: #ffffff;
 }
-html .toggle-primary.toggle-simple .toggle.active > label {
+html .toggle-primary.toggle-simple .toggle > label {
   background: transparent;
-  color: #0088cc;
+  color: #1d2127;
 }
 html .toggle-primary.toggle-simple .toggle > label:after {
   background-color: #0088cc;
@@ -331,9 +331,9 @@ html .toggle-secondary .toggle.active > label {
   border-color: #e36159;
   color: #ffffff;
 }
-html .toggle-secondary.toggle-simple .toggle.active > label {
+html .toggle-secondary.toggle-simple .toggle > label {
   background: transparent;
-  color: #e36159;
+  color: #1d2127;
 }
 html .toggle-secondary.toggle-simple .toggle > label:after {
   background-color: #e36159;
@@ -348,9 +348,9 @@ html .toggle-tertiary .toggle.active > label {
   border-color: #2baab1;
   color: #ffffff;
 }
-html .toggle-tertiary.toggle-simple .toggle.active > label {
+html .toggle-tertiary.toggle-simple .toggle > label {
   background: transparent;
-  color: #2baab1;
+  color: #1d2127;
 }
 html .toggle-tertiary.toggle-simple .toggle > label:after {
   background-color: #2baab1;
@@ -365,9 +365,9 @@ html .toggle-quaternary .toggle.active > label {
   border-color: #383f48;
   color: #ffffff;
 }
-html .toggle-quaternary.toggle-simple .toggle.active > label {
+html .toggle-quaternary.toggle-simple .toggle > label {
   background: transparent;
-  color: #383f48;
+  color: #1d2127;
 }
 html .toggle-quaternary.toggle-simple .toggle > label:after {
   background-color: #383f48;
@@ -382,9 +382,9 @@ html .toggle-dark .toggle.active > label {
   border-color: #2e353e;
   color: #ffffff;
 }
-html .toggle-dark.toggle-simple .toggle.active > label {
+html .toggle-dark.toggle-simple .toggle > label {
   background: transparent;
-  color: #2e353e;
+  color: #1d2127;
 }
 html .toggle-dark.toggle-simple .toggle > label:after {
   background-color: #2e353e;
@@ -399,9 +399,9 @@ html .toggle-light .toggle.active > label {
   border-color: #ffffff;
   color: #777777;
 }
-html .toggle-light.toggle-simple .toggle.active > label {
+html .toggle-light.toggle-simple .toggle > label {
   background: transparent;
-  color: #ffffff;
+  color: #1d2127;
 }
 html .toggle-light.toggle-simple .toggle > label:after {
   background-color: #ffffff;
@@ -530,6 +530,7 @@ html .vc_row.section-primary,
 html .vc_column_container.section-primary {
   background-color: #0088cc !important;
   border-color: #0077b3 !important;
+  color: #ffffff;
 }
 html section.section-primary h1,
 html .vc_row.section-primary h1,
@@ -583,6 +584,7 @@ html .vc_row.section-secondary,
 html .vc_column_container.section-secondary {
   background-color: #e36159 !important;
   border-color: #df4c43 !important;
+  color: #ffffff;
 }
 html section.section-secondary h1,
 html .vc_row.section-secondary h1,
@@ -636,6 +638,7 @@ html .vc_row.section-tertiary,
 html .vc_column_container.section-tertiary {
   background-color: #2baab1 !important;
   border-color: #26969c !important;
+  color: #ffffff;
 }
 html section.section-tertiary h1,
 html .vc_row.section-tertiary h1,
@@ -689,6 +692,7 @@ html .vc_row.section-quaternary,
 html .vc_column_container.section-quaternary {
   background-color: #383f48 !important;
   border-color: #2d323a !important;
+  color: #ffffff;
 }
 html section.section-quaternary h1,
 html .vc_row.section-quaternary h1,
@@ -742,6 +746,7 @@ html .vc_row.section-dark,
 html .vc_column_container.section-dark {
   background-color: #2e353e !important;
   border-color: #23282f !important;
+  color: #ffffff;
 }
 html section.section-dark h1,
 html .vc_row.section-dark h1,
@@ -795,6 +800,7 @@ html .vc_row.section-light,
 html .vc_column_container.section-light {
   background-color: #ffffff !important;
   border-color: #f2f2f2 !important;
+  color: #777777;
 }
 html section.section-light h1,
 html .vc_row.section-light h1,
@@ -2989,6 +2995,23 @@ article.post.post-title-simple .entry-title a,
 article.member .member-role {
   color: #0088cc;
 }
+.member-item.member-item-3 .view-more {
+  color: #1d2127;
+}
+.member-item.member-item-3 .thumb-info:hover .thumb-info-caption {
+  background: #0088cc;
+  color: #ffffff;
+}
+.member-item.member-item-3 .thumb-info:hover .thumb-info-caption * {
+  color: #ffffff;
+}
+.member-item.member-item-3 .thumb-info:hover .thumb-info-social-icons {
+  border-color: #ffffff;
+}
+.member-item.member-item-3 .thumb-info:hover .share-links a {
+  background: #ffffff;
+  color: #0088cc;
+}
 .testimonial blockquote {
   background: #0099e6;
 }
@@ -3801,6 +3824,8 @@ body.boxed .page-wrapper {
 }
 #header {
   color: #999999;
+}
+#header .header-main {
   background-color: #ffffff;
   background-repeat: repeat;
   background-size: auto;
@@ -3815,7 +3840,7 @@ body.boxed .page-wrapper {
   background-image: linear-gradient(to bottom, #f6f6f6, #ffffff);
   background-repeat: repeat-x;
 }
-.fixed-header #header {
+.fixed-header #header .header-main {
   background-color: rgba(255, 255, 255, 0.8);
 }
 .fixed-header #header .searchform {
@@ -3918,6 +3943,23 @@ body.boxed .page-wrapper {
 @media (min-width: 1170px) {
   #header-boxed {
     max-width: 1170px;
+  }
+}
+@media (min-width: 992px) {
+  .header-wrapper.header-side-nav:not(.fixed-header) #header {
+    background-color: #ffffff;
+    background-repeat: repeat;
+    background-size: auto;
+    background-attachment: scroll;
+    background-position: initial;
+    background-image: none;
+    background-color: #fafafa;
+    background-image: -moz-linear-gradient(top, #f6f6f6, #ffffff);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#ffffff));
+    background-image: -webkit-linear-gradient(top, #f6f6f6, #ffffff);
+    background-image: -o-linear-gradient(top, #f6f6f6, #ffffff);
+    background-image: linear-gradient(to bottom, #f6f6f6, #ffffff);
+    background-repeat: repeat-x;
   }
 }
 #header .top-links > li.menu-item:before {
@@ -4599,7 +4641,7 @@ body.boxed .page-wrapper {
 }
 .page-top .page-sub-title {
   color: #e6e6e6;
-  margin: 0px 0px 0px 5px;
+  margin: 0px 0px 0px 0px;
 }
 .page-top.page-header-1 .page-title {
   margin-bottom: -11px;
@@ -4710,6 +4752,14 @@ body.boxed .page-wrapper {
   background-image: none;
   color: #777777;
   background-color: #0e0e0e;
+}
+#footer .footer-main {
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: scroll;
+  background-position: initial;
+  background-image: none;
+  background-color: transparent;
 }
 #footer p,
 #footer .widget > div > ul li,

@@ -12,7 +12,7 @@ $el_class = porto_shortcode_extract_class( $el_class );
 
 if ($label) {
     $output = '<li data-sort-by="' . esc_attr($sort_by) . '" data-filter-by="' . esc_attr($filter_by ? $filter_by : '*' ) . '"' .
-        (($active == 'yes') ? ' data-active="true"' : '') .
+        (($active == 'yes') ? ' data-active="true" class="active"' : '') .
         ($el_class ? ' class="' . $el_class . '"' : '') .'><a href="#">'. $label . '</a></li>';
 }
 

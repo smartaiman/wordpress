@@ -31,13 +31,32 @@ $member_columns = $porto_settings['member-columns'];
 
     <?php if (!is_search() && $porto_settings['member-cat-sort-pos'] == 'content' && $porto_settings['member-title']) : ?>
         <?php if ($porto_layout === 'widewidth') : ?><div class="container"><?php endif; ?>
-        <h2><?php echo force_balance_tags($porto_settings['member-title']) ?></h2>
+        <?php if ($porto_settings['member-sub-title']) : ?>
+            <h2 class="m-b-xs"><?php echo force_balance_tags($porto_settings['member-title']) ?></h2>
+            <p class="lead m-b-xl"><?php echo force_balance_tags($porto_settings['member-sub-title']) ?></p>
+        <?php else : ?>
+            <h2><?php echo force_balance_tags($porto_settings['member-title']) ?></h2>
+        <?php endif; ?>
         <?php if ($porto_layout === 'widewidth') : ?></div><?php endif; ?>
     <?php endif; ?>
 
     <?php if (have_posts()) : ?>
 
         <div class="page-members <?php if ($member_infinite) echo ' infinite-container' ?> clearfix">
+
+            <?php if ($porto_settings['member-archive-ajax']) : ?>
+                <div id="memberAjaxBox" class="ajax-box">
+                    <div class="bounce-loader">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                    <div class="ajax-box-content" id="memberAjaxBoxContent"></div>
+                    <?php if (function_exists('porto_title_archive_name') && porto_title_archive_name('member')) : ?>
+                        <div class="hide ajax-content-append"><h4 class="m-t-sm m-b-lg"><?php echo sprintf( __( 'More %s:', 'porto' ), porto_title_archive_name('member') ); ?></h4></div>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
 
             <?php
             if ($porto_settings['member-cat-sort-pos'] !== 'hide' && !is_search()) {

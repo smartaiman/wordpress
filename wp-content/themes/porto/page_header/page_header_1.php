@@ -12,13 +12,13 @@ if (( is_front_page() && is_home()) || is_front_page() ) {
 
 $title = porto_page_title();
 $hide_title = !$title || !$page_title;
-$sub_title = porto_get_meta_value('page_sub_title');
+$sub_title = porto_page_sub_title();
 ?>
 <div class="container<?php if ($hide_title) : ?> hide-title<?php endif; ?>">
     <div class="row">
         <div class="col-md-12">
             <?php if ($breadcrumbs) : ?>
-                <div class="breadcrumbs-wrap">
+                <div class="breadcrumbs-wrap<?php if ($sub_title) : ?> breadcrumbs-with-subtitle<?php endif; ?>">
                     <?php echo porto_breadcrumbs(); ?>
                 </div>
             <?php endif; ?>
@@ -27,7 +27,7 @@ $sub_title = porto_get_meta_value('page_sub_title');
                 <?php
                 if ($sub_title) :
                     ?>
-                    <p class="page-sub-title lead"><?php echo $sub_title ?></p>
+                    <p class="page-sub-title"><?php echo $sub_title ?></p>
                 <?php endif;?>
             </div>
             <?php

@@ -23,7 +23,7 @@ if ($animation_type) {
 $output .= '>';
 
 $output .= '<ul data-sort-id="'.esc_attr($container).'" class="nav nav-pills sort-source ' .
-    ($style ? 'sort-source-' . $style . ($align ? ' text-' . $align : '') : '') . '">';
+    ($style ? 'sort-source-' . $style . ($align ? ' text-' . $align : '') : ($align ? ' nav-pills-' . $align : '')) . '">';
 
 $output .= do_shortcode($content);
 

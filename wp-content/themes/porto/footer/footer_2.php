@@ -21,60 +21,61 @@ for ($i = 1; $i <= 4; $i++) {
 ?>
 <div id="footer" class="footer-2<?php if ($porto_settings['footer-ribbon']) echo ' show-ribbon' ?>">
     <?php if (!$footer_view && $cols) : ?>
-        <div class="container">
-            <?php if ($porto_settings['footer-ribbon']) : ?>
-                <div class="footer-ribbon"><?php echo force_balance_tags($porto_settings['footer-ribbon']) ?></div>
-            <?php endif; ?>
+        <div class="footer-main">
+            <div class="container">
+                <?php if ($porto_settings['footer-ribbon']) : ?>
+                    <div class="footer-ribbon"><?php echo force_balance_tags($porto_settings['footer-ribbon']) ?></div>
+                <?php endif; ?>
 
-            <?php
-            $cols = 0;
-            for ($i = 1; $i <= 4; $i++) {
-                if ( is_active_sidebar( 'footer-column-'. $i ) )
-                    $cols++;
-            }
-            if ($cols) :
-                $col_class = array();
-                switch ($cols) {
-                    case 1:
-                        $col_class[1] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget1']) ? $porto_settings['footer-widget1'] : '12');
-                        break;
-                    case 2:
-                        $col_class[1] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget1']) ? $porto_settings['footer-widget1'] : '6');
-                        $col_class[2] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget2']) ? $porto_settings['footer-widget2'] : '6');
-                        break;
-                    case 3:
-                        $col_class[1] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget1']) ? $porto_settings['footer-widget1'] : '3');
-                        $col_class[2] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget2']) ? $porto_settings['footer-widget2'] : '3');
-                        $col_class[3] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget3']) ? $porto_settings['footer-widget3'] : '6');
-                        break;
-                    case 4:
-                        $col_class[1] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget1']) ? $porto_settings['footer-widget1'] : '3');
-                        $col_class[2] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget2']) ? $porto_settings['footer-widget2'] : '3');
-                        $col_class[3] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget3']) ? $porto_settings['footer-widget3'] : '4');
-                        $col_class[4] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget4']) ? $porto_settings['footer-widget4'] : '2');
-                        break;
+                <?php
+                $cols = 0;
+                for ($i = 1; $i <= 4; $i++) {
+                    if ( is_active_sidebar( 'footer-column-'. $i ) )
+                        $cols++;
                 }
-                ?>
-                <div class="row">
-                    <?php
-                    $cols = 1;
-                    for ($i = 1; $i <= 4; $i++) {
-                        if ( is_active_sidebar( 'footer-column-'. $i ) ) {
-                            ?>
-                            <div class="<?php echo $col_class[$cols++] ?>">
-                                <?php dynamic_sidebar( 'footer-column-'. $i ); ?>
-                            </div>
-                        <?php
-                        }
+                if ($cols) :
+                    $col_class = array();
+                    switch ($cols) {
+                        case 1:
+                            $col_class[1] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget1']) ? $porto_settings['footer-widget1'] : '12');
+                            break;
+                        case 2:
+                            $col_class[1] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget1']) ? $porto_settings['footer-widget1'] : '6');
+                            $col_class[2] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget2']) ? $porto_settings['footer-widget2'] : '6');
+                            break;
+                        case 3:
+                            $col_class[1] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget1']) ? $porto_settings['footer-widget1'] : '3');
+                            $col_class[2] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget2']) ? $porto_settings['footer-widget2'] : '3');
+                            $col_class[3] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget3']) ? $porto_settings['footer-widget3'] : '6');
+                            break;
+                        case 4:
+                            $col_class[1] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget1']) ? $porto_settings['footer-widget1'] : '3');
+                            $col_class[2] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget2']) ? $porto_settings['footer-widget2'] : '3');
+                            $col_class[3] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget3']) ? $porto_settings['footer-widget3'] : '4');
+                            $col_class[4] = 'col-md-' . (($porto_settings['footer-customize'] && $porto_settings['footer-widget4']) ? $porto_settings['footer-widget4'] : '2');
+                            break;
                     }
                     ?>
-                </div>
-            <?php endif; ?>
+                    <div class="row">
+                        <?php
+                        $cols = 1;
+                        for ($i = 1; $i <= 4; $i++) {
+                            if ( is_active_sidebar( 'footer-column-'. $i ) ) {
+                                ?>
+                                <div class="<?php echo $col_class[$cols++] ?>">
+                                    <?php dynamic_sidebar( 'footer-column-'. $i ); ?>
+                                </div>
+                            <?php
+                            }
+                        }
+                        ?>
+                    </div>
+                <?php endif; ?>
 
-            <?php
-            get_template_part('footer/footer_tooltip');
-            ?>
-
+                <?php
+                get_template_part('footer/footer_tooltip');
+                ?>
+            </div>
         </div>
     <?php endif; ?>
 

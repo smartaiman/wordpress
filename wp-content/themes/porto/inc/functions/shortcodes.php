@@ -145,6 +145,7 @@ function porto_load_shortcodes() {
                 __('Top', 'porto') => '',
                 __('Bottom', 'porto') => 'bottom',
             ),
+            'dependency' => array('element' => 'show_divider', 'not_empty' => true),
             'group' => $section_group
         ));
         vc_add_param('vc_row', array(
@@ -174,10 +175,18 @@ function porto_load_shortcodes() {
             'heading' => __( 'Icon library', 'js_composer' ),
             'value' => array(
                 __( 'Font Awesome', 'porto' ) => 'fontawesome',
-                __( 'Simple Line Icon', 'porto' ) => 'simpleline'
+                __( 'Simple Line Icon', 'porto' ) => 'simpleline',
+                __( 'Custom Image Icon', 'porto-shortcodes' ) => 'image'
             ),
             'param_name' => 'divider_icon_type',
             'dependency' => array('element' => 'show_divider_icon', 'not_empty' => true),
+            'group' => $section_group,
+        ));
+        vc_add_param('vc_row', array(
+            'type' => 'attach_image',
+            'heading' => __('Select Icon', 'porto-shortcodes'),
+            'dependency' => array('element' => 'divider_icon_type', 'value' => 'image'),
+            'param_name' => 'divider_icon_image',
             'group' => $section_group,
         ));
         vc_add_param('vc_row', array(
@@ -472,6 +481,7 @@ function porto_load_shortcodes() {
                 __('Top', 'porto') => '',
                 __('Bottom', 'porto') => 'bottom',
             ),
+            'dependency' => array('element' => 'show_divider', 'not_empty' => true),
             'group' => $section_group
         ));
         vc_add_param('vc_column', array(
@@ -501,10 +511,18 @@ function porto_load_shortcodes() {
             'heading' => __( 'Icon library', 'js_composer' ),
             'value' => array(
                 __( 'Font Awesome', 'porto' ) => 'fontawesome',
-                __( 'Simple Line Icon', 'porto' ) => 'simpleline'
+                __( 'Simple Line Icon', 'porto' ) => 'simpleline',
+                __( 'Custom Image Icon', 'porto-shortcodes' ) => 'image'
             ),
             'param_name' => 'divider_icon_type',
             'dependency' => array('element' => 'show_divider_icon', 'not_empty' => true),
+            'group' => $section_group,
+        ));
+        vc_add_param('vc_column', array(
+            'type' => 'attach_image',
+            'heading' => __('Select Icon', 'porto-shortcodes'),
+            'dependency' => array('element' => 'divider_icon_type', 'value' => 'image'),
+            'param_name' => 'divider_icon_image',
             'group' => $section_group,
         ));
         vc_add_param('vc_column', array(
@@ -702,6 +720,19 @@ function porto_load_shortcodes() {
         /* ---------------------------- */
         vc_add_param('vc_custom_heading', array(
             'type' => 'dropdown',
+            'heading' => __('Text Transform', 'porto'),
+            'param_name' => 'text_transform',
+            'std' => '',
+            'value' => array(
+                __('None', 'porto' ) => '',
+                __('Uppercase', 'porto' ) => 'text-uppercase',
+                __('Lowercase', 'porto' ) => 'text-lowercase',
+                __('Capitalize', 'porto' ) => 'text-capitalize',
+            ),
+            'group' => $section_group,
+        ));
+        vc_add_param('vc_custom_heading', array(
+            'type' => 'dropdown',
             'heading' => __('Skin Color', 'porto'),
             'param_name' => 'skin',
             'std' => 'custom',
@@ -815,10 +846,18 @@ function porto_load_shortcodes() {
             'heading' => __( 'Icon library', 'js_composer' ),
             'value' => array(
                 __( 'Font Awesome', 'porto' ) => 'fontawesome',
-                __( 'Simple Line Icon', 'porto' ) => 'simpleline'
+                __( 'Simple Line Icon', 'porto' ) => 'simpleline',
+                __( 'Custom Image Icon', 'porto-shortcodes' ) => 'image'
             ),
             'param_name' => 'icon_type',
             'dependency' => array('element' => 'show_icon', 'not_empty' => true),
+            'group' => $section_group,
+        ));
+		vc_add_param('vc_tab', array(
+            'type' => 'attach_image',
+            'heading' => __('Select Icon', 'porto-shortcodes'),
+            'dependency' => array('element' => 'icon_type', 'value' => 'image'),
+            'param_name' => 'icon_image',
             'group' => $section_group,
         ));
 		vc_add_param('vc_tab', array(
@@ -1030,10 +1069,18 @@ function porto_load_shortcodes() {
             'heading' => __( 'Icon library', 'js_composer' ),
             'value' => array(
                 __( 'Font Awesome', 'porto' ) => 'fontawesome',
-                __( 'Simple Line Icon', 'porto' ) => 'simpleline'
+                __( 'Simple Line Icon', 'porto' ) => 'simpleline',
+                __( 'Custom Image Icon', 'porto-shortcodes' ) => 'image'
             ),
             'param_name' => 'icon_type',
             'dependency' => array('element' => 'show_icon', 'not_empty' => true),
+            'group' => $section_group,
+        ));
+        vc_add_param('vc_separator', array(
+            'type' => 'attach_image',
+            'heading' => __('Select Icon', 'porto-shortcodes'),
+            'dependency' => array('element' => 'icon_type', 'value' => 'image'),
+            'param_name' => 'icon_image',
             'group' => $section_group,
         ));
         vc_add_param('vc_separator', array(
@@ -1205,10 +1252,18 @@ function porto_load_shortcodes() {
             'heading' => __( 'Icon library', 'js_composer' ),
             'value' => array(
                 __( 'Font Awesome', 'porto' ) => 'fontawesome',
-                __( 'Simple Line Icon', 'porto' ) => 'simpleline'
+                __( 'Simple Line Icon', 'porto' ) => 'simpleline',
+                __( 'Custom Image Icon', 'porto-shortcodes' ) => 'image'
             ),
             'param_name' => 'icon_type',
             'dependency' => array('element' => 'show_icon', 'not_empty' => true),
+            'group' => $section_group,
+        ));
+        vc_add_param('vc_accordion_tab', array(
+            'type' => 'attach_image',
+            'heading' => __('Select Icon', 'porto-shortcodes'),
+            'dependency' => array('element' => 'icon_type', 'value' => 'image'),
+            'param_name' => 'icon_image',
             'group' => $section_group,
         ));
         vc_add_param('vc_accordion_tab', array(
@@ -1249,10 +1304,18 @@ function porto_load_shortcodes() {
             'heading' => __( 'Icon library', 'js_composer' ),
             'value' => array(
                 __( 'Font Awesome', 'porto' ) => 'fontawesome',
-                __( 'Simple Line Icon', 'porto' ) => 'simpleline'
+                __( 'Simple Line Icon', 'porto' ) => 'simpleline',
+                __( 'Custom Image Icon', 'porto-shortcodes' ) => 'image'
             ),
             'param_name' => 'icon_type',
             'dependency' => array('element' => 'show_icon', 'not_empty' => true),
+            'group' => $section_group,
+        ));
+        vc_add_param('vc_toggle', array(
+            'type' => 'attach_image',
+            'heading' => __('Select Icon', 'porto-shortcodes'),
+            'dependency' => array('element' => 'icon_type', 'value' => 'image'),
+            'param_name' => 'icon_image',
             'group' => $section_group,
         ));
         vc_add_param('vc_toggle', array(
@@ -1912,14 +1975,19 @@ function porto_vc_enable_deprecated_shortcodes() {
         $category = __('Porto', 'porto');
         $desc = __(' with porto style','porto');
         WPBMap::modify('vc_tabs', 'deprecated', false);
-        WPBMap::modify('vc_tour', 'deprecated', false);
-        WPBMap::modify('vc_accordion', 'deprecated', false);
         WPBMap::modify('vc_tabs', 'category', $category);
-        WPBMap::modify('vc_tour', 'category', $category);
-        WPBMap::modify('vc_accordion', 'category', $category);
+        WPBMap::modify('vc_tabs', 'name', __('Porto Tabs', 'porto'));
+        WPBMap::modify('vc_tab', 'name', __('Porto Tab', 'porto'));
         WPBMap::modify('vc_tabs', 'description', __( 'Tabbed content', 'js_composer' ) . $desc);
+        WPBMap::modify('vc_tour', 'deprecated', false);
+        WPBMap::modify('vc_tour', 'category', $category);
+        WPBMap::modify('vc_tour', 'name', __('Porto Tour', 'porto'));
         WPBMap::modify('vc_tour', 'description', __( 'Vertical tabbed content', 'js_composer' ) . $desc);
+        WPBMap::modify('vc_accordion', 'deprecated', false);
+        WPBMap::modify('vc_accordion', 'category', $category);
+        WPBMap::modify('vc_accordion', 'name', __('Porto Accordion', 'porto'));
         WPBMap::modify('vc_accordion', 'description', __( 'Collapsible content panels', 'js_composer' ) . $desc);
+        WPBMap::modify('vc_accordion_tab', 'name', __('Accordion Section', 'porto'));
     }
 }
 
@@ -2050,45 +2118,71 @@ if (!function_exists('vc_iconpicker_type_simpleline')) {
 
     function vc_iconpicker_type_simpleline( $icons ) {
         $simpleline_icons = array(
+            array( 'Simple-Line-Icons-user' => 'User' ),
+            array( 'Simple-Line-Icons-people' => 'People' ),
             array( 'Simple-Line-Icons-user-female' => 'User Female' ),
-            array( 'Simple-Line-Icons-users' => 'Users' ),
             array( 'Simple-Line-Icons-user-follow' => 'User Follow' ),
             array( 'Simple-Line-Icons-user-following' => 'User Following' ),
             array( 'Simple-Line-Icons-user-unfollow' => 'User Unfollow' ),
-            array( 'Simple-Line-Icons-user' => 'User' ),
+            array( 'Simple-Line-Icons-login' => 'Login' ),
+            array( 'Simple-Line-Icons-logout' => 'Logout' ),
+            array( 'Simple-Line-Icons-emotsmile' => 'Emotsmile' ),
+            array( 'Simple-Line-Icons-phone' => 'Phone' ),
+            array( 'Simple-Line-Icons-call-end' => 'Call End' ),
+            array( 'Simple-Line-Icons-call-in' => 'Call In' ),
+            array( 'Simple-Line-Icons-call-out' => 'Call Out' ),
+            array( 'Simple-Line-Icons-map' => 'Map' ),
+            array( 'Simple-Line-Icons-location-pin' => 'Location Pin' ),
+            array( 'Simple-Line-Icons-direction' => 'Direction' ),
+            array( 'Simple-Line-Icons-directions' => 'Directions' ),
+            array( 'Simple-Line-Icons-compass' => 'Compass' ),
+            array( 'Simple-Line-Icons-layers' => 'Layers' ),
+            array( 'Simple-Line-Icons-menu' => 'Menu' ),
+            array( 'Simple-Line-Icons-list' => 'List' ),
+            array( 'Simple-Line-Icons-options-vertical' => 'Options Vertical' ),
+            array( 'Simple-Line-Icons-options' => 'Options' ),
+            array( 'Simple-Line-Icons-arrow-down' => 'Arrow Down' ),
+            array( 'Simple-Line-Icons-arrow-left' => 'Arrow Left' ),
+            array( 'Simple-Line-Icons-arrow-right' => 'Arrow Right' ),
+            array( 'Simple-Line-Icons-arrow-up' => 'Arrow Up' ),
+            array( 'Simple-Line-Icons-arrow-up-circle' => 'Arrow Up Circle' ),
+            array( 'Simple-Line-Icons-arrow-left-circle' => 'Arrow Left Circle' ),
+            array( 'Simple-Line-Icons-arrow-right-circle' => 'Arrow Right Circle' ),
+            array( 'Simple-Line-Icons-arrow-down-circle' => 'Arrow Down Circle' ),
+            array( 'Simple-Line-Icons-check' => 'Check' ),
+            array( 'Simple-Line-Icons-clock' => 'Clock' ),
+            array( 'Simple-Line-Icons-plus' => 'Plus' ),
+            array( 'Simple-Line-Icons-minus' => 'Minus' ),
+            array( 'Simple-Line-Icons-close' => 'Close' ),
+            array( 'Simple-Line-Icons-event' => 'Event' ),
+            array( 'Simple-Line-Icons-exclamation' => 'Exclamation' ),
+            array( 'Simple-Line-Icons-organization' => 'Organization' ),
             array( 'Simple-Line-Icons-trophy' => 'Trophy' ),
-            array( 'Simple-Line-Icons-speedometer' => 'Speedometer' ),
-            array( 'Simple-Line-Icons-social-youtube' => 'Youtube' ),
-            array( 'Simple-Line-Icons-social-twitter' => 'Twitter' ),
-            array( 'Simple-Line-Icons-social-tumblr' => 'Tumblr' ),
-            array( 'Simple-Line-Icons-social-facebook' => 'Facebook' ),
-            array( 'Simple-Line-Icons-social-dropbox' => 'Dropbox' ),
-            array( 'Simple-Line-Icons-social-dribbble' => 'Dribbble' ),
-            array( 'Simple-Line-Icons-shield' => 'Shield' ),
-            array( 'Simple-Line-Icons-screen-tablet' => 'Tablet' ),
             array( 'Simple-Line-Icons-screen-smartphone' => 'Smartphone' ),
             array( 'Simple-Line-Icons-screen-desktop' => 'Desktop' ),
             array( 'Simple-Line-Icons-plane' => 'Plane' ),
             array( 'Simple-Line-Icons-notebook' => 'Notebook' ),
-            array( 'Simple-Line-Icons-moustache' => 'Moustache' ),
+            array( 'Simple-Line-Icons-mustache' => 'Mustache' ),
             array( 'Simple-Line-Icons-mouse' => 'Mouse' ),
             array( 'Simple-Line-Icons-magnet' => 'Magnet' ),
+            array( 'Simple-Line-Icons-energy' => 'Energy' ),
+            array( 'Simple-Line-Icons-disc' => 'Disc' ),
+            array( 'Simple-Line-Icons-cursor' => 'Cursor' ),
+            array( 'Simple-Line-Icons-cursor-move' => 'Cursor Move' ),
+            array( 'Simple-Line-Icons-crop' => 'Crop' ),
+            array( 'Simple-Line-Icons-chemistry' => 'Chemistry' ),
+            array( 'Simple-Line-Icons-speedometer' => 'Speedometer' ),
+            array( 'Simple-Line-Icons-shield' => 'Shield' ),
+            array( 'Simple-Line-Icons-screen-tablet' => 'Tablet' ),
             array( 'Simple-Line-Icons-magic-wand' => 'Magic Wand' ),
             array( 'Simple-Line-Icons-hourglass' => 'Hourglass' ),
             array( 'Simple-Line-Icons-graduation' => 'Graduation' ),
             array( 'Simple-Line-Icons-ghost' => 'Ghost' ),
             array( 'Simple-Line-Icons-game-controller' => 'Game Controller' ),
             array( 'Simple-Line-Icons-fire' => 'Fire' ),
-            array( 'Simple-Line-Icons-eyeglasses' => 'Eyeglasses' ),
+            array( 'Simple-Line-Icons-eyeglass' => 'Eyeglass' ),
             array( 'Simple-Line-Icons-envelope-open' => 'Envelope Open' ),
             array( 'Simple-Line-Icons-envelope-letter' => 'Envelope Letter' ),
-            array( 'Simple-Line-Icons-energy' => 'Energy' ),
-            array( 'Simple-Line-Icons-emotsmile' => 'Emotsmile' ),
-            array( 'Simple-Line-Icons-disc' => 'Disc' ),
-            array( 'Simple-Line-Icons-cursor-move' => 'Cursor Move' ),
-            array( 'Simple-Line-Icons-crop' => 'Crop' ),
-            array( 'Simple-Line-Icons-credit-card' => 'Credit Card' ),
-            array( 'Simple-Line-Icons-chemistry' => 'Chemistry' ),
             array( 'Simple-Line-Icons-bell' => 'Bell' ),
             array( 'Simple-Line-Icons-badge' => 'Badge' ),
             array( 'Simple-Line-Icons-anchor' => 'Anchor' ),
@@ -2101,28 +2195,19 @@ if (!function_exists('vc_iconpicker_type_simpleline')) {
             array( 'Simple-Line-Icons-playlist' => 'Playlist' ),
             array( 'Simple-Line-Icons-pin' => 'Pin' ),
             array( 'Simple-Line-Icons-picture' => 'Picture' ),
-            array( 'Simple-Line-Icons-map' => 'Map' ),
-            array( 'Simple-Line-Icons-layers' => 'Layers' ),
             array( 'Simple-Line-Icons-handbag' => 'Handbag' ),
             array( 'Simple-Line-Icons-globe-alt' => 'Globe Alt' ),
             array( 'Simple-Line-Icons-globe' => 'Globe' ),
-            array( 'Simple-Line-Icons-frame' => 'Frame' ),
             array( 'Simple-Line-Icons-folder-alt' => 'Folder Alt' ),
+            array( 'Simple-Line-Icons-folder' => 'Folder' ),
             array( 'Simple-Line-Icons-film' => 'Film' ),
             array( 'Simple-Line-Icons-feed' => 'Feed' ),
-            array( 'Simple-Line-Icons-earphones-alt' => 'Earphones Alt' ),
-            array( 'Simple-Line-Icons-earphones' => 'Earphones' ),
             array( 'Simple-Line-Icons-drop' => 'Drop' ),
             array( 'Simple-Line-Icons-drawer' => 'Drawer' ),
             array( 'Simple-Line-Icons-docs' => 'Docs' ),
-            array( 'Simple-Line-Icons-directions' => 'Directions' ),
-            array( 'Simple-Line-Icons-direction' => 'Direction' ),
+            array( 'Simple-Line-Icons-doc' => 'Doc' ),
             array( 'Simple-Line-Icons-diamond' => 'Diamond' ),
             array( 'Simple-Line-Icons-cup' => 'Cup' ),
-            array( 'Simple-Line-Icons-compass' => 'Compass' ),
-            array( 'Simple-Line-Icons-call-out' => 'Call Out' ),
-            array( 'Simple-Line-Icons-call-in' => 'Call In' ),
-            array( 'Simple-Line-Icons-call-end' => 'Call End' ),
             array( 'Simple-Line-Icons-calculator' => 'Calculator' ),
             array( 'Simple-Line-Icons-bubbles' => 'Bubbles' ),
             array( 'Simple-Line-Icons-briefcase' => 'Briefcase' ),
@@ -2137,6 +2222,7 @@ if (!function_exists('vc_iconpicker_type_simpleline')) {
             array( 'Simple-Line-Icons-trash' => 'Trash' ),
             array( 'Simple-Line-Icons-tag' => 'Tag' ),
             array( 'Simple-Line-Icons-support' => 'Support' ),
+            array( 'Simple-Line-Icons-frame' => 'Frame' ),
             array( 'Simple-Line-Icons-size-fullscreen' => 'Size Fullscreen' ),
             array( 'Simple-Line-Icons-size-actual' => 'Size Actual' ),
             array( 'Simple-Line-Icons-shuffle' => 'Shuffle' ),
@@ -2147,47 +2233,39 @@ if (!function_exists('vc_iconpicker_type_simpleline')) {
             array( 'Simple-Line-Icons-pie-chart' => 'Pie Chart' ),
             array( 'Simple-Line-Icons-pencil' => 'Pencil' ),
             array( 'Simple-Line-Icons-note' => 'Note' ),
-            array( 'Simple-Line-Icons-music-tone-alt' => 'Music Tone Alt' ),
-            array( 'Simple-Line-Icons-music-tone' => 'Music Tone' ),
-            array( 'Simple-Line-Icons-microphone' => 'Microphone' ),
             array( 'Simple-Line-Icons-loop' => 'Loop' ),
-            array( 'Simple-Line-Icons-logout' => 'Logout' ),
-            array( 'Simple-Line-Icons-login' => 'Login' ),
-            array( 'Simple-Line-Icons-list' => 'List' ),
-            array( 'Simple-Line-Icons-like' => 'Like' ),
             array( 'Simple-Line-Icons-home' => 'Home' ),
             array( 'Simple-Line-Icons-grid' => 'Grid' ),
             array( 'Simple-Line-Icons-graph' => 'Graph' ),
+            array( 'Simple-Line-Icons-microphone' => 'Microphone' ),
+            array( 'Simple-Line-Icons-music-tone-alt' => 'Music Tone Alt' ),
+            array( 'Simple-Line-Icons-music-tone' => 'Music Tone' ),
+            array( 'Simple-Line-Icons-earphones-alt' => 'Earphones Alt' ),
+            array( 'Simple-Line-Icons-earphones' => 'Earphones' ),
             array( 'Simple-Line-Icons-equalizer' => 'Equalizer' ),
+            array( 'Simple-Line-Icons-like' => 'Like' ),
             array( 'Simple-Line-Icons-dislike' => 'Dislike' ),
-            array( 'Simple-Line-Icons-cursor' => 'Cursor' ),
             array( 'Simple-Line-Icons-control-start' => 'Control Start' ),
             array( 'Simple-Line-Icons-control-rewind' => 'Control Rewind' ),
             array( 'Simple-Line-Icons-control-play' => 'Control Play' ),
             array( 'Simple-Line-Icons-control-pause' => 'Control Pause' ),
             array( 'Simple-Line-Icons-control-forward' => 'Control Forward' ),
             array( 'Simple-Line-Icons-control-end' => 'Control End' ),
+            array( 'Simple-Line-Icons-volume-1' => 'Volume 1' ),
+            array( 'Simple-Line-Icons-volume-2' => 'Volume 2' ),
+            array( 'Simple-Line-Icons-volume-off' => 'Volume Off' ),
             array( 'Simple-Line-Icons-calendar' => 'Calendar' ),
             array( 'Simple-Line-Icons-bulb' => 'Bulb' ),
-            array( 'Simple-Line-Icons-bar-chart' => 'Bar Chart' ),
-            array( 'Simple-Line-Icons-arrow-up' => 'Arrow Up' ),
-            array( 'Simple-Line-Icons-arrow-right' => 'Arrow Right' ),
-            array( 'Simple-Line-Icons-arrow-left' => 'Arrow Left' ),
-            array( 'Simple-Line-Icons-arrow-down' => 'Arrow Down' ),
+            array( 'Simple-Line-Icons-chart' => 'Chart' ),
             array( 'Simple-Line-Icons-ban' => 'Ban' ),
             array( 'Simple-Line-Icons-bubble' => 'Bubble' ),
             array( 'Simple-Line-Icons-camcorder' => 'Camcorder' ),
             array( 'Simple-Line-Icons-camera' => 'Camera' ),
-            array( 'Simple-Line-Icons-check' => 'Check' ),
-            array( 'Simple-Line-Icons-clock' => 'Clock' ),
-            array( 'Simple-Line-Icons-close' => 'Close' ),
             array( 'Simple-Line-Icons-cloud-download' => 'Cloud Download' ),
             array( 'Simple-Line-Icons-cloud-upload' => 'Cloud Upload' ),
-            array( 'Simple-Line-Icons-doc' => 'Doc' ),
             array( 'Simple-Line-Icons-envelope' => 'Envelope' ),
             array( 'Simple-Line-Icons-eye' => 'Eye' ),
             array( 'Simple-Line-Icons-flag' => 'Flag' ),
-            array( 'Simple-Line-Icons-folder' => 'Folder' ),
             array( 'Simple-Line-Icons-heart' => 'Heart' ),
             array( 'Simple-Line-Icons-info' => 'Info' ),
             array( 'Simple-Line-Icons-key' => 'Key' ),
@@ -2199,19 +2277,42 @@ if (!function_exists('vc_iconpicker_type_simpleline')) {
             array( 'Simple-Line-Icons-magnifier-remove' => 'Magnifier Remove' ),
             array( 'Simple-Line-Icons-paper-clip' => 'Paper Clip' ),
             array( 'Simple-Line-Icons-paper-plane' => 'Paper Plane' ),
-            array( 'Simple-Line-Icons-plus' => 'Plus' ),
-            array( 'Simple-Line-Icons-pointer' => 'Pointer' ),
             array( 'Simple-Line-Icons-power' => 'Power' ),
             array( 'Simple-Line-Icons-refresh' => 'Refresh' ),
             array( 'Simple-Line-Icons-reload' => 'Reload' ),
             array( 'Simple-Line-Icons-settings' => 'Settings' ),
             array( 'Simple-Line-Icons-star' => 'Star' ),
-            array( 'Simple-Line-Icons-symbol-fermale' => 'Symbol Fermale' ),
+            array( 'Simple-Line-Icons-symbol-female' => 'Symbol Female' ),
             array( 'Simple-Line-Icons-symbol-male' => 'Symbol Male' ),
             array( 'Simple-Line-Icons-target' => 'Target' ),
-            array( 'Simple-Line-Icons-volume-1' => 'Volume 1' ),
-            array( 'Simple-Line-Icons-volume-2' => 'Volume 2' ),
-            array( 'Simple-Line-Icons-volume-off' => 'Volume Off' )
+            array( 'Simple-Line-Icons-credit-card' => 'Credit Card' ),
+            array( 'Simple-Line-Icons-paypal' => 'Paypal' ),
+            array( 'Simple-Line-Icons-social-tumblr' => 'Tumblr' ),
+            array( 'Simple-Line-Icons-social-twitter' => 'Twitter' ),
+            array( 'Simple-Line-Icons-social-facebook' => 'Facebook' ),
+            array( 'Simple-Line-Icons-social-instagram' => 'Instagram' ),
+            array( 'Simple-Line-Icons-social-linkedin' => 'Linkedin' ),
+            array( 'Simple-Line-Icons-social-pinterest' => 'Pinterest' ),
+            array( 'Simple-Line-Icons-social-github' => 'Github' ),
+            array( 'Simple-Line-Icons-social-google' => 'Google' ),
+            array( 'Simple-Line-Icons-social-reddit' => 'Reddit' ),
+            array( 'Simple-Line-Icons-social-skype' => 'Skype' ),
+            array( 'Simple-Line-Icons-social-dribbble' => 'Dribbble' ),
+            array( 'Simple-Line-Icons-social-behance' => 'Behance' ),
+            array( 'Simple-Line-Icons-social-foursqare' => 'Foursqare' ),
+            array( 'Simple-Line-Icons-social-soundcloud' => 'Soundcloud' ),
+            array( 'Simple-Line-Icons-social-spotify' => 'Spotify' ),
+            array( 'Simple-Line-Icons-social-stumbleupon' => 'Stumbleupon' ),
+            array( 'Simple-Line-Icons-social-youtube' => 'Youtube' ),
+            array( 'Simple-Line-Icons-social-dropbox' => 'Dropbox' ),
+            array( 'Simple-Line-Icons-social-vkontakte' => 'Vkontakte' ),
+            array( 'Simple-Line-Icons-social-steam' => 'Steam' ),
+            array( 'Simple-Line-Icons-moustache' => 'Moustache' ),
+            array( 'Simple-Line-Icons-bar-chart' => 'Bar Chart' ),
+            array( 'Simple-Line-Icons-pointer' => 'Pointer' ),
+            array( 'Simple-Line-Icons-users' => 'Users' ),
+            array( 'Simple-Line-Icons-eyeglasses' => 'Eyeglasses' ),
+            array( 'Simple-Line-Icons-symbol-fermale' => 'Symbol Fermale' ),
         );
 
         return array_merge( $icons, $simpleline_icons );

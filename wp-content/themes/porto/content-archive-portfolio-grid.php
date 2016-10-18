@@ -11,7 +11,7 @@ $portfolio_layout = 'grid';
 $portfolio_view = $porto_settings['portfolio-grid-view'];
 $portfolio_thumb = $porto_portfolio_thumb ? $porto_portfolio_thumb : $porto_settings['portfolio-archive-thumb'];
 $portfolio_thumb_bg = $porto_portfolio_thumb_bg ? $porto_portfolio_thumb_bg : $porto_settings['portfolio-archive-thumb-bg'];
-$portfolio_thumb_image = $porto_portfolio_thumb_image ? $porto_portfolio_thumb_image : $porto_settings['portfolio-archive-thumb-image'];
+$portfolio_thumb_image = $porto_portfolio_thumb_image ? ($porto_portfolio_thumb_image == 'zoom' ? '' : $porto_portfolio_thumb_image ) : $porto_settings['portfolio-archive-thumb-image'];
 $portfolio_show_link = $porto_settings['portfolio-archive-link'];
 $portfolio_show_all_images = $porto_settings['portfolio-archive-all-images'];
 $portfolio_images_count = $porto_settings['portfolio-archive-images-count'];

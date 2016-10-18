@@ -25,8 +25,8 @@ if ($animation_type) {
 
 if ($customize) {
     $img_id = preg_replace('/[^\d]/', '', $image);
-    $img = porto_shortcode_get_image_by_size(array( 'attach_id' => $img_id, 'thumb_size' => '145x145' ));
-    $img_url = $img['p_img_large'][0];
+    $img_url = wp_get_attachment_url($img_id);
+    $img_url = str_replace(array('http:', 'https:'), '', $img_url);
     $gap = (int)$gap;
     $output .= ' style="background-image:url(' . str_replace(array('http:', 'https:'), '', $img_url) . ');' . ($gap != 164 ? 'padding-top:'.$gap.'px' : '') . '"';
 }

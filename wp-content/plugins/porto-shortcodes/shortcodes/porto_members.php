@@ -96,6 +96,12 @@ function porto_load_members_shortcode() {
                 'param_name' => 'pagination',
                 'value' => array( __( 'Yes', 'js_composer' ) => 'yes' )
             ),
+            array(
+                'type' => 'checkbox',
+                'heading' => __("Enable Ajax Load", 'porto-shortcodes'),
+                'param_name' => 'ajax_load',
+                'value' => array( __( 'Yes', 'js_composer' ) => 'yes' )
+            ),
             $custom_class,
             $animation_type,
             $animation_duration,

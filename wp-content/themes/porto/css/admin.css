@@ -183,6 +183,10 @@ input.mediuminput {
   font-size: 1.2em;
 }
 
+.postoptions .resp-tabs-container .metabox h3 {
+  width: 180px;
+}
+
 .postoptions .metabox[data-required] h3 {
     padding-left: 20px !important;
     width: 230px;
@@ -190,6 +194,11 @@ input.mediuminput {
 
 .postoptions .metabox[data-required] .metainner > * {
     padding-left: 15px;
+}
+
+.CodeMirror {
+    border: 1px solid #ddd;
+    height: 150px;
 }
 
 .metabox label.title {
@@ -431,7 +440,7 @@ h2.resp-tab-title:last-child {
 /*-----------Vertical tabs-----------*/
 .resp-vtabs ul.resp-tabs-list {
     float: left;
-    width: 30%;
+    width: 25%;
 }
 
 .resp-vtabs .resp-tabs-list li {
@@ -447,7 +456,7 @@ h2.resp-tab-title:last-child {
     background-color: #fff;
     border: 1px solid #c1c1c1;
     float: left;
-    width: 68%;
+    width: 73%;
     min-height: 250;
     border-radius: 4px;
     clear: none;

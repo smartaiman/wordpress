@@ -56,11 +56,25 @@
                 margin-#{$right}: 7px;
                 position: relative;
                 top: -1px;
+                &.icon-image {
+                    display: inline-block;
+                    max-width: 20px;
+                }
             }
         }
         .toggle-content {
             display: none;
             padding-bottom: 5px;
+            padding-#{$left}: ($grid-gutter-width / 2) + 5px;
+
+            @media #{$screen-medium} {
+                padding-#{$left}: 0;
+            }
+
+            .porto-toggles & {
+                padding-#{$left}: 0;
+            }
+
             > p {
                 margin-bottom: 0;
                 padding: 10px 0;
@@ -108,6 +122,9 @@
     }
 
     .toggle-simple & {
+        .toggle-content {
+            padding-left: 0;
+        }
         > label {
             border-radius: 0;
             border: 0;

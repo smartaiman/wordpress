@@ -377,6 +377,26 @@ $image = str_replace(array('http://', 'https://'), array('//', '//'), $b['footer
     @footer_bg_to: <?php echo $b['footer-bg']['background-color'] ?>;
 <?php endif ?>
 
+@footer_main_bg_color: <?php echo $b['footer-main-bg']['background-color'] ?>;
+@footer_main_bg_repeat: <?php echo $b['footer-main-bg']['background-repeat'] ?>;
+@footer_main_bg_size: <?php echo $b['footer-main-bg']['background-size'] ?>;
+@footer_main_bg_attachment: <?php echo $b['footer-main-bg']['background-attachment'] ?>;
+@footer_main_bg_position: <?php echo $b['footer-main-bg']['background-position'] ?>;
+<?php
+$image = str_replace(array('http://', 'https://'), array('//', '//'), $b['footer-main-bg']['background-image'])
+?>
+@footer_main_bg_image: <?php echo $image != 'none'?'url('.esc_url($image).')':$image ?>;
+
+<?php if ($b['footer-main-bg-gradient'] && $b['footer-main-bg-gcolor']['from'] && $b['footer-main-bg-gcolor']['to']) : ?>
+    @footer_main_bg_gradient: true;
+    @footer_main_bg_from: <?php echo $b['footer-main-bg-gcolor']['from'] ?>;
+    @footer_main_bg_to: <?php echo $b['footer-main-bg-gcolor']['to'] ?>;
+<?php else : ?>
+    @footer_main_bg_gradient: false;
+    @footer_main_bg_from: <?php echo $b['footer-main-bg']['background-color'] ?>;
+    @footer_main_bg_to: <?php echo $b['footer-main-bg']['background-color'] ?>;
+<?php endif ?>
+
 @footer_heading_color: <?php echo $b['footer-heading-color'] ?>;
 @footer_text_color: <?php echo $b['footer-text-color'] ?>;
 @footer_link_color: <?php echo $b['footer-link-color']['regular'] ?>;

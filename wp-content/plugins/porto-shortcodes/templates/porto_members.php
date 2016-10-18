@@ -1,5 +1,5 @@
 <?php
-$output = $title = $columns = $view = $overview = $socials = $cat = $cats = $post_in = $number = $view_more = $filter = $pagination = $animation_type = $animation_duration = $animation_delay = $el_class = '';
+$output = $title = $columns = $view = $overview = $socials = $cat = $cats = $post_in = $number = $view_more = $filter = $pagination = $ajax_load = $animation_type = $animation_duration = $animation_delay = $el_class = '';
 extract(shortcode_atts(array(
     'title' => '',
     'columns' => 4,
@@ -13,6 +13,7 @@ extract(shortcode_atts(array(
     'view_more' => false,
     'filter' => false,
     'pagination' => false,
+    'ajax_load' => false,
     'animation_type' => '',
     'animation_duration' => 1000,
     'animation_delay' => 0,
@@ -105,21 +106,36 @@ if ($posts->have_posts()) {
 
     $output .= porto_shortcode_widget_title( array( 'title' => $title, 'extraclass' => '' ) );
 
-    global $porto_member_columns, $porto_member_view, $porto_member_overview, $porto_member_socials;
+    global $porto_member_columns, $porto_member_view, $porto_member_overview, $porto_member_socials, $porto_member_ajax_load;
 
     $porto_member_columns = $columns;
     $porto_member_view = $view;
     $porto_member_overview = $overview ? 'yes' : 'no';
     $porto_member_socials = $socials ? 'yes' : 'no';
+    $porto_member_ajax_load = $ajax_load ? 'yes' : 'no';
 
     ob_start(); ?>
 
     <div class="page-members clearfix <?php echo $title ? 'm-t-lg' : '' ?>">
 
+        <?php if ($ajax_load) : ?>
+            <div id="memberAjaxBox" class="ajax-box">
+                <div class="bounce-loader">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+                <div class="ajax-box-content" id="memberAjaxBoxContent"></div>
+                <?php if (function_exists('porto_title_archive_name') && porto_title_archive_name('member')) : ?>
+                    <div class="hide ajax-content-append"><h4 class="m-t-sm m-b-lg"><?php echo sprintf( __( 'More %s:', 'porto-shortcodes' ), porto_title_archive_name('member') ); ?></h4></div>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
         <?php if (is_array($member_taxs) && !empty($member_taxs)):
             ?>
             <ul class="member-filter nav nav-pills sort-source">
-                <li class="active" data-filter="*"><a><?php echo __('Show All', 'porto'); ?></a></li>
+                <li class="active" data-filter="*"><a><?php echo __('Show All', 'porto-shortcodes'); ?></a></li>
                 <?php foreach ($member_taxs as $member_tax_slug => $member_tax_name) : ?>
                     <li data-filter="<?php echo esc_attr($member_tax_slug) ?>"><a><?php echo esc_html($member_tax_name) ?></a></li>
                 <?php endforeach; ?>
@@ -153,10 +169,7 @@ if ($posts->have_posts()) {
     <?php
     $output .= ob_get_clean();
 
-    $porto_member_columns = '';
-    $porto_member_view = '';
-    $porto_member_overview = '';
-    $porto_member_socials = '';
+    $porto_member_columns = $porto_member_view = $porto_member_overview = $porto_member_socials = $porto_member_ajax_load = '';
 
     $output .= '</div>';
 

@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Extra Params (will be use vc_tabs.php)
  * @var $show_icon
  * @var $icon_type
+ * @var $icon_image
  * @var $icon
  * @var $icon_simleline
  * @var $label

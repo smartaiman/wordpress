@@ -42,6 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $divider_height
  * @var $show_divider_icon
  * @var $divider_icon_type
+ * @var $divider_icon_image
  * @var $divider_icon
  * @var $divider_icon_simpleline
  * @var $divider_icon_skin
@@ -66,9 +67,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $this WPBakeryShortCode_VC_Row
  */
 $el_class = $full_height = $parallax_speed_bg = $parallax_speed_video = $full_width = $equal_height = $flex_row = $columns_placement = $content_placement = $parallax = $parallax_image = $css = $el_id = $video_bg = $video_bg_url = $video_bg_parallax = '';
+$disable_element = '';
 global $porto_settings;
 $output = $after_output = '';
-
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
@@ -83,6 +84,18 @@ $css_classes = array(
     $el_class,
     vc_shortcode_custom_css_class( $css ),
 );
+
+if ( 'yes' === $disable_element ) {
+    if ( vc_is_page_editable() ) {
+        $css_classes[] = 'vc_hidden-lg vc_hidden-xs vc_hidden-sm vc_hidden-md';
+    } else {
+        return '';
+    }
+}
+
+if (!empty($atts['gap'])) {
+    $css_classes[] = 'vc_column-gap-'.$atts['gap'];
+}
 
 if ($parallax && $parallax_image) {
     if ($is_section) {
@@ -141,12 +154,17 @@ if ($is_section && $show_divider) {
         $divider_inline_style .= 'background-color:' . $divider_color . ';';
     if ($divider_height)
         $divider_inline_style .= 'height:' . (int)$divider_height . 'px;';
+    if ($remove_border) {
+        if ('bottom' === $divider_pos) $divider_inline_style .= 'margin-bottom: -51px;';
+        else $divider_inline_style .= 'margin-top: -51px;';
+    }
 
     if ($divider_inline_style)
         $divider_inline_style = ' style="' . esc_attr( $divider_inline_style ) . '"';
 
     switch ($divider_icon_type) {
         case 'simpleline': $divider_icon_class = $divider_icon_simpleline; break;
+        case 'image': $divider_icon_class = 'icon-image'; break;
         default: $divider_icon_class = $divider_icon;
     }
 
@@ -175,7 +193,15 @@ if ($is_section && $show_divider) {
 
     $divider_output = '<div class="' . implode( ' ', $divider_classes ) . '"' . $divider_inline_style . '>';
     if ($show_divider_icon && $divider_icon_class) {
-        $divider_output .= '<i class="' . esc_attr( $divider_icon_class ) . '"></i>';
+        $divider_output .= '<i class="' . $divider_icon_class . '">';
+        if ($divider_icon_class == 'icon-image' && $divider_icon_image) {
+            $divider_icon_image = preg_replace('/[^\d]/', '', $divider_icon_image);
+            $divider_image_url = wp_get_attachment_url($divider_icon_image);
+            $divider_image_url = str_replace(array('http:', 'https:'), '', $divider_image_url);
+            if ($divider_image_url)
+                $divider_output .= '<img alt="" src="' . esc_url($divider_image_url) . '">';
+        }
+        $divider_output .= '</i>';
     }
     $divider_output .= '</div>';
 }
@@ -185,10 +211,6 @@ if ($text_align)
 
 if (vc_shortcode_custom_css_has_property( $css, array('border', 'background') ) || $video_bg || $parallax) {
     $css_classes[]='vc_row-has-fill';
-}
-
-if (!empty($atts['gap'])) {
-    $css_classes[] = 'vc_column-gap-'.$atts['gap'];
 }
 
 $wrapper_attributes = array();
@@ -207,7 +229,7 @@ if ( ! empty( $full_width ) ) {
     } elseif (porto_get_wrapper_type() == 'boxed' || (porto_get_wrapper_type() != 'boxed' && $porto_settings['main-wrapper'] == 'boxed')) {
         $wrapper_attributes[] = 'data-vc-stretch-content="true"';
     }
-    $after_output .= '<div class="vc_row-full-width"></div>';
+    $after_output .= '<div class="vc_row-full-width vc_clearfix"></div>';
 }
 
 if ( ! empty( $full_height ) ) {
@@ -215,6 +237,9 @@ if ( ! empty( $full_height ) ) {
     if ( ! empty( $columns_placement ) ) {
         $flex_row = true;
         $css_classes[] = ' vc_row-o-columns-' . $columns_placement;
+        if ( 'stretch' === $columns_placement ) {
+            $css_classes[] = 'vc_row-o-equal-height';
+        }
     }
 }
 
@@ -270,7 +295,7 @@ if ( ! empty ( $parallax_image ) ) {
 if ( ! $parallax && $has_video_bg ) {
     $wrapper_attributes[] = 'data-vc-video-bg="' . esc_attr( $video_bg_url ) . '"';
 }
-$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $css_classes ) ), $this->settings['base'], $atts ) );
+$css_class = preg_replace( '/\s+/', ' ', apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( array_unique( $css_classes ) ) ), $this->settings['base'], $atts ) );
 $wrapper_attributes[] = 'class="' . esc_attr( trim( $css_class ) ) . '"';
 
 if ($animation_type) {

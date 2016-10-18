@@ -4,7 +4,7 @@ global $porto_settings, $post, $porto_portfolio_view, $porto_portfolio_thumb, $p
 $portfolio_view = ($porto_portfolio_view && $porto_portfolio_view != 'classic') ? $porto_portfolio_view : $porto_settings['portfolio-related-style'];
 $portfolio_thumb = $porto_portfolio_thumb ? $porto_portfolio_thumb : $porto_settings['portfolio-related-thumb'];
 $portfolio_thumb_bg = $porto_portfolio_thumb_bg ? $porto_portfolio_thumb_bg : $porto_settings['portfolio-related-thumb-bg'];
-$portfolio_thumb_image = $porto_portfolio_thumb_image ? $porto_portfolio_thumb_image : $porto_settings['portfolio-related-thumb-image'];
+$portfolio_thumb_image = $porto_portfolio_thumb_image ? ($porto_portfolio_thumb_image == 'zoom' ? '' : $porto_portfolio_thumb_image ) : $porto_settings['portfolio-related-thumb-image'];
 $portfolio_show_link = $porto_settings['portfolio-related-link'];
 $portfolio_show_zoom = $porto_settings['portfolio-zoom'];
 $portfolio_ajax = false;

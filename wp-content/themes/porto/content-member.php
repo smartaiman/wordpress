@@ -76,24 +76,27 @@ global $porto_settings, $porto_layout;
                 echo do_shortcode(wpautop(get_post_meta($post->ID, 'member_overview', true)));
             ?>
 
+            <?php
+            // Social Share
+            $share_facebook = get_post_meta($member_id, 'member_facebook', true);
+            $share_twitter = get_post_meta($member_id, 'member_twitter', true);
+            $share_linkedin = get_post_meta($member_id, 'member_linkedin', true);
+            $share_googleplus = get_post_meta($member_id, 'member_googleplus', true);
+            $share_pinterest= get_post_meta($member_id, 'member_pinterest', true);
+            $share_email = get_post_meta($member_id, 'member_email', true);
+            $share_vk = get_post_meta($member_id, 'member_vk', true);
+            $share_xing = get_post_meta($member_id, 'member_xing', true);
+            $share_tumblr = get_post_meta($member_id, 'member_tumblr', true);
+            $share_reddit = get_post_meta($member_id, 'member_reddit', true);
+            $share_vimeo = get_post_meta($member_id, 'member_vimeo', true);
+            $share_instagram = get_post_meta($member_id, 'member_instagram', true);
+            $share_whatsapp = get_post_meta($member_id, 'member_whatsapp', true);
+            $target = (isset($porto_settings['member-social-target']) && $porto_settings['member-social-target']) ? ' target="_blank"' : '';
+
+            if ($share_facebook || $share_twitter || $share_linkedin || $share_googleplus || $share_pinterest || $share_email || $share_vk || $share_xing || $share_tumblr || $share_reddit || $share_vimeo || $share_instagram || $share_whatsapp) :
+            ?>
             <div class="member-share-links share-links">
                 <?php
-                // Social Share
-                $share_facebook = get_post_meta($member_id, 'member_facebook', true);
-                $share_twitter = get_post_meta($member_id, 'member_twitter', true);
-                $share_linkedin = get_post_meta($member_id, 'member_linkedin', true);
-                $share_googleplus = get_post_meta($member_id, 'member_googleplus', true);
-                $share_pinterest= get_post_meta($member_id, 'member_pinterest', true);
-                $share_email = get_post_meta($member_id, 'member_email', true);
-                $share_vk = get_post_meta($member_id, 'member_vk', true);
-                $share_xing = get_post_meta($member_id, 'member_xing', true);
-                $share_tumblr = get_post_meta($member_id, 'member_tumblr', true);
-                $share_reddit = get_post_meta($member_id, 'member_reddit', true);
-                $share_vimeo = get_post_meta($member_id, 'member_vimeo', true);
-                $share_instagram = get_post_meta($member_id, 'member_instagram', true);
-                $share_whatsapp = get_post_meta($member_id, 'member_whatsapp', true);
-                $target = (isset($porto_settings['member-social-target']) && $porto_settings['member-social-target']) ? ' target="_blank"' : '';
-
                 if ($share_facebook) :
                     ?><a href="<?php echo esc_url($share_facebook) ?>"<?php echo $target ?> data-tooltip data-placement="bottom" title="<?php echo __('Facebook', 'porto') ?>" class="share-facebook"><?php echo __('Facebook', 'porto') ?></a><?php
                 endif;
@@ -148,6 +151,7 @@ global $porto_settings, $porto_layout;
 
                 ?>
             </div>
+            <?php endif; ?>
 
             <?php
             if ($porto_settings['member-socials-pos'] == '')

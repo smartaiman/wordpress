@@ -177,7 +177,7 @@ function porto_show_meta_field($meta_field) {
             <h3><?php echo $title ?></h3>
             <div class="metainner">
                 <div class="box-option">
-                    <textarea id="<?php echo $name ?>" name="<?php echo $name ?>"><?php echo stripslashes($meta_value) ?></textarea>
+                    <textarea id="<?php echo $name ?>" name="<?php echo $name ?>"><?php echo $meta_value ?></textarea>
                 </div>
                 <div class="box-info"><label for="<?php echo $name ?>"><?php echo $desc ?></label></div>
             </div>
@@ -427,7 +427,7 @@ function porto_edit_tax_meta_field($tag, $taxonomy, $meta_field) {
         <tr class="form-field<?php if ($tab) : ?> porto-tab-row" data-tab="<?php echo esc_attr($tab) ?>"<?php else: ?>"<?php endif; ?> <?php echo $required ?>>
             <th scope="row" valign="top"<?php if ($tab) : ?> class="text-right"<?php endif; ?>><label for="<?php echo $name ?>"><?php echo $title ?></label></th>
             <td>
-                <textarea id="<?php echo $name ?>" name="<?php echo $name ?>"><?php echo stripslashes($meta_value) ?></textarea>
+                <textarea id="<?php echo $name ?>" name="<?php echo $name ?>"><?php echo $meta_value ?></textarea>
                 <?php if ($desc) : ?><p class="description"><?php echo $desc ?></p><?php endif; ?>
             </td>
         </tr>

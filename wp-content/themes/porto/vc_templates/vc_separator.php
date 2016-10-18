@@ -24,6 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $pattern_height
  * @var $show_icon
  * @var $icon_type
+ * @var $icon_image
  * @var $icon
  * @var $icon_simpleline
  * @var $icon_skin
@@ -61,6 +62,7 @@ if (!$align)
 
 switch ($icon_type) {
     case 'simpleline': $icon_class = $icon_simpleline; break;
+    case 'image': $icon_class = 'icon-image'; break;
     default: $icon_class = $icon;
 }
 if (!$show_icon)
@@ -167,7 +169,19 @@ if ($icon_class) {
         ?></style>
     <?php
     endif;
-    echo '<div class="divider ' . esc_attr( $css_class ) . ($el_width?' separator-line-' . esc_attr( $el_width ) :'') . '"' . $inline_style . '><i class="' . esc_attr( $icon_class ) . '"></i></div>';
+    echo '<div class="divider ' . esc_attr( $css_class ) . ($el_width?' separator-line-' . esc_attr( $el_width ) :'') . '"' . $inline_style . '>';
+    if ($icon_class) {
+        echo '<i class="' . $icon_class . '">';
+        if ($icon_class == 'icon-image' && $icon_image) {
+            $icon_image = preg_replace('/[^\d]/', '', $icon_image);
+            $image_url = wp_get_attachment_url($icon_image);
+            $image_url = str_replace(array('http:', 'https:'), '', $image_url);
+            if ($image_url)
+                echo '<img alt="" src="' . esc_url($image_url) . '">';
+        }
+        echo '</i>';
+    }
+    echo '</div>';
 } else {
     if ($type == 'small') {
         echo '<div class="divider divider-small ' . esc_attr( $css_class ) . ' ' . ($align ? ($align == 'align_left' ? '' : str_replace('align_', 'divider-small-', $align)) : 'divider-small-center') . '">' . '<hr ' . $inline_style . '>' . '</div>';

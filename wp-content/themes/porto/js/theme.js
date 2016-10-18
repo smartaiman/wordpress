@@ -1,5 +1,61 @@
 
 /*
+ Plugin Name: 	BrowserSelector
+ Written by: 	Okler Themes - (http://www.okler.net)
+ Version: 		4.9.1
+ */
+
+(function($) {
+    $.extend({
+
+        browserSelector: function() {
+
+            // jQuery.browser.mobile (http://detectmobilebrowser.com/)
+            (function(a){(jQuery.browser=jQuery.browser||{}).mobile=/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))})(navigator.userAgent||navigator.vendor||window.opera);
+
+            // Touch
+            var hasTouch = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+
+            var u = navigator.userAgent,
+                ua = u.toLowerCase(),
+                is = function (t) {
+                    return ua.indexOf(t) > -1;
+                },
+                g = 'gecko',
+                w = 'webkit',
+                s = 'safari',
+                o = 'opera',
+                h = document.documentElement,
+                b = [(!(/opera|webtv/i.test(ua)) && /msie\s(\d)/.test(ua)) ? ('ie ie' + parseFloat(navigator.appVersion.split("MSIE")[1])) : is('firefox/2') ? g + ' ff2' : is('firefox/3.5') ? g + ' ff3 ff3_5' : is('firefox/3') ? g + ' ff3' : is('gecko/') ? g : is('opera') ? o + (/version\/(\d+)/.test(ua) ? ' ' + o + RegExp.jQuery1 : (/opera(\s|\/)(\d+)/.test(ua) ? ' ' + o + RegExp.jQuery2 : '')) : is('konqueror') ? 'konqueror' : is('chrome') ? w + ' chrome' : is('iron') ? w + ' iron' : is('applewebkit/') ? w + ' ' + s + (/version\/(\d+)/.test(ua) ? ' ' + s + RegExp.jQuery1 : '') : is('mozilla/') ? g : '', is('j2me') ? 'mobile' : is('iphone') ? 'iphone' : is('ipod') ? 'ipod' : is('mac') ? 'mac' : is('darwin') ? 'mac' : is('webtv') ? 'webtv' : is('win') ? 'win' : is('freebsd') ? 'freebsd' : (is('x11') || is('linux')) ? 'linux' : '', 'js'];
+
+            c = b.join(' ');
+
+            if ($.browser.mobile) {
+                c += ' mobile';
+            }
+
+            if (hasTouch) {
+                c += ' touch';
+            }
+
+            h.className += ' ' + c;
+
+            // IE11 Detect
+            var isIE11 = !(window.ActiveXObject) && "ActiveXObject" in window;
+
+            if (isIE11) {
+                $('html').removeClass('gecko').addClass('ie ie11');
+                return;
+            }
+        }
+
+    });
+
+    $.browserSelector();
+
+})(jQuery);
+
+/*
  Plugin Name: 	waitForImages
  Written by: 	https://github.com/alexanderdickson/waitForImages
  */
@@ -742,9 +798,11 @@ Object.defineProperty(RtlDetectLib, '_BIDI_RTL_LANGS', {
     configurable: false
 });
 
-if (RtlDetectLib.isRtlLang(window.navigator.userLanguage || window.navigator.language)) {
-    $('html').addClass('browser-rtl');
-}
+(function($) {
+    if (RtlDetectLib.isRtlLang(window.navigator.userLanguage || window.navigator.language)) {
+        $('html').addClass('browser-rtl');
+    }
+}).apply(this, [jQuery]);
 
 
 /*
@@ -1018,11 +1076,9 @@ window.theme = {};
                 if (winWidth <= 991 - theme.getScrollbarWidth()) {
                     $('.sidebar-overlay').click();
                 }
-                setTimeout(function() {
-                    $('html, body').stop().animate({
-                        scrollTop: $container.offset().top - theme.StickyHeader.sticky_height - theme.adminBarHeight() - theme.sticky_nav_height - 18
-                    }, 600, 'easeOutQuad');
-                }, 200);
+                $('html, body').stop().animate({
+                    scrollTop: $container.offset().top - theme.StickyHeader.sticky_height - theme.adminBarHeight() - theme.sticky_nav_height - 18
+                }, 600, 'easeOutQuad');
             }
         }
     });
@@ -2619,6 +2675,105 @@ function portoCalcSliderTitleLine($parent) {
 }).apply(this, [window.theme, jQuery]);
 
 
+// Parallax
+(function(theme, $) {
+
+    theme = theme || {};
+
+    var instanceName = '__parallax';
+
+    var Parallax = function($el, opts) {
+        return this.initialize($el, opts);
+    };
+
+    Parallax.defaults = {
+        speed: 1.5,
+        horizontalPosition: '50%',
+        offset: 0
+    };
+
+    Parallax.prototype = {
+        initialize: function($el, opts) {
+            if ($el.data(instanceName)) {
+                return this;
+            }
+
+            this.$el = $el;
+
+            this
+                .setData()
+                .setOptions(opts)
+                .build();
+
+            return this;
+        },
+
+        setData: function() {
+            this.$el.data(instanceName, this);
+
+            return this;
+        },
+
+        setOptions: function(opts) {
+            this.options = $.extend(true, {}, Parallax.defaults, opts, {
+                wrapper: this.$el
+            });
+
+            return this;
+        },
+
+        build: function() {
+            var self = this,
+                $window = $(window),
+                offset,
+                yPos,
+                bgpos;
+
+            self.options.wrapper.removeAttr('style');
+            if (typeof self.options.wrapper.data('image-src') != 'undefined')
+                self.options.wrapper.css('background-image', 'url(' + self.options.wrapper.data('image-src') + ')');
+
+            if (!$.browser.mobile) {
+
+                $window.on('scroll resize', function() {
+                    offset = self.options.wrapper.offset();
+                    yPos = -($window.scrollTop() - offset.top) / self.options.speed + (self.options.offset);
+                    bgpos = self.options.horizontalPosition + ' ' + yPos + 'px';
+                    self.options.wrapper.css('background-position', bgpos);
+                });
+
+                $window.trigger('scroll');
+
+            } else {
+                self.options.wrapper.addClass('parallax-disabled');
+            }
+
+            return this;
+        }
+    };
+
+    // expose to scope
+    $.extend(theme, {
+        Parallax: Parallax
+    });
+
+    // jquery plugin
+    $.fn.themeParallax = function(opts) {
+        return this.map(function() {
+            var $this = $(this);
+
+            if ($this.data(instanceName)) {
+                return $this.data(instanceName);
+            } else {
+                return new theme.Parallax($this, opts);
+            }
+
+        });
+    }
+
+}).apply(this, [window.theme, jQuery]);
+
+
 // Visual Composer Image Zoom
 
 // VcImageZoom
@@ -3949,6 +4104,8 @@ function portoCalcSliderTitleLine($parent) {
 
                 self.$header_main = self.$header.find('.header-main');
 
+                self.reveal = self.$header.parents('.header-wrapper').hasClass('header-reveal');
+
                 self.is_sticky = false;
 
                 self.reset()
@@ -4139,6 +4296,10 @@ function portoCalcSliderTitleLine($parent) {
                     self.header_height = self.$header.height() + parseInt(self.$header.css('margin-top'));
                     self.menu_height = self.$menu_wrap.height() + parseInt(self.$menu_wrap.css('padding-top')) + parseInt(self.$menu_wrap.css('padding-bottom'));
                     self.sticky_pos = (self.header_height - self.sticky_height) + $('.banner-before-header').height() + parseInt($('body').css('padding-top')) + parseInt(self.$header.css('border-top-width'));
+
+                    if (self.reveal) {
+                        self.sticky_pos += self.menu_height + 30;
+                    }
                 } else {
                     // show header main
                     self.$header.addClass('sticky-header sticky-header-calc');
@@ -4161,6 +4322,10 @@ function portoCalcSliderTitleLine($parent) {
                     }
 
                     self.sticky_pos = (self.header_height - self.sticky_main_height) + $('.banner-before-header').height() + parseInt($('body').css('padding-top')) + parseInt(self.$header.css('border-top-width'));
+
+                    if (self.reveal) {
+                        self.sticky_pos += self.main_height + 30;
+                    }
                 }
 
                 self.init_toggle_menu = false;
@@ -4172,11 +4337,14 @@ function portoCalcSliderTitleLine($parent) {
             },
 
             events: function() {
-                var self = this;
+                var self = this, win_width = 0;
 
                 $(window).on('resize', function() {
-                    self.reset()
-                        .build();
+                    if (win_width != $(window).width()) {
+                        self.reset()
+                            .build();
+                        win_width = $(window).width();
+                    }
                 });
 
                 $(window).on('scroll', function() {
@@ -4983,7 +5151,7 @@ function portoCalcSliderTitleLine($parent) {
 
                     var $this = $(this);
 
-                    if (!$this.find('#porfolioAjaxBox').get(0))
+                    if (!$this.find('#portfolioAjaxBox').get(0))
                         return;
 
                     var $container = $(this),
@@ -4993,8 +5161,8 @@ function portoCalcSliderTitleLine($parent) {
                             pages: [],
                             currentPage: 0,
                             total: 0,
-                            $ajaxBox: $this.find('#porfolioAjaxBox'),
-                            $ajaxBoxContent: $this.find('#porfolioAjaxBoxContent'),
+                            $ajaxBox: $this.find('#portfolioAjaxBox'),
+                            $ajaxBoxContent: $this.find('#portfolioAjaxBoxContent'),
 
                             build: function() {
                                 var self = this;
@@ -5128,7 +5296,7 @@ function portoCalcSliderTitleLine($parent) {
 
                                         $portfolio.find('.portfolio-nav-all').html('<a href="#" data-ajax-portfolio-close data-tooltip data-original-title="' + js_porto_vars.popup_close + '"><i class="fa fa-th"></i></a>');
                                         $portfolio.find('.portfolio-nav').html('<a href="#" data-ajax-portfolio-prev class="portfolio-nav-prev" data-tooltip data-original-title="' + js_porto_vars.popup_prev + '"><i class="fa"></i></a><a href="#" data-toggle="tooltip" data-ajax-portfolio-next class="portfolio-nav-next" data-tooltip data-original-title="' + js_porto_vars.popup_next + '"><i class="fa"></i></a>');
-                                        self.$ajaxBoxContent.html($portfolio.html()).append('<div class="row"><div class="col-md-12"><hr class="tall mt-xl"></div></div>');
+                                        self.$ajaxBoxContent.html($portfolio.html()).append('<div class="row"><div class="col-md-12"><hr class="tall"></div></div>');
                                         self.$ajaxBox.removeClass('ajax-box-loading');
                                         $(window).trigger('resize');
                                         porto_init();
@@ -5651,6 +5819,184 @@ function portoCalcSliderTitleLine($parent) {
             }
         }
 
+    });
+
+}).apply(this, [window.theme, jQuery]);
+
+
+// Member Ajax on Page
+(function(theme, $) {
+
+    theme = theme || {};
+
+    var activeMemberAjaxOnPage;
+
+    $.extend(theme, {
+
+        MemberAjaxPage: {
+
+            defaults: {
+                elements: '.page-members'
+            },
+
+            initialize: function($elements) {
+                this.$elements = ($elements || $(this.defaults.elements));
+
+                this.build();
+
+                return this;
+            },
+
+            build: function() {
+                var self = this;
+
+                self.$elements.each(function() {
+
+                    var $this = $(this);
+
+                    if (!$this.find('#memberAjaxBox').get(0))
+                        return;
+
+                    var $container = $(this),
+                        memberAjaxOnPage = {
+
+                            $wrapper: $container,
+                            pages: [],
+                            currentPage: 0,
+                            total: 0,
+                            $ajaxBox: $this.find('#memberAjaxBox'),
+                            $ajaxBoxContent: $this.find('#memberAjaxBoxContent'),
+
+                            build: function() {
+                                var self = this;
+
+                                self.pages = [];
+                                self.total = 0;
+
+                                $this.find('a[data-ajax-on-page]').each(function() {
+                                    self.add($(this));
+                                });
+
+                                $this.off('mousedown', 'a[data-ajax-on-page]').on('mousedown', 'a[data-ajax-on-page]', function (ev) {
+                                    if (ev.which == 2) {
+                                        ev.preventDefault();
+                                        return false;
+                                    }
+                                });
+                            },
+
+                            add: function($el) {
+
+                                var self = this,
+                                    href = $el.attr('href');
+
+                                self.pages.push(href);
+                                self.total++;
+
+                                $el.off('click').on('click', function(e) {
+                                    e.preventDefault();
+                                    self.show(self.pages.indexOf(href));
+                                    return false;
+                                });
+
+                            },
+
+                            next: function() {
+                                var self = this;
+                                if(self.currentPage + 1 < self.total) {
+                                    self.show(self.currentPage + 1);
+                                } else {
+                                    self.show(0);
+                                }
+                            },
+
+                            prev: function() {
+                                var self = this;
+
+                                if((self.currentPage - 1) >= 0) {
+                                    self.show(self.currentPage - 1);
+                                } else {
+                                    self.show(self.total - 1);
+                                }
+                            },
+
+                            show: function(i) {
+                                var self = this;
+
+                                activeMemberAjaxOnPage = null;
+
+                                if (self.$ajaxBoxContent.find('.rev_slider').get(0)) {
+                                    try {self.$ajaxBoxContent.find('.rev_slider').revkill();} catch(err) {}
+                                }
+                                self.$ajaxBoxContent.empty();
+                                self.$ajaxBox.removeClass('ajax-box-init').addClass('ajax-box-loading');
+
+                                theme.scrolltoContainer(self.$ajaxBox);
+
+                                self.currentPage = i;
+
+                                if (i < 0 || i > (self.total-1)) {
+                                    self.close();
+                                    return false;
+                                }
+
+                                // Ajax
+                                $.ajax({
+                                    url: self.pages[i],
+                                    complete: function(data) {
+                                        var $response = $(data.responseText),
+                                            $member = $response.find('#content article.member'),
+                                            $vc_css = $response.filter('style[data-type]:not("")'),
+                                            vc_css = '';
+
+                                        $vc_css.each(function() {
+                                            vc_css += $(this).text();
+                                        });
+
+                                        if ($('#memberAjaxCSS').get(0)) {
+                                            $('#memberAjaxCSS').text(vc_css);
+                                        } else {
+                                            $('<style id="memberAjaxCSS">' + vc_css + '</style>').appendTo( "head" )
+                                        }
+
+                                        var $append = self.$ajaxBox.find('.ajax-content-append'), html = '';
+                                        if ($append.length) html = $append.html();
+                                        self.$ajaxBoxContent.html($member.html()).prepend('<div class="row"><div class="col-md-12"><hr class="tall m-t-none"></div></div>').append('<div class="row"><div class="col-md-12"><hr class="m-t-md"></div></div>' + html);
+
+                                        self.$ajaxBox.removeClass('ajax-box-loading');
+                                        $(window).trigger('resize');
+                                        porto_init();
+                                        theme.refreshVCContent(self.$ajaxBoxContent);
+                                        activeMemberAjaxOnPage = self;
+                                    }
+                                });
+                            }
+                        };
+
+                    memberAjaxOnPage.build();
+
+                    $this.data('memberAjaxOnPage', memberAjaxOnPage);
+                });
+
+                return self;
+            }
+        }
+
+    });
+
+    // Key Press
+    $(document.documentElement).on('keyup', function(e) {
+        try {
+            if (!activeMemberAjaxOnPage) return;
+            // Next
+            if (e.keyCode == 39) {
+                activeMemberAjaxOnPage.next();
+            }
+            // Prev
+            if (e.keyCode == 37) {
+                activeMemberAjaxOnPage.prev();
+            }
+        } catch(err) {}
     });
 
 }).apply(this, [window.theme, jQuery]);
@@ -7565,6 +7911,30 @@ function porto_init() {
 
     }).apply(this, [jQuery]);
 
+    // Parallax
+    (function($) {
+
+        'use strict';
+
+        if ($.isFunction($.fn['themeParallax'])) {
+
+            $(function() {
+                $('[data-plugin-parallax]:not(.manual)').each(function() {
+                    var $this = $(this),
+                        opts;
+
+                    var pluginOptions = $this.data('plugin-options');
+                    if (pluginOptions)
+                        opts = pluginOptions;
+
+                    $this.themeParallax(opts);
+                });
+            });
+
+        }
+
+    }).apply(this, [jQuery]);
+
     // Visual Composer Image Zoom
     (function($) {
 
@@ -7932,6 +8302,11 @@ function porto_init() {
             theme.PortfolioFilter.initialize();
         }
 
+        // Member Ajax on Page
+        if (typeof theme.MemberAjaxPage !== 'undefined') {
+            theme.MemberAjaxPage.initialize();
+        }
+
         // Members Infinite
         if (typeof theme.MembersInfinite !== 'undefined') {
             theme.MembersInfinite.initialize();
@@ -8109,6 +8484,7 @@ function porto_init() {
                     success: function(response) {
                         var $response_container = $('<div>' + response + '</div>').find('.porto-members'+shortcode_id);
                         $container.html($response_container.html());
+                        theme.MemberAjaxPage.initialize($container.find('.page-members'));
                         porto_init();
                         theme.MemberFilter.initialize($container.find('.member-filter'));
                     }
@@ -8221,3 +8597,5 @@ function porto_init() {
     }
 
 })( window.theme, jQuery );
+
+

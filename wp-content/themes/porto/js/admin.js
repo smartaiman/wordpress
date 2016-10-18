@@ -153,7 +153,7 @@
 jQuery(document).ready(function($) {
     // content type meta tab
     $('.porto-meta-tab').easyResponsiveTabs({
-        type: 'default'//, //default, vertical, accordion;
+        type: 'vertical'//, //default, vertical, accordion;
     });
 
     // taxonomy meta tab
@@ -247,6 +247,13 @@ jQuery(document).ready(function($) {
             }
         });
     });
+
+    // codemirror
+    if (typeof CodeMirror != 'undefined') {
+        if (document.getElementById("custom_css")) CodeMirror.fromTextArea(document.getElementById("custom_css"), { lineNumbers: true, mode: 'css' });
+        if (document.getElementById("custom_js_head")) CodeMirror.fromTextArea(document.getElementById("custom_js_head"), { lineNumbers: true, mode: 'javascript' });
+        if (document.getElementById("custom_js_body")) CodeMirror.fromTextArea(document.getElementById("custom_js_body"), { lineNumbers: true, mode: 'javascript' });
+    }
 });
 
 // Uploading files

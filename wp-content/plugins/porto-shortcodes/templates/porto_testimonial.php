@@ -70,7 +70,7 @@ if ($view == 'transparent') {
     $output .= '<span'.($role_company_color?' style="color:'.esc_attr($role_company_color).'"':'').'>'.$role.(($role && $company)?' - ':'').$company.'</span></p>';
     $output .= '</div></div>';
 } else {
-    $output .= '<div class="testimonial' . (!$style && $skin != 'custom' ? ' testimonial-' . $skin : '') . ($style ? ' ' . $style : '') . ($remove_border ? ' testimonial-no-borders' : '') . ($remove_bg ? ' testimonial-trasnparent-background' : '') . ($alt_font ? ' testimonial-alternarive-font' : '') . '"><blockquote>';
+    $output .= '<div class="testimonial' . (!$style && $skin != 'custom' ? ' testimonial-' . $skin : '') . ($style ? ' ' . $style : '') . ($remove_border ? ' testimonial-no-borders' : '') . ($remove_bg ? ' testimonial-transparent-background' : '') . ($alt_font ? ' testimonial-alternarive-font' : '') . '"><blockquote>';
     $output .= '<p'.($quote_color?' style="color:'.esc_attr($quote_color).'"':'').'>'.do_shortcode($content != '' ? $content : $quote).'</p>';
     $output .= '</blockquote>';
     if (!$remove_bg) $output .= '<div class="testimonial-arrow-down"></div>';

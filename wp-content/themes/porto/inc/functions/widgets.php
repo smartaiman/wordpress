@@ -138,7 +138,7 @@ function porto_register_sidebars() {
 
 add_filter('dynamic_sidebar_params', 'porto_add_classes_to_widget');
 function porto_add_classes_to_widget($params){
-    if ($params[0]['widget_name'] == __("MailPoet Subscription Form", 'wysija-newsletters')) {
+    if ($params[0]['widget_name'] == __("MailPoet Subscription Form", 'wysija-newsletters') || $params[0]['widget_name'] == "MailPoet Subscription Form") {
         $params[0]['before_widget'] = $params[0]['before_widget'] . '<div class="box-content">';
         $params[0]['after_widget'] = '</div>' . $params[0]['after_widget'];
     }

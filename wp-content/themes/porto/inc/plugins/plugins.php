@@ -41,7 +41,7 @@ function porto_register_required_plugins() {
             'slug'                     => 'js_composer',
             'source'                   => porto_plugins . '/js_composer.zip',
             'required'                 => true,
-            'version'                  => '4.12',
+            'version'                  => '4.12.1',
             'image_url'                => porto_plugins_uri . '/images/visual_composer.png'
         ),
         array(
@@ -57,7 +57,7 @@ function porto_register_required_plugins() {
             'slug'                     => 'porto-shortcodes',
             'source'                   => porto_plugins . '/porto-shortcodes.zip',
             'required'                 => true,
-            'version'                  => '1.6',
+            'version'                  => '1.6.1',
             'image_url'                => porto_plugins_uri . '/images/porto_shortcodes.png'
         ),
         array(
@@ -65,7 +65,7 @@ function porto_register_required_plugins() {
             'slug'                     => 'porto-widgets',
             'source'                   => porto_plugins . '/porto-widgets.zip',
             'required'                 => true,
-            'version'                  => '1.3',
+            'version'                  => '1.3.1',
             'image_url'                => porto_plugins_uri . '/images/porto_widgets.png'
         ),
         array(

@@ -321,6 +321,14 @@ if (!function_exists('porto_sh_commons')) {
             case 'preview_time':           return Porto_ShSharedLibrary::getPreviewTime();
             case 'preview_position':       return Porto_ShSharedLibrary::getPreviewPosition();
             case 'popup_action':           return Porto_ShSharedLibrary::getPopupAction();
+            case 'feature_box_style':      return Porto_ShSharedLibrary::getFeatureBoxStyle();
+            case 'feature_box_dir':        return Porto_ShSharedLibrary::getFeatureBoxDir();
+            case 'section_skin':           return Porto_ShSharedLibrary::getSectionSkin();
+            case 'section_color_scale':    return Porto_ShSharedLibrary::getSectionColorScale();
+            case 'section_text_color':     return Porto_ShSharedLibrary::getSectionTextColor();
+            case 'separator_icon_style':   return Porto_ShSharedLibrary::getSeparatorIconStyle();
+            case 'separator_icon_size':    return Porto_ShSharedLibrary::getSeparatorIconSize();
+            case 'separator_icon_pos':     return Porto_ShSharedLibrary::getSeparatorIconPosition();
             default: return array();
         }
     }
@@ -431,7 +439,8 @@ if (!class_exists('Porto_ShSharedLibrary')) {
             return array(
                 __('Standard', 'porto-shortcodes' ) => 'classic',
                 __('Type 1', 'porto-shortcodes' ) => 'onimage',
-                __('Type 2', 'porto-shortcodes' ) => 'outimage'
+                __('Type 2', 'porto-shortcodes' ) => 'outimage',
+                __('Type 3', 'porto-shortcodes' ) => 'outimage_cat'
             );
         }
 
@@ -662,6 +671,85 @@ if (!class_exists('Porto_ShSharedLibrary')) {
                 __( 'Popup Block', 'porto-shortcodes' )=> 'popup_block'
             );
         }
+
+        public static function getFeatureBoxStyle() {
+            return array(
+                __('Style 1', 'porto-shortcodes' ) => '',
+                __('Style 2', 'porto-shortcodes' ) => 'feature-box-style-2',
+                __('Style 3', 'porto-shortcodes' ) => 'feature-box-style-3',
+                __('Style 4', 'porto-shortcodes' ) => 'feature-box-style-4',
+                __('Style 5', 'porto-shortcodes' ) => 'feature-box-style-5',
+                __('Style 6', 'porto-shortcodes' ) => 'feature-box-style-6',
+            );
+        }
+
+        public static function getFeatureBoxDir() {
+            return array(
+                __('Default', 'porto-shortcodes' ) => '',
+                __('Reverse', 'porto-shortcodes' ) => 'reverse',
+            );
+        }
+
+        public static function getSectionSkin() {
+            return array(
+                __('Default', 'porto-shortcodes')    => 'default',
+                __('Transparent', 'porto-shortcodes')    => 'parallax',
+                __('Primary', 'porto-shortcodes')    => 'primary',
+                __('Secondary', 'porto-shortcodes')  => 'secondary',
+                __('Tertiary', 'porto-shortcodes')   => 'tertiary',
+                __('Quaternary', 'porto-shortcodes') => 'quaternary',
+                __('Dark', 'porto-shortcodes')       => 'dark',
+                __('Light', 'porto-shortcodes')      => 'light',
+            );
+        }
+
+        public static function getSectionColorScale() {
+            return array(
+                __('Default', 'porto-shortcodes') => '',
+                __('Scale 1', 'porto-shortcodes') => 'scale-1',
+                __('Scale 2', 'porto-shortcodes') => 'scale-2',
+                __('Scale 3', 'porto-shortcodes') => 'scale-3',
+                __('Scale 4', 'porto-shortcodes') => 'scale-4',
+                __('Scale 5', 'porto-shortcodes') => 'scale-5',
+                __('Scale 6', 'porto-shortcodes') => 'scale-6',
+                __('Scale 7', 'porto-shortcodes') => 'scale-7',
+                __('Scale 8', 'porto-shortcodes') => 'scale-8',
+                __('Scale 9', 'porto-shortcodes') => 'scale-9',
+            );
+        }
+
+        public static function getSectionTextColor() {
+            return array(
+                __('Default', 'porto-shortcodes') => '',
+                __('Dark', 'porto-shortcodes')    => 'dark',
+                __('Light', 'porto-shortcodes')   => 'light',
+            );
+        }
+
+        public static function getSeparatorIconStyle() {
+            return array(
+                __('Style 1', 'porto-shortcodes' ) => '',
+                __('Style 2', 'porto-shortcodes' ) => 'style-2',
+                __('Style 3', 'porto-shortcodes' ) => 'style-3',
+                __('Style 4', 'porto-shortcodes' ) => 'style-4',
+            );
+        }
+
+        public static function getSeparatorIconSize() {
+            return array(
+                __('Normal', 'porto-shortcodes' ) => '',
+                __('Small', 'porto-shortcodes' )  => 'sm',
+                __('Large', 'porto-shortcodes' )  => 'lg'
+            );
+        }
+
+        public static function getSeparatorIconPosition() {
+            return array(
+                __('Center', 'porto-shortcodes' ) => '',
+                __('Left', 'porto-shortcodes' )  => 'left',
+                __('Right', 'porto-shortcodes' )  => 'right'
+            );
+        }
     }
 }
 
@@ -815,45 +903,71 @@ if (!function_exists('vc_iconpicker_type_simpleline')) {
 
     function vc_iconpicker_type_simpleline( $icons ) {
         $simpleline_icons = array(
+            array( 'Simple-Line-Icons-user' => 'User' ),
+            array( 'Simple-Line-Icons-people' => 'People' ),
             array( 'Simple-Line-Icons-user-female' => 'User Female' ),
-            array( 'Simple-Line-Icons-users' => 'Users' ),
             array( 'Simple-Line-Icons-user-follow' => 'User Follow' ),
             array( 'Simple-Line-Icons-user-following' => 'User Following' ),
             array( 'Simple-Line-Icons-user-unfollow' => 'User Unfollow' ),
-            array( 'Simple-Line-Icons-user' => 'User' ),
+            array( 'Simple-Line-Icons-login' => 'Login' ),
+            array( 'Simple-Line-Icons-logout' => 'Logout' ),
+            array( 'Simple-Line-Icons-emotsmile' => 'Emotsmile' ),
+            array( 'Simple-Line-Icons-phone' => 'Phone' ),
+            array( 'Simple-Line-Icons-call-end' => 'Call End' ),
+            array( 'Simple-Line-Icons-call-in' => 'Call In' ),
+            array( 'Simple-Line-Icons-call-out' => 'Call Out' ),
+            array( 'Simple-Line-Icons-map' => 'Map' ),
+            array( 'Simple-Line-Icons-location-pin' => 'Location Pin' ),
+            array( 'Simple-Line-Icons-direction' => 'Direction' ),
+            array( 'Simple-Line-Icons-directions' => 'Directions' ),
+            array( 'Simple-Line-Icons-compass' => 'Compass' ),
+            array( 'Simple-Line-Icons-layers' => 'Layers' ),
+            array( 'Simple-Line-Icons-menu' => 'Menu' ),
+            array( 'Simple-Line-Icons-list' => 'List' ),
+            array( 'Simple-Line-Icons-options-vertical' => 'Options Vertical' ),
+            array( 'Simple-Line-Icons-options' => 'Options' ),
+            array( 'Simple-Line-Icons-arrow-down' => 'Arrow Down' ),
+            array( 'Simple-Line-Icons-arrow-left' => 'Arrow Left' ),
+            array( 'Simple-Line-Icons-arrow-right' => 'Arrow Right' ),
+            array( 'Simple-Line-Icons-arrow-up' => 'Arrow Up' ),
+            array( 'Simple-Line-Icons-arrow-up-circle' => 'Arrow Up Circle' ),
+            array( 'Simple-Line-Icons-arrow-left-circle' => 'Arrow Left Circle' ),
+            array( 'Simple-Line-Icons-arrow-right-circle' => 'Arrow Right Circle' ),
+            array( 'Simple-Line-Icons-arrow-down-circle' => 'Arrow Down Circle' ),
+            array( 'Simple-Line-Icons-check' => 'Check' ),
+            array( 'Simple-Line-Icons-clock' => 'Clock' ),
+            array( 'Simple-Line-Icons-plus' => 'Plus' ),
+            array( 'Simple-Line-Icons-minus' => 'Minus' ),
+            array( 'Simple-Line-Icons-close' => 'Close' ),
+            array( 'Simple-Line-Icons-event' => 'Event' ),
+            array( 'Simple-Line-Icons-exclamation' => 'Exclamation' ),
+            array( 'Simple-Line-Icons-organization' => 'Organization' ),
             array( 'Simple-Line-Icons-trophy' => 'Trophy' ),
-            array( 'Simple-Line-Icons-speedometer' => 'Speedometer' ),
-            array( 'Simple-Line-Icons-social-youtube' => 'Youtube' ),
-            array( 'Simple-Line-Icons-social-twitter' => 'Twitter' ),
-            array( 'Simple-Line-Icons-social-tumblr' => 'Tumblr' ),
-            array( 'Simple-Line-Icons-social-facebook' => 'Facebook' ),
-            array( 'Simple-Line-Icons-social-dropbox' => 'Dropbox' ),
-            array( 'Simple-Line-Icons-social-dribbble' => 'Dribbble' ),
-            array( 'Simple-Line-Icons-shield' => 'Shield' ),
-            array( 'Simple-Line-Icons-screen-tablet' => 'Tablet' ),
             array( 'Simple-Line-Icons-screen-smartphone' => 'Smartphone' ),
             array( 'Simple-Line-Icons-screen-desktop' => 'Desktop' ),
             array( 'Simple-Line-Icons-plane' => 'Plane' ),
             array( 'Simple-Line-Icons-notebook' => 'Notebook' ),
-            array( 'Simple-Line-Icons-moustache' => 'Moustache' ),
+            array( 'Simple-Line-Icons-mustache' => 'Mustache' ),
             array( 'Simple-Line-Icons-mouse' => 'Mouse' ),
             array( 'Simple-Line-Icons-magnet' => 'Magnet' ),
+            array( 'Simple-Line-Icons-energy' => 'Energy' ),
+            array( 'Simple-Line-Icons-disc' => 'Disc' ),
+            array( 'Simple-Line-Icons-cursor' => 'Cursor' ),
+            array( 'Simple-Line-Icons-cursor-move' => 'Cursor Move' ),
+            array( 'Simple-Line-Icons-crop' => 'Crop' ),
+            array( 'Simple-Line-Icons-chemistry' => 'Chemistry' ),
+            array( 'Simple-Line-Icons-speedometer' => 'Speedometer' ),
+            array( 'Simple-Line-Icons-shield' => 'Shield' ),
+            array( 'Simple-Line-Icons-screen-tablet' => 'Tablet' ),
             array( 'Simple-Line-Icons-magic-wand' => 'Magic Wand' ),
             array( 'Simple-Line-Icons-hourglass' => 'Hourglass' ),
             array( 'Simple-Line-Icons-graduation' => 'Graduation' ),
             array( 'Simple-Line-Icons-ghost' => 'Ghost' ),
             array( 'Simple-Line-Icons-game-controller' => 'Game Controller' ),
             array( 'Simple-Line-Icons-fire' => 'Fire' ),
-            array( 'Simple-Line-Icons-eyeglasses' => 'Eyeglasses' ),
+            array( 'Simple-Line-Icons-eyeglass' => 'Eyeglass' ),
             array( 'Simple-Line-Icons-envelope-open' => 'Envelope Open' ),
             array( 'Simple-Line-Icons-envelope-letter' => 'Envelope Letter' ),
-            array( 'Simple-Line-Icons-energy' => 'Energy' ),
-            array( 'Simple-Line-Icons-emotsmile' => 'Emotsmile' ),
-            array( 'Simple-Line-Icons-disc' => 'Disc' ),
-            array( 'Simple-Line-Icons-cursor-move' => 'Cursor Move' ),
-            array( 'Simple-Line-Icons-crop' => 'Crop' ),
-            array( 'Simple-Line-Icons-credit-card' => 'Credit Card' ),
-            array( 'Simple-Line-Icons-chemistry' => 'Chemistry' ),
             array( 'Simple-Line-Icons-bell' => 'Bell' ),
             array( 'Simple-Line-Icons-badge' => 'Badge' ),
             array( 'Simple-Line-Icons-anchor' => 'Anchor' ),
@@ -866,28 +980,19 @@ if (!function_exists('vc_iconpicker_type_simpleline')) {
             array( 'Simple-Line-Icons-playlist' => 'Playlist' ),
             array( 'Simple-Line-Icons-pin' => 'Pin' ),
             array( 'Simple-Line-Icons-picture' => 'Picture' ),
-            array( 'Simple-Line-Icons-map' => 'Map' ),
-            array( 'Simple-Line-Icons-layers' => 'Layers' ),
             array( 'Simple-Line-Icons-handbag' => 'Handbag' ),
             array( 'Simple-Line-Icons-globe-alt' => 'Globe Alt' ),
             array( 'Simple-Line-Icons-globe' => 'Globe' ),
-            array( 'Simple-Line-Icons-frame' => 'Frame' ),
             array( 'Simple-Line-Icons-folder-alt' => 'Folder Alt' ),
+            array( 'Simple-Line-Icons-folder' => 'Folder' ),
             array( 'Simple-Line-Icons-film' => 'Film' ),
             array( 'Simple-Line-Icons-feed' => 'Feed' ),
-            array( 'Simple-Line-Icons-earphones-alt' => 'Earphones Alt' ),
-            array( 'Simple-Line-Icons-earphones' => 'Earphones' ),
             array( 'Simple-Line-Icons-drop' => 'Drop' ),
             array( 'Simple-Line-Icons-drawer' => 'Drawer' ),
             array( 'Simple-Line-Icons-docs' => 'Docs' ),
-            array( 'Simple-Line-Icons-directions' => 'Directions' ),
-            array( 'Simple-Line-Icons-direction' => 'Direction' ),
+            array( 'Simple-Line-Icons-doc' => 'Doc' ),
             array( 'Simple-Line-Icons-diamond' => 'Diamond' ),
             array( 'Simple-Line-Icons-cup' => 'Cup' ),
-            array( 'Simple-Line-Icons-compass' => 'Compass' ),
-            array( 'Simple-Line-Icons-call-out' => 'Call Out' ),
-            array( 'Simple-Line-Icons-call-in' => 'Call In' ),
-            array( 'Simple-Line-Icons-call-end' => 'Call End' ),
             array( 'Simple-Line-Icons-calculator' => 'Calculator' ),
             array( 'Simple-Line-Icons-bubbles' => 'Bubbles' ),
             array( 'Simple-Line-Icons-briefcase' => 'Briefcase' ),
@@ -902,6 +1007,7 @@ if (!function_exists('vc_iconpicker_type_simpleline')) {
             array( 'Simple-Line-Icons-trash' => 'Trash' ),
             array( 'Simple-Line-Icons-tag' => 'Tag' ),
             array( 'Simple-Line-Icons-support' => 'Support' ),
+            array( 'Simple-Line-Icons-frame' => 'Frame' ),
             array( 'Simple-Line-Icons-size-fullscreen' => 'Size Fullscreen' ),
             array( 'Simple-Line-Icons-size-actual' => 'Size Actual' ),
             array( 'Simple-Line-Icons-shuffle' => 'Shuffle' ),
@@ -912,47 +1018,39 @@ if (!function_exists('vc_iconpicker_type_simpleline')) {
             array( 'Simple-Line-Icons-pie-chart' => 'Pie Chart' ),
             array( 'Simple-Line-Icons-pencil' => 'Pencil' ),
             array( 'Simple-Line-Icons-note' => 'Note' ),
-            array( 'Simple-Line-Icons-music-tone-alt' => 'Music Tone Alt' ),
-            array( 'Simple-Line-Icons-music-tone' => 'Music Tone' ),
-            array( 'Simple-Line-Icons-microphone' => 'Microphone' ),
             array( 'Simple-Line-Icons-loop' => 'Loop' ),
-            array( 'Simple-Line-Icons-logout' => 'Logout' ),
-            array( 'Simple-Line-Icons-login' => 'Login' ),
-            array( 'Simple-Line-Icons-list' => 'List' ),
-            array( 'Simple-Line-Icons-like' => 'Like' ),
             array( 'Simple-Line-Icons-home' => 'Home' ),
             array( 'Simple-Line-Icons-grid' => 'Grid' ),
             array( 'Simple-Line-Icons-graph' => 'Graph' ),
+            array( 'Simple-Line-Icons-microphone' => 'Microphone' ),
+            array( 'Simple-Line-Icons-music-tone-alt' => 'Music Tone Alt' ),
+            array( 'Simple-Line-Icons-music-tone' => 'Music Tone' ),
+            array( 'Simple-Line-Icons-earphones-alt' => 'Earphones Alt' ),
+            array( 'Simple-Line-Icons-earphones' => 'Earphones' ),
             array( 'Simple-Line-Icons-equalizer' => 'Equalizer' ),
+            array( 'Simple-Line-Icons-like' => 'Like' ),
             array( 'Simple-Line-Icons-dislike' => 'Dislike' ),
-            array( 'Simple-Line-Icons-cursor' => 'Cursor' ),
             array( 'Simple-Line-Icons-control-start' => 'Control Start' ),
             array( 'Simple-Line-Icons-control-rewind' => 'Control Rewind' ),
             array( 'Simple-Line-Icons-control-play' => 'Control Play' ),
             array( 'Simple-Line-Icons-control-pause' => 'Control Pause' ),
             array( 'Simple-Line-Icons-control-forward' => 'Control Forward' ),
             array( 'Simple-Line-Icons-control-end' => 'Control End' ),
+            array( 'Simple-Line-Icons-volume-1' => 'Volume 1' ),
+            array( 'Simple-Line-Icons-volume-2' => 'Volume 2' ),
+            array( 'Simple-Line-Icons-volume-off' => 'Volume Off' ),
             array( 'Simple-Line-Icons-calendar' => 'Calendar' ),
             array( 'Simple-Line-Icons-bulb' => 'Bulb' ),
-            array( 'Simple-Line-Icons-bar-chart' => 'Bar Chart' ),
-            array( 'Simple-Line-Icons-arrow-up' => 'Arrow Up' ),
-            array( 'Simple-Line-Icons-arrow-right' => 'Arrow Right' ),
-            array( 'Simple-Line-Icons-arrow-left' => 'Arrow Left' ),
-            array( 'Simple-Line-Icons-arrow-down' => 'Arrow Down' ),
+            array( 'Simple-Line-Icons-chart' => 'Chart' ),
             array( 'Simple-Line-Icons-ban' => 'Ban' ),
             array( 'Simple-Line-Icons-bubble' => 'Bubble' ),
             array( 'Simple-Line-Icons-camcorder' => 'Camcorder' ),
             array( 'Simple-Line-Icons-camera' => 'Camera' ),
-            array( 'Simple-Line-Icons-check' => 'Check' ),
-            array( 'Simple-Line-Icons-clock' => 'Clock' ),
-            array( 'Simple-Line-Icons-close' => 'Close' ),
             array( 'Simple-Line-Icons-cloud-download' => 'Cloud Download' ),
             array( 'Simple-Line-Icons-cloud-upload' => 'Cloud Upload' ),
-            array( 'Simple-Line-Icons-doc' => 'Doc' ),
             array( 'Simple-Line-Icons-envelope' => 'Envelope' ),
             array( 'Simple-Line-Icons-eye' => 'Eye' ),
             array( 'Simple-Line-Icons-flag' => 'Flag' ),
-            array( 'Simple-Line-Icons-folder' => 'Folder' ),
             array( 'Simple-Line-Icons-heart' => 'Heart' ),
             array( 'Simple-Line-Icons-info' => 'Info' ),
             array( 'Simple-Line-Icons-key' => 'Key' ),
@@ -964,19 +1062,42 @@ if (!function_exists('vc_iconpicker_type_simpleline')) {
             array( 'Simple-Line-Icons-magnifier-remove' => 'Magnifier Remove' ),
             array( 'Simple-Line-Icons-paper-clip' => 'Paper Clip' ),
             array( 'Simple-Line-Icons-paper-plane' => 'Paper Plane' ),
-            array( 'Simple-Line-Icons-plus' => 'Plus' ),
-            array( 'Simple-Line-Icons-pointer' => 'Pointer' ),
             array( 'Simple-Line-Icons-power' => 'Power' ),
             array( 'Simple-Line-Icons-refresh' => 'Refresh' ),
             array( 'Simple-Line-Icons-reload' => 'Reload' ),
             array( 'Simple-Line-Icons-settings' => 'Settings' ),
             array( 'Simple-Line-Icons-star' => 'Star' ),
-            array( 'Simple-Line-Icons-symbol-fermale' => 'Symbol Fermale' ),
+            array( 'Simple-Line-Icons-symbol-female' => 'Symbol Female' ),
             array( 'Simple-Line-Icons-symbol-male' => 'Symbol Male' ),
             array( 'Simple-Line-Icons-target' => 'Target' ),
-            array( 'Simple-Line-Icons-volume-1' => 'Volume 1' ),
-            array( 'Simple-Line-Icons-volume-2' => 'Volume 2' ),
-            array( 'Simple-Line-Icons-volume-off' => 'Volume Off' )
+            array( 'Simple-Line-Icons-credit-card' => 'Credit Card' ),
+            array( 'Simple-Line-Icons-paypal' => 'Paypal' ),
+            array( 'Simple-Line-Icons-social-tumblr' => 'Tumblr' ),
+            array( 'Simple-Line-Icons-social-twitter' => 'Twitter' ),
+            array( 'Simple-Line-Icons-social-facebook' => 'Facebook' ),
+            array( 'Simple-Line-Icons-social-instagram' => 'Instagram' ),
+            array( 'Simple-Line-Icons-social-linkedin' => 'Linkedin' ),
+            array( 'Simple-Line-Icons-social-pinterest' => 'Pinterest' ),
+            array( 'Simple-Line-Icons-social-github' => 'Github' ),
+            array( 'Simple-Line-Icons-social-google' => 'Google' ),
+            array( 'Simple-Line-Icons-social-reddit' => 'Reddit' ),
+            array( 'Simple-Line-Icons-social-skype' => 'Skype' ),
+            array( 'Simple-Line-Icons-social-dribbble' => 'Dribbble' ),
+            array( 'Simple-Line-Icons-social-behance' => 'Behance' ),
+            array( 'Simple-Line-Icons-social-foursqare' => 'Foursqare' ),
+            array( 'Simple-Line-Icons-social-soundcloud' => 'Soundcloud' ),
+            array( 'Simple-Line-Icons-social-spotify' => 'Spotify' ),
+            array( 'Simple-Line-Icons-social-stumbleupon' => 'Stumbleupon' ),
+            array( 'Simple-Line-Icons-social-youtube' => 'Youtube' ),
+            array( 'Simple-Line-Icons-social-dropbox' => 'Dropbox' ),
+            array( 'Simple-Line-Icons-social-vkontakte' => 'Vkontakte' ),
+            array( 'Simple-Line-Icons-social-steam' => 'Steam' ),
+            array( 'Simple-Line-Icons-moustache' => 'Moustache' ),
+            array( 'Simple-Line-Icons-bar-chart' => 'Bar Chart' ),
+            array( 'Simple-Line-Icons-pointer' => 'Pointer' ),
+            array( 'Simple-Line-Icons-users' => 'Users' ),
+            array( 'Simple-Line-Icons-eyeglasses' => 'Eyeglasses' ),
+            array( 'Simple-Line-Icons-symbol-fermale' => 'Symbol Fermale' ),
         );
 
         return array_merge( $icons, $simpleline_icons );

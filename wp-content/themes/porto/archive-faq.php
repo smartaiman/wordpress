@@ -29,7 +29,12 @@ if ($faq_infinite) {
 
     <?php if (!is_search() && $porto_settings['faq-cat-sort-pos'] == 'content' && $porto_settings['faq-title']) : ?>
         <?php if ($porto_layout === 'widewidth') : ?><div class="container"><?php endif; ?>
-        <h2><?php echo force_balance_tags($porto_settings['faq-title']) ?></h2>
+        <?php if ($porto_settings['faq-sub-title']) : ?>
+            <h2 class="m-b-xs"><?php echo force_balance_tags($porto_settings['faq-title']) ?></h2>
+            <p class="lead m-b-xl"><?php echo force_balance_tags($porto_settings['faq-sub-title']) ?></p>
+        <?php else : ?>
+            <h2><?php echo force_balance_tags($porto_settings['faq-title']) ?></h2>
+        <?php endif; ?>
         <?php if ($porto_layout === 'widewidth') : ?></div><?php endif; ?>
     <?php endif; ?>
 

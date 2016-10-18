@@ -13,6 +13,7 @@ extract(shortcode_atts(array(
     'icon_type' => 'fontawesome',
     'icon' => '',
     'icon_simpleline' => '',
+    'icon_image' => '',
     'box_style' => '',
     'box_effect' => '',
     'icon_color' => '',
@@ -35,6 +36,7 @@ $el_class = porto_shortcode_extract_class( $el_class );
 
 switch ($icon_type) {
     case 'simpleline': $icon_class = $icon_simpleline; break;
+    case 'image': $icon_class = 'icon-image'; break;
     default: $icon_class = $icon;
 }
 if (!$show_icon)
@@ -146,7 +148,15 @@ $output .= '<div class="featured-box ' . ($skin != 'custom' ? 'featured-box-' . 
 $output .= '<div class="box-content" style="'.(($border_radius) ? 'border-radius:'.$border_radius.'px;' : '').
     ($border_top_color?'border-top-color:'.$border_top_color.';':'').($border_top_width?'border-top-width:'.$border_top_width.'px;':'').'">';
 if ($icon_class) {
-    $output .= '<i class="icon-featured ' . $icon_class . '"></i>';
+    $output .= '<i class="icon-featured ' . $icon_class . '">';
+    if ($icon_class == 'icon-image' && $icon_image) {
+        $icon_image = preg_replace('/[^\d]/', '', $icon_image);
+        $image_url = wp_get_attachment_url($icon_image);
+        $image_url = str_replace(array('http:', 'https:'), '', $image_url);
+        if ($image_url)
+            $output .= '<img alt="" src="' . esc_url($image_url) . '">';
+    }
+    $output .= '</i>';
 }
 $output .= do_shortcode($content);
 $output .= '</div></div>';

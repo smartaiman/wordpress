@@ -41,6 +41,20 @@ if ($member_infinite) {
 
         <div class="page-members <?php if ($member_infinite) echo ' infinite-container' ?> clearfix">
 
+            <?php if ($porto_settings['member-archive-ajax']) : ?>
+                <div id="memberAjaxBox" class="ajax-box">
+                    <div class="bounce-loader">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                    <div class="ajax-box-content" id="memberAjaxBoxContent"></div>
+                    <?php if (function_exists('porto_title_archive_name') && porto_title_archive_name('member')) : ?>
+                        <div class="hide ajax-content-append"><h4 class="m-t-sm m-b-lg"><?php echo sprintf( __( 'More %s:', 'porto' ), porto_title_archive_name('member') ); ?></h4></div>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
             <div class="member-row <?php if ($member_infinite) : ?> members-infinite<?php endif; ?>"<?php if ($member_infinite) : ?> data-pagenum="<?php echo esc_attr($page_num) ?>" data-pagemaxnum="<?php echo esc_attr($page_max_num) ?>" data-path="<?php echo esc_url($page_path) ?>"<?php endif; ?>>
                 <?php
                 while (have_posts()) {

@@ -13,9 +13,9 @@
 }
 
 @mixin transform($prop){
-	-webkit-transition: $prop;
-	-moz-transition: $prop;
-	-ms-transition: $prop;
-	-o-transition: $prop;
-	transition: $prop;
+	-webkit-transform: $prop;
+	-moz-transform: $prop;
+	-ms-transform: $prop;
+	-o-transform: $prop;
+	transform: $prop;
 }

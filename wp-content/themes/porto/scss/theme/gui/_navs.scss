@@ -6,6 +6,10 @@
             background: transparent;
         }
     }
+    i.icon-image {
+        display: inline-block;
+        max-width: 20px;
+    }
 }
 
 ul {
@@ -104,6 +108,31 @@ ul {
         background-color: #CCC;
         &:hover, &:focus {
             background-color: #CCC;
+        }
+    }
+    &.nav-pills-center {
+        text-align: center;
+        > li {
+            display: inline-block;
+            float: none;
+        }
+    }
+    &.nav-pills-left {
+        > li {
+            float: left;
+        }
+    }
+    &.nav-pills-right {
+        > li {
+            float: right;
+        }
+    }
+    &.nav-pills-justify {
+        display: flex;
+        > li {
+            float: none;
+            text-align: center;
+            width: 100%;
         }
     }
 }

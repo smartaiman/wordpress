@@ -57,7 +57,7 @@ if ($post_style && 'style-3' == $post_style) {
     <span class="thumb-info thumb-info-no-zoom">
         <span class="thumb-info-caption">
             <span class="thumb-info-caption-text">
-                <a class="post-title" href="<?php the_permalink(); ?>"><h2 class="text-semibold m-b-sm m-t-xs"><?php the_title() ?></h2></a>
+                <a class="post-title" href="<?php the_permalink(); ?>"><h2 class="font-weight-semibold m-b-sm m-t-xs"><?php the_title() ?></h2></a>
                 <div class="post-meta m-b-sm<?php echo (empty($porto_settings['post-metas']) ? ' hide' : '') ?>">
                     <?php
                     $first = true;

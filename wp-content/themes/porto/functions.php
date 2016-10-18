@@ -21,7 +21,7 @@ define('porto_plugins_uri',           porto_uri . '/inc/plugins');              
 define('porto_options_uri',           porto_uri . '/inc/admin/theme_options');        // plugins uri
 
 $theme = wp_get_theme();
-define('porto_version',               '3.1');                    // get current version
+define('porto_version',               '3.2');                    // set current version
 
 /**
  * Wordpress theme check
@@ -332,22 +332,28 @@ function porto_css() {
 
     // Load Google Fonts
     $gfont = array();
+    $gfont_weight = array(200,300,400,700,800);
     $fonts = array('body', 'alt', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'menu', 'menu-side', 'menu-popup');
     foreach ($fonts as $option) {
         if (isset($porto_settings[$option.'-font']['google']) && $porto_settings[$option.'-font']['google'] !== 'false') {
             $font = urlencode($porto_settings[$option.'-font']['font-family']);
+            $font_weight = $porto_settings[$option.'-font']['font-weight'];
             if (!in_array($font, $gfont))
                 $gfont[] = $font;
+            if (!in_array($font_weight, $gfont_weight)) {
+                $gfont_weight[] = $font_weight;
+            }
         }
     }
+    $gfont_weight = implode(',', $gfont_weight);
 
     $font_family = '';
     foreach ($gfont as $font)
-        $font_family .= $font . ':300,300italic,400,400italic,600,600italic,700,700italic,800,800italic%7C';
+        $font_family .= $font . ':' . $gfont_weight . '%7C';
 
     if ($font_family) {
         $charsets = '';
-        if (isset($porto_settings['select-google-charsets']) && isset($porto_settings['select-google-charsets']) && isset($porto_settings['google-charsets']) && $porto_settings['google-charsets']) {
+        if (isset($porto_settings['select-google-charset']) && isset($porto_settings['select-google-charset']) && isset($porto_settings['google-charsets']) && $porto_settings['google-charsets']) {
             $i = 0;
             foreach ($porto_settings['google-charsets'] as $charset) {
                 if ($i == 0) $charsets .= $charset;
@@ -357,6 +363,7 @@ function porto_css() {
             if ($charsets)
                 $charsets = "&amp;subset=" . $charsets;
         }
+
         wp_register_style( 'porto-google-fonts', "//fonts.googleapis.com/css?family=" . $font_family . $charsets );
         wp_enqueue_style( 'porto-google-fonts' );
     }
@@ -494,6 +501,9 @@ function porto_admin_css() {
     // wp default styles
     wp_enqueue_style( 'wp-color-picker' );
 
+    // codemirror
+    wp_enqueue_style('porto_codemirror', porto_css . '/codemirror.css', false, porto_version, 'all');
+
     // admin style
     wp_enqueue_style('porto_admin', porto_css . '/admin.css', false, porto_version, 'all');
     wp_enqueue_style('porto_admin_bar', porto_css . '/admin_bar.css', false, porto_version, 'all');
@@ -507,6 +517,18 @@ function porto_admin_scripts() {
 
     wp_enqueue_media();
 
+    global $pagenow;
+    if (in_array($pagenow, array('post.php', 'post-new.php', 'term.php'))) {
+        // codemirror
+        wp_register_script('porto-codemirror', porto_js.'/codemirror.js', array('jquery'), porto_version, true);
+        wp_enqueue_script('porto-codemirror');
+        wp_register_script('porto-codemirror-css', porto_js.'/codemirror/css.js', array('porto-codemirror'), porto_version, true);
+        wp_enqueue_script('porto-codemirror-css');
+        wp_register_script('porto-codemirror-js', porto_js.'/codemirror/javascript.js', array('porto-codemirror'), porto_version, true);
+        wp_enqueue_script('porto-codemirror-js');
+    }
+
+    // admin script
     wp_register_script('porto-admin', porto_js.'/admin.js', array('common', 'jquery', 'media-upload', 'thickbox', 'wp-color-picker'), porto_version, true);
     wp_enqueue_script('porto-admin');
 

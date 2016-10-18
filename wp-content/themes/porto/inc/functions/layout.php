@@ -4,6 +4,7 @@ require_once(porto_functions . '/layout/breadcrumbs.php');
 require_once(porto_functions . '/layout/page-title.php');
 
 add_action('wp_head', 'porto_output_skin_options');
+add_action('wp_footer', 'porto_output_custom_js_body');
 
 function porto_logo( $sticky_logo = false) {
     global $porto_settings;
@@ -2316,7 +2317,8 @@ function porto_output_skin_options() {
 
     global $porto_settings;
 
-    // Skin
+    $custom_css = porto_get_meta_value('custom_css');
+
     $body_bg_color = porto_get_meta_value('body_bg_color');
     $body_bg_image = porto_get_meta_value('body_bg_image');
     $body_bg_repeat = porto_get_meta_value('body_bg_repeat');
@@ -2366,6 +2368,13 @@ function porto_output_skin_options() {
     $footer_bg_attachment = porto_get_meta_value('footer_bg_attachment');
     $footer_bg_position = porto_get_meta_value('footer_bg_position');
 
+    $footer_main_bg_color = porto_get_meta_value('footer_main_bg_color');
+    $footer_main_bg_image = porto_get_meta_value('footer_main_bg_image');
+    $footer_main_bg_repeat = porto_get_meta_value('footer_main_bg_repeat');
+    $footer_main_bg_size = porto_get_meta_value('footer_main_bg_size');
+    $footer_main_bg_attachment = porto_get_meta_value('footer_main_bg_attachment');
+    $footer_main_bg_position = porto_get_meta_value('footer_main_bg_position');
+
     $footer_bottom_bg_color = porto_get_meta_value('footer_bottom_bg_color');
     $footer_bottom_bg_image = porto_get_meta_value('footer_bottom_bg_image');
     $footer_bottom_bg_repeat = porto_get_meta_value('footer_bottom_bg_repeat');
@@ -2380,13 +2389,15 @@ function porto_output_skin_options() {
     $breadcrumbs_bg_attachment = porto_get_meta_value('breadcrumbs_bg_attachment');
     $breadcrumbs_bg_position = porto_get_meta_value('breadcrumbs_bg_position');
 
-    if ($body_bg_color || $body_bg_image || $body_bg_repeat || $body_bg_size || $body_bg_attachment || $body_bg_position
+    if (! empty( $custom_css )
+        || $body_bg_color || $body_bg_image || $body_bg_repeat || $body_bg_size || $body_bg_attachment || $body_bg_position
         || $page_bg_color || $page_bg_image || $page_bg_repeat || $page_bg_size || $page_bg_attachment || $page_bg_position
         || $content_bottom_bg_color || $content_bottom_bg_image || $content_bottom_bg_repeat || $content_bottom_bg_size || $content_bottom_bg_attachment || $content_bottom_bg_position
         || $header_bg_color || $header_bg_image || $header_bg_repeat || $header_bg_size || $header_bg_attachment || $header_bg_position
         || $sticky_header_bg_color || $sticky_header_bg_image || $sticky_header_bg_repeat || $sticky_header_bg_size || $sticky_header_bg_attachment || $sticky_header_bg_position
         || $footer_top_bg_color || $footer_top_bg_image || $footer_top_bg_repeat || $footer_top_bg_size || $footer_top_bg_attachment || $footer_top_bg_position
         || $footer_bg_color || $footer_bg_image || $footer_bg_repeat || $footer_bg_size || $footer_bg_attachment || $footer_bg_position
+        || $footer_main_bg_color || $footer_main_bg_image || $footer_main_bg_repeat || $footer_main_bg_size || $footer_main_bg_attachment || $footer_main_bg_position
         || $footer_bottom_bg_color || $footer_bottom_bg_image || $footer_bottom_bg_repeat || $footer_bottom_bg_size || $footer_bottom_bg_attachment || $footer_bottom_bg_position
         || $breadcrumbs_bg_color || $breadcrumbs_bg_image || $breadcrumbs_bg_repeat || $breadcrumbs_bg_size || $breadcrumbs_bg_attachment || $breadcrumbs_bg_position) :
         ?><style type="text/css"><?php
@@ -2463,6 +2474,16 @@ function porto_output_skin_options() {
             if ($footer_bg_position) : ?>background-position: <?php echo $footer_bg_position ?> !important;<?php endif;
         ?>}<?php
         endif;
+        if ($footer_main_bg_color || $footer_main_bg_image || $footer_main_bg_repeat || $footer_main_bg_size || $footer_main_bg_attachment || $footer_main_bg_position) :
+        ?>#footer .footer-main {<?php
+            if ($footer_main_bg_color) : ?>background-color: <?php echo $footer_main_bg_color ?> !important;<?php endif;
+            if ($footer_main_bg_image == 'none') : echo 'background-image: none !important'; else : if ($footer_main_bg_image) : ?>background-image: url('<?php echo esc_url(str_replace(array('http://', 'https://'), array('//', '//'), $footer_main_bg_image)) ?>') !important;<?php endif; endif;
+            if ($footer_main_bg_repeat) : ?>background-repeat: <?php echo $footer_main_bg_repeat ?> !important;<?php endif;
+            if ($footer_main_bg_size) : ?>background-size: <?php echo $footer_main_bg_size ?> !important;<?php endif;
+            if ($footer_main_bg_attachment) : ?>background-attachment: <?php echo $footer_main_bg_attachment ?> !important;<?php endif;
+            if ($footer_main_bg_position) : ?>background-position: <?php echo $footer_main_bg_position ?> !important;<?php endif;
+        ?>}<?php
+        endif;
         if ($footer_bottom_bg_color || $footer_bottom_bg_image || $footer_bottom_bg_repeat || $footer_bottom_bg_size || $footer_bottom_bg_attachment || $footer_bottom_bg_position) :
         ?>#footer .footer-bottom, .footer-wrapper.fixed #footer .footer-bottom {<?php
             if ($footer_bottom_bg_color) : ?>background-color: <?php echo $footer_bottom_bg_color ?> !important;<?php endif;
@@ -2482,6 +2503,25 @@ function porto_output_skin_options() {
             if ($breadcrumbs_bg_attachment) : ?>background-attachment: <?php echo $breadcrumbs_bg_attachment ?> !important;<?php endif;
             if ($breadcrumbs_bg_position) : ?>background-position: <?php echo $breadcrumbs_bg_position ?> !important;<?php endif;
         ?>}<?php endif;
+        if (! empty( $custom_css )) :
+            echo trim( preg_replace( '#<style[^>]*>(.*)</style>#is', '$1', $custom_css ) );
+        endif;
         ?></style><?php
     endif;
+
+    $custom_js_head = porto_get_meta_value('custom_js_head');
+    if (! empty( $custom_js_head )) { ?>
+        <script type="text/javascript">
+            <?php echo trim( preg_replace( '#<script[^>]*>(.*)</script>#is', '$1', $custom_js_head ) ); ?>
+        </script>
+    <?php }
+}
+
+function porto_output_custom_js_body() {
+    $custom_js_body = porto_get_meta_value('custom_js_body');
+    if (! empty( $custom_js_body )) { ?>
+        <script type="text/javascript">
+            <?php echo trim( preg_replace( '#<script[^>]*>(.*)</script>#is', '$1', $custom_js_body ) ); ?>
+        </script>
+    <?php }
 }

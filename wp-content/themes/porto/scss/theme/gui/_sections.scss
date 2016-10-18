@@ -24,6 +24,7 @@ section,
         }
 
         &.section-text-light {
+            color: #fff;
             h1, h2, h3, h4, h5, h6 {
                 color: #FFF;
             }
@@ -34,6 +35,7 @@ section,
         }
 
         &.section-text-dark {
+            color: $color-dark;
             h1, h2, h3, h4, h5, h6 {
                 color: $color-dark;
             }
@@ -77,10 +79,6 @@ section,
         &.section-with-divider {
             margin: 56px 0 35px;
             .section-divider {
-                position: absolute;
-                #{left}: 0;
-                width: 100%;
-                top: 50px;
                 margin: -56px 0 44px;
             }
         }
@@ -88,10 +86,6 @@ section,
         &.section-with-divider-footer {
             margin: 35px 0 56px;
             .section-divider {
-                position: absolute;
-                #{left}: 0;
-                width: 100%;
-                bottom: 55px;
                 margin: 44px 0 -56px;
             }
         }
@@ -108,6 +102,29 @@ section,
 
         &.section-no-borders {
             border-width: 0;
+        }
+    }
+}
+
+.vc_row,
+.vc_column_container {
+    &.section {
+        &.section-with-divider {
+            .section-divider {
+                position: absolute;
+                #{left}: 0;
+                width: 100%;
+                top: 50px;
+            }
+        }
+
+        &.section-with-divider-footer {
+            .section-divider {
+                position: absolute;
+                #{left}: 0;
+                width: 100%;
+                bottom: 55px;
+            }
         }
     }
 }

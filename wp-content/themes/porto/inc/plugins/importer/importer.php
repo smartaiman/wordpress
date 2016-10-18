@@ -10,13 +10,17 @@ add_action( 'wp_ajax_porto_import_widgets', 'porto_import_widgets' );
 add_action( 'wp_ajax_porto_import_icons', 'porto_import_icons');
 add_action( 'wp_ajax_porto_import_options', 'porto_import_options' );
 
+function porto_extra_demos() {
+    return array('digital-agency', 'law-firm', 'construction', 'restaurant', 'hotel', 'medical');
+}
+
 function porto_reset_menus() {
     if ( current_user_can( 'manage_options' ) ) {
         $import_shortcodes = (isset($_POST['import_shortcodes']) && $_POST['import_shortcodes'] == 'true') ? true : false;
         if ($import_shortcodes) {
-            $menus = array('Main Menu', 'Top Navigation', 'Home One Page', 'Footer Bottom Links', "Shortcodes");
+            $menus = array('Main Menu', 'Top Navigation', 'Home One Page', 'Footer Bottom Links', 'Departments', 'Resources', 'Company", "Services', 'Shortcodes');
         } else {
-            $menus = array('Main Menu', 'Top Navigation', 'Home One Page', 'Footer Bottom Links');
+            $menus = array('Main Menu', 'Top Navigation', 'Home One Page', 'Footer Bottom Links', 'Departments', 'Resources', 'Company', 'Services');
         }
         foreach ($menus as $menu) {
             wp_delete_nav_menu($menu);
@@ -106,7 +110,7 @@ function porto_import_dummy() {
             add_image_size( 'shop_single', $single['width'], $single['height'], $single['crop'] );
 
             // Add sidebar widget areas
-            $extra_demos = array('digital-agency', 'law-firm', 'construction', 'restaurant');
+            $extra_demos = porto_extra_demos();
             if (!in_array($demo, $extra_demos)) {
                 $sbg_sidebar = get_option( 'sbg_sidebars', array() );
                 if (!array_key_exists('PortfolioSidebar', $sbg_sidebar)) {
@@ -130,6 +134,25 @@ function porto_import_dummy() {
                 $sbg_sidebar = get_option( 'sbg_sidebars', array() );
                 if (!array_key_exists('GeneralSidebar', $sbg_sidebar)) {
                     $sbg_sidebar = array_merge($sbg_sidebar, array('GeneralSidebar' => 'General Sidebar'));
+                    update_option( 'sbg_sidebars', $sbg_sidebar );
+                }
+            }
+            if ($demo == 'hotel') {
+                $sbg_sidebar = get_option( 'sbg_sidebars', array() );
+                if (!array_key_exists('HotelSidebar', $sbg_sidebar)) {
+                    $sbg_sidebar = array_merge($sbg_sidebar, array('HotelSidebar' => 'Hotel Sidebar'));
+                    update_option( 'sbg_sidebars', $sbg_sidebar );
+                }
+            }
+            if ($demo == 'medical') {
+                $sbg_sidebar = get_option( 'sbg_sidebars', array() );
+                if (!array_key_exists('DepartmentsSidebar', $sbg_sidebar)) {
+                    $sbg_sidebar = array_merge($sbg_sidebar, array('DepartmentsSidebar' => 'Departments Sidebar'));
+                    update_option( 'sbg_sidebars', $sbg_sidebar );
+                }
+                $sbg_sidebar = get_option( 'sbg_sidebars', array() );
+                if (!array_key_exists('ResourcesSidebar', $sbg_sidebar)) {
+                    $sbg_sidebar = array_merge($sbg_sidebar, array('ResourcesSidebar' => 'Resources Sidebar'));
                     update_option( 'sbg_sidebars', $sbg_sidebar );
                 }
             }
@@ -228,25 +251,6 @@ function porto_import_dummy() {
             if ( $menu && $onepage ) {
                 $menu_id = $menu->term_id;
                 update_post_meta($onepage->ID, 'main_menu', $menu_id);
-            }
-
-            // insert shortcodes in main menu
-            $menu = wp_get_nav_menu_object( 'Main Menu' );
-            $menu_items = wp_get_nav_menu_items($menu);
-            $menu_exist = false;
-            foreach ($menu_items as $menu_item) {
-                if ($menu_item->title == 'Shortcodes') {
-                    $menu_exist = true;
-                    break;
-                }
-            }
-
-            if (!$menu_exist) {
-                wp_update_nav_menu_item($menu->term_id, 0, array('menu-item-title' => 'Shortcodes',
-                    'menu-item-object' => 'page',
-                    'menu-item-object-id' => get_page_by_path('Shortcodes')->ID,
-                    'menu-item-type' => 'post_type',
-                    'menu-item-status' => 'publish'));
             }
 
             // Flush rules after install

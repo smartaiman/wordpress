@@ -364,6 +364,19 @@
         "from":"",
         "to":""
     },
+    "footer-main-bg":{
+        "background-color":"transparent",
+        "background-repeat":"repeat",
+        "background-size":"auto",
+        "background-attachment":"scroll",
+        "background-position":"initial",
+        "background-image":"none"
+    },
+    "footer-main-bg-gradient":false,
+    "footer-main-bg-gcolor":{
+        "from":"",
+        "to":""
+    },
     "footer-heading-color":"#ffffff",
     "footer-text-color":"#777777",
     "footer-link-color":{

@@ -74,6 +74,19 @@ function porto_load_recent_portfolios_shortcode() {
                 ),
             ),
             array(
+                'type' => 'checkbox',
+                'heading' => __("Enable Ajax Load", 'porto-shortcodes'),
+                'param_name' => 'ajax_load',
+                'value' => array( __( 'Yes', 'js_composer' ) => 'yes' )
+            ),
+            array(
+                'type' => 'checkbox',
+                'heading' => __("Ajax Load on Modal", 'porto-shortcodes'),
+                'param_name' => 'ajax_modal',
+                'dependency' => array('element' => 'ajax_load', 'not_empty' => true),
+                'value' => array( __( 'Yes', 'js_composer' ) => 'yes' )
+            ),
+            array(
                 "type" => "textfield",
                 "heading" => __("Portfolios Count", 'porto-shortcodes'),
                 "param_name" => "number",
@@ -109,19 +122,6 @@ function porto_load_recent_portfolios_shortcode() {
                 "heading" => __("Items Row", 'porto-shortcodes'),
                 "param_name" => "items_row",
                 "value" => "1"
-            ),
-            array(
-                'type' => 'checkbox',
-                'heading' => __("Enable Ajax Load", 'porto-shortcodes'),
-                'param_name' => 'ajax_load',
-                'value' => array( __( 'Yes', 'js_composer' ) => 'yes' )
-            ),
-            array(
-                'type' => 'checkbox',
-                'heading' => __("Ajax Load on Modal", 'porto-shortcodes'),
-                'param_name' => 'ajax_modal',
-                'dependency' => array('element' => 'ajax_load', 'not_empty' => true),
-                'value' => array( __( 'Yes', 'js_composer' ) => 'yes' )
             ),
             array(
                 'type' => 'checkbox',

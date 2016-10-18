@@ -3371,11 +3371,11 @@
     transition: scale 100ms ease;
 }
 .owl-carousel .owl-video-play-icon:hover {
-    -webkit-transition: scale(1.3, 1.3);
-    -moz-transition: scale(1.3, 1.3);
-    -ms-transition: scale(1.3, 1.3);
-    -o-transition: scale(1.3, 1.3);
-    transition: scale(1.3, 1.3);
+    -webkit-transform: scale(1.3, 1.3);
+    -moz-transform: scale(1.3, 1.3);
+    -ms-transform: scale(1.3, 1.3);
+    -o-transform: scale(1.3, 1.3);
+    transform: scale(1.3, 1.3);
 }
 .owl-carousel .owl-video-playing .owl-video-tn, .owl-carousel .owl-video-playing .owl-video-play-icon {
     display: none;
@@ -4718,13 +4718,13 @@ ul.fc-slides li {
 }
 @font-face {
     font-family: 'Simple-Line-Icons';
-    src: url('../fonts/Simple-Line-Icons/Simple-Line-Icons.eot?-kn32jm');
-    src: url('../fonts/Simple-Line-Icons/Simple-Line-Icons.eot?#iefix-kn32jm') format('embedded-opentype'), url('../fonts/Simple-Line-Icons/Simple-Line-Icons.ttf?-kn32jm') format('truetype'), url('../fonts/Simple-Line-Icons/Simple-Line-Icons.woff?-kn32jm') format('woff'), url('../fonts/Simple-Line-Icons/Simple-Line-Icons.svg?-kn32jm#Simple-Line-Icons') format('svg');
+    src: url('../fonts/Simple-Line-Icons/Simple-Line-Icons.eot?nuc4d1');
+    src: url('../fonts/Simple-Line-Icons/Simple-Line-Icons.eot?nuc4d1#iefix') format('embedded-opentype'), url('../fonts/Simple-Line-Icons/Simple-Line-Icons.ttf?nuc4d1') format('truetype'), url('../fonts/Simple-Line-Icons/Simple-Line-Icons.woff?nuc4d1') format('woff'), url('../fonts/Simple-Line-Icons/Simple-Line-Icons.svg?nuc4d1#Simple-Line-Icons') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 [class^="Simple-Line-Icons-"], [class*=" Simple-Line-Icons-"] {
-    font-family: 'Simple-Line-Icons';
+    font-family: 'Simple-Line-Icons' !important;
     speak: none;
     font-style: normal;
     font-weight: normal;
@@ -4737,6 +4737,9 @@ ul.fc-slides li {
 .Simple-Line-Icons-user-female:before {
     content: "\e000";
 }
+.Simple-Line-Icons-people:before, .Simple-Line-Icons-users:before {
+    content: "\e001";
+}
 .Simple-Line-Icons-user-follow:before {
     content: "\e002";
 }
@@ -4746,53 +4749,11 @@ ul.fc-slides li {
 .Simple-Line-Icons-user-unfollow:before {
     content: "\e004";
 }
-.Simple-Line-Icons-trophy:before {
-    content: "\e006";
-}
-.Simple-Line-Icons-screen-smartphone:before {
-    content: "\e010";
-}
-.Simple-Line-Icons-screen-desktop:before {
-    content: "\e011";
-}
-.Simple-Line-Icons-plane:before {
-    content: "\e012";
-}
-.Simple-Line-Icons-notebook:before {
-    content: "\e013";
-}
-.Simple-Line-Icons-moustache:before {
-    content: "\e014";
-}
-.Simple-Line-Icons-mouse:before {
-    content: "\e015";
-}
-.Simple-Line-Icons-magnet:before {
-    content: "\e016";
-}
-.Simple-Line-Icons-energy:before {
-    content: "\e020";
-}
-.Simple-Line-Icons-emotsmile:before {
-    content: "\e021";
-}
-.Simple-Line-Icons-disc:before {
-    content: "\e022";
-}
-.Simple-Line-Icons-cursor-move:before {
-    content: "\e023";
-}
-.Simple-Line-Icons-crop:before {
-    content: "\e024";
-}
-.Simple-Line-Icons-credit-card:before {
-    content: "\e025";
-}
-.Simple-Line-Icons-chemistry:before {
-    content: "\e026";
-}
 .Simple-Line-Icons-user:before {
     content: "\e005";
+}
+.Simple-Line-Icons-trophy:before {
+    content: "\e006";
 }
 .Simple-Line-Icons-speedometer:before {
     content: "\e007";
@@ -4821,6 +4782,27 @@ ul.fc-slides li {
 .Simple-Line-Icons-screen-tablet:before {
     content: "\e00f";
 }
+.Simple-Line-Icons-screen-smartphone:before {
+    content: "\e010";
+}
+.Simple-Line-Icons-screen-desktop:before {
+    content: "\e011";
+}
+.Simple-Line-Icons-plane:before {
+    content: "\e012";
+}
+.Simple-Line-Icons-notebook:before {
+    content: "\e013";
+}
+.Simple-Line-Icons-mustache:before, .Simple-Line-Icons-moustache:before {
+    content: "\e014";
+}
+.Simple-Line-Icons-mouse:before {
+    content: "\e015";
+}
+.Simple-Line-Icons-magnet:before {
+    content: "\e016";
+}
 .Simple-Line-Icons-magic-wand:before {
     content: "\e017";
 }
@@ -4839,14 +4821,35 @@ ul.fc-slides li {
 .Simple-Line-Icons-fire:before {
     content: "\e01c";
 }
-.Simple-Line-Icons-eyeglasses:before {
+.Simple-Line-Icons-eyeglass:before, .Simple-Line-Icons-eyeglasses:before {
     content: "\e01d";
 }
 .Simple-Line-Icons-envelope-open:before {
     content: "\e01e";
 }
-.Simple-Line-Icons-envelope-letter:before {
+.Simple-Line-Icons-envolope-letter:before, .Simple-Line-Icons-envelope-letter:before {
     content: "\e01f";
+}
+.Simple-Line-Icons-energy:before {
+    content: "\e020";
+}
+.Simple-Line-Icons-emotsmile:before {
+    content: "\e021";
+}
+.Simple-Line-Icons-disc:before {
+    content: "\e022";
+}
+.Simple-Line-Icons-cursor-move:before {
+    content: "\e023";
+}
+.Simple-Line-Icons-crop:before {
+    content: "\e024";
+}
+.Simple-Line-Icons-credit-card:before {
+    content: "\e025";
+}
+.Simple-Line-Icons-chemistry:before {
+    content: "\e026";
 }
 .Simple-Line-Icons-bell:before {
     content: "\e027";
@@ -4920,7 +4923,7 @@ ul.fc-slides li {
 .Simple-Line-Icons-drop:before {
     content: "\e03e";
 }
-.Simple-Line-Icons-drawer:before {
+.Simple-Line-Icons-drawar:before, .Simple-Line-Icons-drawer:before {
     content: "\e03f";
 }
 .Simple-Line-Icons-docs:before {
@@ -5082,25 +5085,25 @@ ul.fc-slides li {
 .Simple-Line-Icons-control-end:before {
     content: "\e074";
 }
-.Simple-Line-Icons-calendar:before {
+.Simple-Line-Icons-calender:before, .Simple-Line-Icons-calendar:before {
     content: "\e075";
 }
 .Simple-Line-Icons-bulb:before {
     content: "\e076";
 }
-.Simple-Line-Icons-bar-chart:before {
+.Simple-Line-Icons-chart:before, .Simple-Line-Icons-bar-chart:before {
     content: "\e077";
 }
-.Simple-Line-Icons-arrow-up:before {
+.Simple-Line-Icons-arrow-up-circle:before {
     content: "\e078";
 }
-.Simple-Line-Icons-arrow-right:before {
+.Simple-Line-Icons-arrow-right-circle:before {
     content: "\e079";
 }
-.Simple-Line-Icons-arrow-left:before {
+.Simple-Line-Icons-arrow-left-circle:before {
     content: "\e07a";
 }
-.Simple-Line-Icons-arrow-down:before {
+.Simple-Line-Icons-arrow-down-circle:before {
     content: "\e07b";
 }
 .Simple-Line-Icons-ban:before {
@@ -5109,7 +5112,7 @@ ul.fc-slides li {
 .Simple-Line-Icons-bubble:before {
     content: "\e07d";
 }
-.Simple-Line-Icons-camcorder:before {
+.Simple-Line-Icons-camrecorder:before, .Simple-Line-Icons-camcorder:before {
     content: "\e07e";
 }
 .Simple-Line-Icons-camera:before {
@@ -5133,7 +5136,7 @@ ul.fc-slides li {
 .Simple-Line-Icons-doc:before {
     content: "\e085";
 }
-.Simple-Line-Icons-envelope:before {
+.Simple-Line-Icons-envolope:before, .Simple-Line-Icons-envelope:before {
     content: "\e086";
 }
 .Simple-Line-Icons-eye:before {
@@ -5181,7 +5184,7 @@ ul.fc-slides li {
 .Simple-Line-Icons-plus:before {
     content: "\e095";
 }
-.Simple-Line-Icons-pointer:before {
+.Simple-Line-Icons-location-pin:before, .Simple-Line-Icons-pointer:before {
     content: "\e096";
 }
 .Simple-Line-Icons-power:before {
@@ -5199,7 +5202,7 @@ ul.fc-slides li {
 .Simple-Line-Icons-star:before {
     content: "\e09b";
 }
-.Simple-Line-Icons-symbol-fermale:before {
+.Simple-Line-Icons-symbol-female:before, .Simple-Line-Icons-symbol-fermale:before {
     content: "\e09c";
 }
 .Simple-Line-Icons-symbol-male:before {
@@ -5217,8 +5220,86 @@ ul.fc-slides li {
 .Simple-Line-Icons-volume-off:before {
     content: "\e0a1";
 }
-.Simple-Line-Icons-users:before {
-    content: "\e001";
+.Simple-Line-Icons-phone:before {
+    content: "\e600";
+}
+.Simple-Line-Icons-menu:before {
+    content: "\e601";
+}
+.Simple-Line-Icons-options-vertical:before {
+    content: "\e602";
+}
+.Simple-Line-Icons-options:before {
+    content: "\e603";
+}
+.Simple-Line-Icons-arrow-down:before {
+    content: "\e604";
+}
+.Simple-Line-Icons-arrow-left:before {
+    content: "\e605";
+}
+.Simple-Line-Icons-arrow-right:before {
+    content: "\e606";
+}
+.Simple-Line-Icons-arrow-up:before {
+    content: "\e607";
+}
+.Simple-Line-Icons-paypal:before {
+    content: "\e608";
+}
+.Simple-Line-Icons-social-instagram:before {
+    content: "\e609";
+}
+.Simple-Line-Icons-social-linkedin:before {
+    content: "\e60a";
+}
+.Simple-Line-Icons-social-pinterest:before {
+    content: "\e60b";
+}
+.Simple-Line-Icons-social-github:before {
+    content: "\e60c";
+}
+.Simple-Line-Icons-social-google:before {
+    content: "\e60d";
+}
+.Simple-Line-Icons-social-reddit:before {
+    content: "\e60e";
+}
+.Simple-Line-Icons-social-skype:before {
+    content: "\e60f";
+}
+.Simple-Line-Icons-social-behance:before {
+    content: "\e610";
+}
+.Simple-Line-Icons-social-foursqare:before {
+    content: "\e611";
+}
+.Simple-Line-Icons-social-soundcloud:before {
+    content: "\e612";
+}
+.Simple-Line-Icons-social-spotify:before {
+    content: "\e613";
+}
+.Simple-Line-Icons-social-stumbleupon:before {
+    content: "\e614";
+}
+.Simple-Line-Icons-minus:before {
+    content: "\e615";
+}
+.Simple-Line-Icons-organization:before {
+    content: "\e616";
+}
+.Simple-Line-Icons-exclamation:before {
+    content: "\e617";
+}
+.Simple-Line-Icons-social-vkontakte:before {
+    content: "\e618";
+}
+.Simple-Line-Icons-event:before {
+    content: "\e619";
+}
+.Simple-Line-Icons-social-steam:before {
+    content: "\e620";
 }
 /* Magnific Popup CSS */.mfp-bg {
     top: 0;

@@ -45,8 +45,7 @@ function porto_load_sort_filters_shortcode() {
                 'type' => 'dropdown',
                 'heading' => __('Sort Align', 'porto'),
                 'param_name' => 'align',
-                'value' => porto_sh_commons('align'),
-                'dependency' => array('element' => 'style', 'value' => array('style-2')),
+                'value' => porto_sh_commons('align')
             ),
             $custom_class,
             $animation_type,

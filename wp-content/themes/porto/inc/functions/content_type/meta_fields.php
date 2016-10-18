@@ -257,6 +257,7 @@ function porto_ct_default_skin_meta_fields($tax_meta_fields = false) {
             'content_bottom' => array('content_bottom', __('Content Bottom Widgets Area', 'porto')),
             'footer_top' => array('footer_top', __('Footer Top Widget Area', 'porto')),
             'footer' => array('footer', __('Footer', 'porto')),
+            'footer_main' => array('footer_main', __('Footer Widgets Area', 'porto')),
             'footer_bottom' => array('footer_bottom', __('Footer Bottom Widget Area', 'porto')),
         );
     } else {
@@ -269,6 +270,7 @@ function porto_ct_default_skin_meta_fields($tax_meta_fields = false) {
             'content_bottom' => array('content_bottom', __('Content Bottom Widgets Area Background', 'porto')),
             'footer_top' => array('footer_top', __('Footer Top Widget Area Background', 'porto')),
             'footer' => array('footer', __('Footer Background', 'porto')),
+            'footer_main' => array('footer_main', __('Footer Widgets Area Background', 'porto')),
             'footer_bottom' => array('footer_bottom', __('Footer Bottom Widget Area Background', 'porto')),
         );
     }
@@ -317,6 +319,27 @@ function porto_ct_default_skin_meta_fields($tax_meta_fields = false) {
             'tab' => $value
         );
     }
+
+    // Custom CSS
+    $return = array_insert_before('body_bg_color', $return, 'custom_css', array(
+        'name' => 'custom_css',
+        'title' => __('Custom CSS', 'porto'),
+        'type' => 'textarea'
+    ));
+
+    // JS Code before </head>
+    $return = array_insert_before('body_bg_color', $return, 'custom_js_head', array(
+        'name' => 'custom_js_head',
+        'title' => __('JS Code before &lt;/head&gt;', 'porto'),
+        'type' => 'textarea'
+    ));
+
+    // JS Code before </body>
+    $return = array_insert_before('body_bg_color', $return, 'custom_js_body', array(
+        'name' => 'custom_js_body',
+        'title' => __('JS Code before &lt;/body&gt;', 'porto'),
+        'type' => 'textarea'
+    ));
 
     return apply_filters('porto_skin_meta_fields', $return);
 }

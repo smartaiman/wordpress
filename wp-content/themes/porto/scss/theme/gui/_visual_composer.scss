@@ -22,6 +22,10 @@
     &.section-with-divider {
         overflow: visible;
     }
+    &.vc_row-flex > .vc_column_container > .wpb_wrapper {
+        display: block;
+        width: 100%;
+    }
 }
 body {
     .vc_row {
@@ -1324,6 +1328,10 @@ body {
 
         i {
             margin-#{$right}: 5px;
+            &.icon-image {
+                display: inline-block;
+                max-width: 20px;
+            }
         }
     }
 
@@ -1364,6 +1372,10 @@ body {
 
         i {
             margin-#{$right}: 5px;
+            &.icon-image {
+                display: inline-block;
+                max-width: 20px;
+            }
         }
     }
 }

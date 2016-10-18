@@ -93,6 +93,7 @@ foreach ( $tabs as $tab ) {
     preg_match('/ tab_id="([^\"]+)\"/i', $tab[0], $tab_id_matches, PREG_OFFSET_CAPTURE);
     preg_match('/ show_icon="([^\"]+)\"/i', $tab[0], $show_icon_matches, PREG_OFFSET_CAPTURE);
     preg_match('/ icon_type="([^\"]+)\"/i', $tab[0], $icon_type_matches, PREG_OFFSET_CAPTURE);
+    preg_match('/ icon_image="([^\"]+)\"/i', $tab[0], $icon_image_matches, PREG_OFFSET_CAPTURE);
     preg_match('/ icon="([^\"]+)\"/i', $tab[0], $icon_matches, PREG_OFFSET_CAPTURE);
     preg_match('/ icon_simpleline="([^\"]+)\"/i', $tab[0], $icon_simpleline_matches, PREG_OFFSET_CAPTURE);
     preg_match('/ icon_skin="([^\"]+)\"/i', $tab[0], $icon_skin_matches, PREG_OFFSET_CAPTURE);
@@ -111,6 +112,7 @@ foreach ( $tabs as $tab ) {
     $tab_id = isset($tab_id_matches) && isset($tab_id_matches[1]) ? $tab_id_matches[1][0] : '';
     $show_icon = isset($show_icon_matches) && isset($show_icon_matches[1]) ? $show_icon_matches[1][0] : '';
     $icon_type = isset($icon_type_matches) && isset($icon_type_matches[1]) ? $icon_type_matches[1][0] : '';
+    $icon_image = isset($icon_image_matches) && isset($icon_image_matches[1]) ? $icon_image_matches[1][0] : '';
     $icon = isset($icon_matches) && isset($icon_matches[1]) ? $icon_matches[1][0] : '';
     $icon_simpleline = isset($icon_simpleline_matches) && isset($icon_simpleline_matches[1]) ? $icon_simpleline_matches[1][0] : '';
     $icon_skin = isset($icon_skin_matches) && isset($icon_skin_matches[1]) ? $icon_skin_matches[1][0] : 'custom';
@@ -127,6 +129,7 @@ foreach ( $tabs as $tab ) {
 
     switch ($icon_type) {
         case 'simpleline': $icon_class = $icon_simpleline; break;
+        case 'image': $icon_class = 'icon-image'; break;
         default: $icon_class = $icon;
     }
 
@@ -229,11 +232,32 @@ foreach ( $tabs as $tab ) {
                     $icon_effect .= ' featured-box-' . $icon_skin;
                 $tabs_nav .= '<span class="featured-box '.$icon_effect.'">';
                 $tabs_nav .= '<span class="box-content">';
-                $tabs_nav .= '<i class="icon-featured ' . $icon_class . '"></i>';
+                if ($icon_class) {
+                    $tabs_nav .= '<i class="icon-featured ' . $icon_class . '">';
+                    if ($icon_class == 'icon-image' && $icon_image) {
+                        $icon_image = preg_replace('/[^\d]/', '', $icon_image);
+                        $image_url = wp_get_attachment_url($icon_image);
+                        $image_url = str_replace(array('http:', 'https:'), '', $image_url);
+                        if ($image_url)
+                            $tabs_nav .= '<img alt="" src="' . esc_url($image_url) . '">';
+                    }
+                    $tabs_nav .= '</i>';
+                }
                 $tabs_nav .= '</span>';
                 $tabs_nav .= '</span>' . '<span class="tab-title">' . $tab_title . '</span>';
             } else {
-                $tabs_nav .= '<i class="' . $icon_class . '"></i>' . $tab_title;
+                if ($icon_class) {
+                    $tabs_nav .= '<i class="' . $icon_class . '">';
+                    if ($icon_class == 'icon-image' && $icon_image) {
+                        $icon_image = preg_replace('/[^\d]/', '', $icon_image);
+                        $image_url = wp_get_attachment_url($icon_image);
+                        $image_url = str_replace(array('http:', 'https:'), '', $image_url);
+                        if ($image_url)
+                            $tabs_nav .= '<img alt="" src="' . esc_url($image_url) . '">';
+                    }
+                    $tabs_nav .= '</i>';
+                }
+                $tabs_nav .= $tab_title;
             }
         } else {
             $tabs_nav .= $tab_title;

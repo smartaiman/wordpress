@@ -78,7 +78,7 @@ if ('no' !== $loading_overlay && ('yes' === $loading_overlay || ('yes' !== $load
         ?>
 
         <?php if (porto_get_meta_value('header', true)) : ?>
-            <div class="header-wrapper<?php if ($porto_settings['header-wrapper'] == 'wide') echo ' wide' ?><?php if (!($header_type == 'side' && $wrapper == 'boxed') && ($porto_banner_pos == 'below_header' || $porto_banner_pos == 'fixed' || porto_get_meta_value('header_view') == 'fixed')) { echo ' fixed-header'; if ($porto_settings['header-fixed-show-bottom']) echo ' header-transparent-bottom-border'; } ?><?php if ($header_type == 'side') echo ' header-side-nav' ?> clearfix"><!-- header wrapper -->
+            <div class="header-wrapper<?php if ($porto_settings['header-wrapper'] == 'wide') echo ' wide' ?><?php if ($porto_settings['sticky-header-effect'] == 'reveal') echo ' header-reveal' ?><?php if (!($header_type == 'side' && $wrapper == 'boxed') && ($porto_banner_pos == 'below_header' || $porto_banner_pos == 'fixed' || porto_get_meta_value('header_view') == 'fixed')) { echo ' fixed-header'; if ($porto_settings['header-fixed-show-bottom']) echo ' header-transparent-bottom-border'; } ?><?php if ($header_type == 'side') echo ' header-side-nav' ?> clearfix"><!-- header wrapper -->
                 <?php
                 global $porto_settings;
                 ?>

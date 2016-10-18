@@ -120,9 +120,11 @@ function porto_demo_types() {
     return array(
         'classic-original' => array('alt' => 'Main Demo', 'img' => porto_options_uri.'/demos/classic_original.jpg', 'filter' => 'demos'),
         'construction' => array('alt' => 'Construction', 'img' => porto_options_uri.'/demos/demo_construction.jpg', 'filter' => 'demos'),
+        'hotel' => array('alt' => 'Hotel', 'img' => porto_options_uri.'/demos/demo_hotel.jpg', 'filter' => 'demos'),
         'restaurant' => array('alt' => 'Restaurant', 'img' => porto_options_uri.'/demos/demo_restaurant.jpg', 'filter' => 'demos'),
-        'digital-agency' => array('alt' => 'Digital Agency', 'img' => porto_options_uri.'/demos/demo_digital_agency.jpg', 'filter' => 'demos'),
         'law-firm' => array('alt' => 'Law Firm', 'img' => porto_options_uri.'/demos/demo_law_firm.jpg', 'filter' => 'demos'),
+        'digital-agency' => array('alt' => 'Digital Agency', 'img' => porto_options_uri.'/demos/demo_digital_agency.jpg', 'filter' => 'demos'),
+        'medical' => array('alt' => 'Medical', 'img' => porto_options_uri.'/demos/demo_medical.jpg', 'filter' => 'demos'),
         'landing' => array('alt' => 'Landing', 'img' => porto_options_uri.'/demos/landing.jpg', 'filter' => 'classic'),
         'classic-color' => array('alt' => 'Classic Color', 'img' => porto_options_uri.'/demos/classic_color.jpg', 'filter' => 'classic'),
         'classic-light' => array('alt' => 'Classic Light', 'img' => porto_options_uri.'/demos/classic_light.jpg', 'filter' => 'classic'),

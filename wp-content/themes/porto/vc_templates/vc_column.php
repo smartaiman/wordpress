@@ -30,6 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $divider_height
  * @var $show_divider_icon
  * @var $divider_icon_type
+ * @var $divider_icon_image
  * @var $divider_icon
  * @var $divider_icon_simpleline
  * @var $divider_icon_skin
@@ -118,12 +119,16 @@ if ($is_section && $show_divider) {
         $divider_inline_style .= 'background-color:' . $divider_color . ';';
     if ($divider_height)
         $divider_inline_style .= 'height:' . (int)$divider_height . 'px;';
-
+    if ($remove_border) {
+        if ('bottom' === $divider_pos) $divider_inline_style .= 'margin-bottom: -51px;';
+        else $divider_inline_style .= 'margin-top: -51px;';
+    }
     if ($divider_inline_style)
         $divider_inline_style = ' style="' . esc_attr( $divider_inline_style ) . '"';
 
     switch ($divider_icon_type) {
         case 'simpleline': $divider_icon_class = $divider_icon_simpleline; break;
+        case 'image': $divider_icon_class = 'icon-image'; break;
         default: $divider_icon_class = $divider_icon;
     }
 
@@ -152,7 +157,15 @@ if ($is_section && $show_divider) {
 
     $divider_output = '<div class="' . implode( ' ', $divider_classes ) . '"' . $divider_inline_style . '>';
     if ($show_divider_icon && $divider_icon_class) {
-        $divider_output .= '<i class="' . esc_attr( $divider_icon_class ) . '"></i>';
+        $divider_output .= '<i class="' . $divider_icon_class . '">';
+        if ($divider_icon_class == 'icon-image' && $divider_icon_image) {
+            $divider_icon_image = preg_replace('/[^\d]/', '', $divider_icon_image);
+            $divider_image_url = wp_get_attachment_url($divider_icon_image);
+            $divider_image_url = str_replace(array('http:', 'https:'), '', $divider_image_url);
+            if ($divider_image_url)
+                $divider_output .= '<img alt="" src="' . esc_url($divider_image_url) . '">';
+        }
+        $divider_output .= '</i>';
     }
     $divider_output .= '</div>';
 }

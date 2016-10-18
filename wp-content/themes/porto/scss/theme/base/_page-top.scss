@@ -7,6 +7,10 @@
     position: relative;
     text-align: $left;
 
+    &[data-plugin-parallax] {
+        background-position: 50% 50%;
+    }
+
     &.wide {
         .container {
             width: 100%;
@@ -45,7 +49,22 @@
                 &:before {
                     content: "/\00a0";
                     position: relative;
-                    right: -2px;
+                    @if $rtl == 1 {
+                        right: 1px;
+                    } @else {
+                        right: -2px;
+                    }
+                }
+                &.delimiter-2 {
+                    &:before {
+                        @if $rtl == 1 {
+                            content: "\f104";
+                            right: 0;
+                        } @else {
+                            content: "\f105";
+                            right: -1px;
+                        }
+                    }
                 }
             }
         }
@@ -82,6 +101,20 @@
         text-transform: none;
         position: relative;
         z-index: 2;
+        @media #{$screen-medium} {
+            font-size: 2em;
+        }
+    }
+
+    .page-sub-title {
+        letter-spacing: -1px;
+        font-size: 1.4em;
+        font-weight: $font-weight-light;
+        line-height: 1.4;
+        margin-bottom: 20px;
+        @media #{$screen-medium} {
+            font-size: 1.2em;
+        }
     }
 
     .product-nav {
@@ -348,6 +381,10 @@
                 float: none !important;
                 text-align: center;
             }
+            .page-sub-title {
+                margin-bottom: 5px;
+                margin-top: 0;
+            }
         }
 
         @media (min-width: 992px) {
@@ -359,6 +396,10 @@
             .breadcrumbs-wrap {
                 margin-top: 23px;
                 margin-bottom: 22px;
+                &.breadcrumbs-with-subtitle {
+                    margin-top: 39px;
+                    margin-bottom: 38px;
+                }
             }
 
             .product-nav {

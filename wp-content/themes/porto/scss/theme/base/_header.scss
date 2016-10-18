@@ -1,5 +1,38 @@
 /* Header */
 
+@-webkit-keyframes header-reveal {
+    0% {
+        margin-top: -150px;
+    }
+    100% {
+        margin-top: 0;
+    }
+}
+@-moz-keyframes header-reveal {
+    0% {
+        margin-top: -150px;
+    }
+    100% {
+        margin-top: 0;
+    }
+}
+@-o-keyframes header-reveal {
+    0% {
+        margin-top: -150px;
+    }
+    100% {
+        margin-top: 0;
+    }
+}
+@keyframes header-reveal {
+    0% {
+        margin-top: -150px;
+    }
+    100% {
+        margin-top: 0;
+    }
+}
+
 .header-wrapper {
     &.wide {
         .container {
@@ -249,6 +282,11 @@
                     margin: auto;
                 }
             }
+
+            .header-reveal & {
+                margin-top: 0;
+                @include animation(header-reveal 0.4s ease-in);
+            }
         }
 
         .logo {
@@ -267,6 +305,11 @@
             top: 0;
             z-index: 1001;
             padding: 8px 0;
+
+            .header-reveal & {
+                margin-top: 0;
+                @include animation(header-reveal 0.4s ease-in);
+            }
 
             &,
             .fixed-header & {

@@ -1,7 +1,7 @@
 <?php
 global $porto_settings, $porto_layout;
 ?>
-<header id="header" class="header-9 <?php echo $porto_settings['search-size'] ?> sticky-menu-header<?php echo ($porto_settings['logo-overlay'] && $porto_settings['logo-overlay']['url']) ? ' logo-overlay-header' : '' ?>">
+<header id="header" class="header-side <?php echo $porto_settings['search-size'] ?> sticky-menu-header<?php echo ($porto_settings['logo-overlay'] && $porto_settings['logo-overlay']['url']) ? ' logo-overlay-header' : '' ?>">
     <div class="header-main<?php if ($porto_settings['show-minicart'] && class_exists('WooCommerce')) echo ' show-minicart' ?>">
 
         <div class="side-top">

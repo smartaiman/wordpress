@@ -295,6 +295,13 @@ h2.resp-tab-active {
 
             i {
                 margin-#{$right}: 4px;
+                &.icon-image {
+                    display: inline-block;
+                    max-width: 20px;
+                }
+                &.icon-featured.icon-image {
+                    max-width: 75px;
+                }
             }
 
             .featured-box,

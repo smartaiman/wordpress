@@ -12,9 +12,10 @@ img {
 
 .img-box-shadow {
     box-shadow: 10px 10px 74px -15px rgba(0, 0, 0, 0.1);
+    @include transition(all 0.3s ease);
 
     &:hover {
-        box-shadow: 10px 10px 74px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 10px 10px 74px -15px rgba(0, 0, 0, 0.4);
     }
 }
 

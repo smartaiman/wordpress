@@ -108,7 +108,7 @@ if ($posts->have_posts()) {
         <?php if (is_array($faq_taxs) && !empty($faq_taxs)):
             ?>
             <ul class="faq-filter nav nav-pills sort-source">
-                <li class="active" data-filter="*"><a><?php echo __('Show All', 'porto'); ?></a></li>
+                <li class="active" data-filter="*"><a><?php echo __('Show All', 'porto-shortcodes'); ?></a></li>
                 <?php foreach ($faq_taxs as $faq_tax_slug => $faq_tax_name) : ?>
                     <li data-filter="<?php echo esc_attr($faq_tax_slug) ?>"><a><?php echo esc_html($faq_tax_name) ?></a></li>
                 <?php endforeach; ?>

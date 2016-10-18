@@ -16,6 +16,16 @@ function porto_block_meta_fields() {
                 'no' => __('No', 'porto')
             )
         ),
+        'custom_css' => array(
+            'name' => 'custom_css',
+            'title' => __('Custom CSS', 'porto'),
+            'type' => 'textarea'
+        ),
+        'custom_js_body', array(
+            'name' => 'custom_js_body',
+            'title' => __('JS Code', 'porto'),
+            'type' => 'textarea'
+        )
     );
 }
 

@@ -76,8 +76,8 @@
             top: 0;
             #{$left}: 0;
             width: 256px;
-            padding: 10px 15px 145px;
             min-height: 100vh;
+            padding: 10px 15px 145px;
 
             &.initialize {
                 position: absolute;
@@ -98,6 +98,7 @@
 
             .header-main {
                 position: static;
+                background: transparent;
 
                 > .container {
                     position: static;
@@ -353,26 +354,26 @@
                 }
             }
             .logo {
-                margin: 0 auto;
+                margin: 0;
             }
-
             .share-links {
                 display: none;
             }
-
             .show-minicart {
                 .header-contact {
-                    margin-#{$right}: 100px;
+                    margin-#{$right}: 80px;
                 }
             }
         }
     }
 }
 
-@media #{$screen-medium} {
+@media #{$screen-small} {
     .header-wrapper.header-side-nav {
         #header {
-
+            .logo {
+                margin: 0 auto;
+            }
         }
     }
 }

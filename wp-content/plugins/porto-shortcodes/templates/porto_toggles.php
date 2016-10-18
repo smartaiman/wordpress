@@ -15,10 +15,10 @@ extract(shortcode_atts(array(
 $el_class = porto_shortcode_extract_class( $el_class );
 
 if ($type)
-    $el_class .= $type;
+    $el_class .= ' ' . $type;
 
 if ($size)
-    $el_class .= $size;
+    $el_class .= ' ' . $size;
 
 if ($skin == 'custom' && $color) {
     $sc_class = 'toggles'.rand();

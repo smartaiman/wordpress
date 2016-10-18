@@ -102,13 +102,13 @@ if ($posts->have_posts()) {
     <?php if ($ajax_load) : ?><div class="page-portfolios"><?php endif; ?>
 
     <?php if ($ajax_load && !$ajax_modal) : ?>
-        <div id="porfolioAjaxBox" class="ajax-box">
+        <div id="portfolioAjaxBox" class="ajax-box">
             <div class="bounce-loader">
                 <div class="bounce1"></div>
                 <div class="bounce2"></div>
                 <div class="bounce3"></div>
             </div>
-            <div class="ajax-box-content" id="porfolioAjaxBoxContent"><div class="ajax-container"></div></div>
+            <div class="ajax-box-content" id="portfolioAjaxBoxContent"></div>
         </div>
     <?php endif; ?>
 

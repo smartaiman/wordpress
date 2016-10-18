@@ -3,13 +3,13 @@ $padding-step: 5px;
 
 .p-xs       { padding: $padding-step !important; }
 .p-sm       { padding: $padding-step * 2 !important; }
-.m          { padding: $padding-step * 3 !important; }
+.p          { padding: $padding-step * 3 !important; }
 .p-md       { padding: $padding-step * 4 !important; }
 .p-lg       { padding: $padding-step * 6 !important; }
 .p-xl       { padding: $padding-step * 8 !important; }
 .p-xlg      { padding: $padding-step * 10 !important; }
 .p-xxl      { padding: $padding-step * 12 !important; }
-.p-n        { padding: 0 !important; }
+.p-n, .p-none { padding: 0 !important; }
 .p-l-none   { padding-left: 0 !important; }
 .p-l-xs     { padding-left: $padding-step !important; }
 .p-l-sm     { padding-left: $padding-step * 2 !important; }

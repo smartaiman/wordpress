@@ -48,13 +48,13 @@ if ($portfolio_infinite) {
         <div class="page-portfolios portfolios-<?php echo $portfolio_layout ?><?php if ($portfolio_infinite) echo ' infinite-container' ?> clearfix">
 
             <?php if ($porto_settings['portfolio-archive-ajax'] && !$porto_settings['portfolio-archive-ajax-modal']) : ?>
-                <div id="porfolioAjaxBox" class="ajax-box">
+                <div id="portfolioAjaxBox" class="ajax-box">
                     <div class="bounce-loader">
                         <div class="bounce1"></div>
                         <div class="bounce2"></div>
                         <div class="bounce3"></div>
                     </div>
-                    <div class="ajax-box-content" id="porfolioAjaxBoxContent"><div class="ajax-container"></div></div>
+                    <div class="ajax-box-content" id="portfolioAjaxBoxContent"></div>
                 </div>
             <?php endif; ?>
 

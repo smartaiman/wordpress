@@ -52,6 +52,12 @@ function porto_load_recent_members_shortcode() {
                 'value' => array( __( 'Yes', 'js_composer' ) => 'yes' )
             ),
             array(
+                'type' => 'checkbox',
+                'heading' => __("Enable Ajax Load", 'porto-shortcodes'),
+                'param_name' => 'ajax_load',
+                'value' => array( __( 'Yes', 'js_composer' ) => 'yes' )
+            ),
+            array(
                 "type" => "textfield",
                 "heading" => __("Members Count", 'porto-shortcodes'),
                 "param_name" => "number",

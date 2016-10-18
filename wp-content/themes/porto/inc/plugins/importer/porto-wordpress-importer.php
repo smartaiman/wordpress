@@ -149,7 +149,7 @@ if ( class_exists( 'WP_Importer' ) ) {
                 case 'import_start':
                     // register product attributes
                     $demo = (isset($_POST['demo']) && $_POST['demo']) ? $_POST['demo'] : 'landing';
-                    $extra_demos = array('digital-agency', 'law-firm', 'construction', 'restaurant');
+                    $extra_demos = porto_extra_demos();
                     if (!in_array($demo, $extra_demos) && function_exists('wc_get_attribute_taxonomies')) {
                         $attribute_names = array('Color', 'Size');
                         $registered_attrs = array();

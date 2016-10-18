@@ -9,7 +9,7 @@ $margin-step: 5px;
 .m-xl       { margin: $margin-step * 8 !important; }
 .m-xlg      { margin: $margin-step * 10 !important; }
 .m-xxl      { margin: $margin-step * 12 !important; }
-.m-n        { margin: 0 !important; }
+.m-n, .m-none { margin: 0 !important; }
 .m-l-none   { margin-left: 0 !important; }
 .m-l-xs     { margin-left: $margin-step !important; }
 .m-l-sm     { margin-left: $margin-step * 2 !important; }

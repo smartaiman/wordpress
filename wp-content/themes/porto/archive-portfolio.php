@@ -36,7 +36,12 @@ if ($portfolio_infinite) {
 
     <?php if (!is_search() && $porto_settings['portfolio-cat-sort-pos'] == 'content' && $porto_settings['portfolio-title']) : ?>
         <?php if ($porto_layout === 'widewidth') : ?><div class="container"><?php endif; ?>
-        <h2><?php echo force_balance_tags($porto_settings['portfolio-title']) ?></h2>
+        <?php if ($porto_settings['portfolio-sub-title']) : ?>
+            <h2 class="m-b-xs"><?php echo force_balance_tags($porto_settings['portfolio-title']) ?></h2>
+            <p class="lead m-b-xl"><?php echo force_balance_tags($porto_settings['portfolio-sub-title']) ?></p>
+        <?php else : ?>
+            <h2><?php echo force_balance_tags($porto_settings['portfolio-title']) ?></h2>
+        <?php endif; ?>
         <?php if ($porto_layout === 'widewidth') : ?></div><?php endif; ?>
     <?php endif; ?>
 
@@ -45,13 +50,13 @@ if ($portfolio_infinite) {
         <div class="page-portfolios portfolios-<?php echo $portfolio_layout ?><?php if ($portfolio_infinite) echo ' infinite-container' ?> clearfix">
 
             <?php if ($porto_settings['portfolio-archive-ajax'] && !$porto_settings['portfolio-archive-ajax-modal']) : ?>
-                <div id="porfolioAjaxBox" class="ajax-box">
+                <div id="portfolioAjaxBox" class="ajax-box">
                     <div class="bounce-loader">
                         <div class="bounce1"></div>
                         <div class="bounce2"></div>
                         <div class="bounce3"></div>
                     </div>
-                    <div class="ajax-box-content" id="porfolioAjaxBoxContent"><div class="ajax-container"></div></div>
+                    <div class="ajax-box-content" id="portfolioAjaxBoxContent"></div>
                 </div>
             <?php endif; ?>
 

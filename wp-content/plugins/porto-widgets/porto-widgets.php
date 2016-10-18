@@ -3,7 +3,7 @@
 Plugin Name: Porto Widgets
 Plugin URI: http://themeforest.net/user/SW-THEMES
 Description: Widgets for Porto Wordpress Theme.
-Version: 1.3
+Version: 1.3.1
 Author: SW-THEMES
 Author URI: http://themeforest.net/user/SW-THEMES
 */

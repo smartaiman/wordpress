@@ -214,9 +214,16 @@ function porto_load_image_frame_shortcode() {
                         'heading' => __( 'Icon library', 'js_composer' ),
                         'value' => array(
                             __( 'Font Awesome', 'porto-shortcodes' ) => 'fontawesome',
-                            __( 'Simple Line Icon', 'porto-shortcodes' ) => 'simpleline'
+                            __( 'Simple Line Icon', 'porto-shortcodes' ) => 'simpleline',
+                            __( 'Custom Image Icon', 'porto-shortcodes' ) => 'image'
                         ),
                         'param_name' => 'icon_type'
+                    ),
+                    array(
+                        'type' => 'attach_image',
+                        'heading' => __('Select Icon', 'porto-shortcodes'),
+                        'dependency' => array('element' => 'icon_type', 'value' => 'image'),
+                        'param_name' => 'icon_image'
                     ),
                     array(
                         'type' => 'iconpicker',
@@ -330,9 +337,16 @@ function porto_load_image_frame_shortcode() {
                         'heading' => __( 'Icon library', 'js_composer' ),
                         'value' => array(
                             __( 'Font Awesome', 'porto-shortcodes' ) => 'fontawesome',
-                            __( 'Simple Line Icon', 'porto-shortcodes' ) => 'simpleline'
+                            __( 'Simple Line Icon', 'porto-shortcodes' ) => 'simpleline',
+                            __( 'Custom Image Icon', 'porto-shortcodes' ) => 'image'
                         ),
                         'param_name' => 'icon_type'
+                    ),
+                    array(
+                        'type' => 'attach_image',
+                        'heading' => __('Select Icon', 'porto-shortcodes'),
+                        'dependency' => array('element' => 'icon_type', 'value' => 'image'),
+                        'param_name' => 'icon_image'
                     ),
                     array(
                         'type' => 'iconpicker',

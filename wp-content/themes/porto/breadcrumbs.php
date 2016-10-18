@@ -14,7 +14,7 @@ if (( is_front_page() && is_home()) || is_front_page() ) {
     <?php if (porto_get_wrapper_type() != 'boxed' && $porto_settings['breadcrumbs-wrapper'] == 'boxed') : ?>
         <div id="breadcrumbs-boxed">
     <?php endif; ?>
-    <section class="page-top<?php if ($porto_settings['breadcrumbs-wrapper'] == 'wide') echo ' wide' ?> page-header-<?php echo $page_header_type ?>">
+    <section class="page-top<?php if ($porto_settings['breadcrumbs-wrapper'] == 'wide') echo ' wide' ?> page-header-<?php echo $page_header_type ?>"<?php if ($porto_settings['breadcrumbs-parallax']) echo ' data-plugin-parallax data-plugin-options="{&quot;speed&quot;: ' . esc_attr($porto_settings['breadcrumbs-parallax-speed']) . '}" style="background-image: none !important;"' ?>>
         <?php get_template_part('page_header/page_header_' . $page_header_type) ?>
     </section>
     <?php if (porto_get_wrapper_type() != 'boxed' && $porto_settings['breadcrumbs-wrapper'] == 'boxed') : ?>

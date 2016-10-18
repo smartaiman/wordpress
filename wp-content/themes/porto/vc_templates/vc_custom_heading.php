@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $google_fonts_data - returned from $this->getAttributes
  *
  * Extra Params
+ * @var $text_transform
  * @var $skin
  * @var $show_border
  * @var $border_skin
@@ -96,11 +97,15 @@ if ( apply_filters( 'vc_custom_heading_template_use_wrapper', false ) || $show_b
         }
     }
     $output .= '<div class="' . esc_attr( $css_class ) . '"' . $wrap_style . ' >';
-	$output .= '<' . $font_container_data['values']['tag'] . ' ' . $style . ' ' . ('custom' !== $skin ? 'class="heading-' . $skin . '"' : '') . '>';
+    $heading_class = '';
+    if ('custom' !== $skin) $heading_class .= 'heading-' . $skin;
+   if ($text_transform) $heading_class .= ' ' . $text_transform;
+    $output .= '<' . $font_container_data['values']['tag'] . ' ' . $style . ($heading_class ? ' class="' . $heading_class . '"' : '') . '>';
 	$output .= force_balance_tags(htmlspecialchars_decode($text));
 	$output .= '</' . $font_container_data['values']['tag'] . '>';
 	$output .= '</div>';
 } else {
+    if ($text_transform) $css_class .= ' ' . $text_transform;
     if ('custom' !== $skin) $css_class .= ' heading-' . $skin;
 	$output .= '<' . $font_container_data['values']['tag'] . ' ' . $style . ' class="' . esc_attr( $css_class ) . '">';
 	$output .= force_balance_tags(htmlspecialchars_decode($text));

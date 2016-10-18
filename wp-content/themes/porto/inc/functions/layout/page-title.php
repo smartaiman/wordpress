@@ -98,6 +98,60 @@ function porto_page_title() {
     return apply_filters('porto_page_title', $output);
 }
 
+function porto_page_sub_title() {
+    global $porto_settings, $wp_query;
+
+    $output = porto_get_meta_value('page_sub_title');
+
+    if ($output)
+        return apply_filters('porto_page_title', $output);
+
+    if ( is_singular() ) {
+
+        $post = isset( $GLOBALS['post'] ) ? $GLOBALS['post'] : null;
+        if ( is_page() && $porto_settings['pagetitle-parent'] && ! empty($post->post_parent) ) {
+            $output = get_post_meta($post->post_parent, 'page_sub_title', true);
+        } else if (!is_page() && $porto_settings['pagetitle-archives']) {
+            if ( isset( $post->post_type ) && $post->post_type == 'post' && $porto_settings['pagetitle-archives'] ) {
+                if (get_option( 'show_on_front' ) == 'page') {
+                    $output = get_post_meta(get_option('page_for_posts', true), 'page_sub_title', true);
+                }
+            } else if ( isset( $post->post_type ) && $post->post_type == 'product' && $porto_settings['pagetitle-archives'] ) {
+                $post_type = 'product';
+                $post_type_object = get_post_type_object( $post_type );
+                if ( is_object( $post_type_object ) && function_exists( 'wc_get_page_id' ) && $shop_page_id = wc_get_page_id( 'shop' ) ) {
+                    $output = get_post_meta($shop_page_id, 'page_sub_title', true);
+                }
+            } else {
+                $post_type = $wp_query->query_vars['post_type'];
+                $page_id = 0;
+                switch ($post_type) {
+                    case 'portfolio':
+                        $page_id = (int) ((isset($porto_settings) && isset($porto_settings['portfolio-archive-page']) && $porto_settings['portfolio-archive-page']) ? esc_attr($porto_settings['portfolio-archive-page']) : 0);
+                        break;
+                    case 'member':
+                        $page_id = (int) ((isset($porto_settings) && isset($porto_settings['member-archive-page']) && $porto_settings['member-archive-page']) ? esc_attr($porto_settings['member-archive-page']) : 0);
+                        break;
+                    case 'faq':
+                        $page_id = (int) ((isset($porto_settings) && isset($porto_settings['faq-archive-page']) && $porto_settings['faq-archive-page']) ? esc_attr($porto_settings['faq-archive-page']) : 0);
+                        break;
+                }
+                if ($page_id && ($post = get_post( $page_id ) )) {
+                    $output = get_post_meta($page_id, 'page_sub_title', true);
+                }
+            }
+        }
+    } else {
+        if ( is_home() && !is_front_page() ) {
+            if ( get_option( 'show_on_front' ) == 'page' ) {
+                $output = get_post_meta(get_option('page_for_posts', true), 'page_sub_title', true);
+            }
+        }
+    }
+
+    return apply_filters('porto_page_title', $output);
+}
+
 function porto_page_title_leaf( $object_type = '' ) {
     global $wp_query;
 

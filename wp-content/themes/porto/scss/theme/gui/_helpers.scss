@@ -32,18 +32,30 @@ html.dark {
 .font-weight-light,
 .text-weight-light {
     font-weight: $font-weight-light;
+    * {
+        font-weight: $font-weight-light;
+    }
 }
 .font-weight-normal,
 .text-weight-normal {
     font-weight: $font-weight-normal;
+    * {
+        font-weight: $font-weight-normal;
+    }
 }
 .font-weight-semibold,
 .text-weight-semibold {
     font-weight: $font-weight-semibold;
+    * {
+        font-weight: $font-weight-semibold;
+    }
 }
 .font-weight-bold,
 .text-weight-bold {
     font-weight: $font-weight-bold;
+    * {
+        font-weight: $font-weight-bold;
+    }
 }
 
 // TEXT OTHERS

@@ -183,7 +183,7 @@ section.toggle {
     &.active > label {
         background-color: @skinColor;
         border-color: @skinColor;
-        color: #FFF;
+        color: @color-primary-inverse;
     }
 
     .toggle-simple & {
@@ -216,9 +216,9 @@ html {
             }
         }
         &.toggle-simple .toggle {
-            &.active > label {
+            > label {
                 background: transparent;
-                color: @color;
+                color: @h3_color;
             }
             > label:after {
                 background-color: @color;
@@ -323,6 +323,7 @@ html {
     .vc_column_container.section-@{name}{
         background-color: @color !important;
         border-color: darken(@color, 5%) !important;
+        color: @color-inverse;
 
         h1, h2, h3, h4, h5, h6 {
             color: @color-inverse;

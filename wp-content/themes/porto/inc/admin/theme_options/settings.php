@@ -1471,6 +1471,21 @@ if (!class_exists('Redux_Framework_porto_settings')) {
                         )
                     ),
                     array(
+                        'id'=>'breadcrumbs-parallax',
+                        'type' => 'switch',
+                        'title' => __('Enable Background Image Parallax', 'porto'),
+                        'default' => false,
+                        'on' => __('Yes', 'porto'),
+                        'off' => __('No', 'porto'),
+                    ),
+                    array(
+                        'id'=>'breadcrumbs-parallax-speed',
+                        'type' => 'text',
+                        'title' => __('Parallax Speed', 'porto'),
+                        'default' => '1.5',
+                        'required' => array('breadcrumbs-parallax','equals',true),
+                    ),
+                    array(
                         'id'=>'breadcrumbs-top-border',
                         'type' => 'border',
                         'all' => true,
@@ -1527,7 +1542,7 @@ if (!class_exists('Redux_Framework_porto_settings')) {
                         'type' => 'spacing',
                         'mode' => 'margin',
                         'title' => __('Page Sub Title Margin', 'porto'),
-                        'default' => array('margin-top' => 0, 'margin-bottom' => 0, 'margin-left' => 5, 'margin-right' => 0)
+                        'default' => array('margin-top' => 0, 'margin-bottom' => 0, 'margin-left' => 0, 'margin-right' => 0)
                     ),
                 )
             );
@@ -1558,6 +1573,38 @@ if (!class_exists('Redux_Framework_porto_settings')) {
                         'type' => 'color_gradient',
                         'title' => __('Background Gradient Color', 'porto'),
                         'required' => array('footer-bg-gradient','equals',true),
+                        'default' => array(
+                            'from' => '',
+                            'to' => ''
+                        )
+                    ),
+                    array(
+                        'id'=>'1',
+                        'type' => 'info',
+                        'title' => __('Footer Widgets Area', 'porto'),
+                        'notice' => false
+                    ),
+                    array(
+                        'id'=>'footer-main-bg',
+                        'type' => 'background',
+                        'title' => __('Background', 'porto'),
+                        'default' => array(
+                            'background-color' => 'transparent'
+                        )
+                    ),
+                    array(
+                        'id'=>'footer-main-bg-gradient',
+                        'type' => 'switch',
+                        'title' => __('Background Gradient', 'porto'),
+                        'default' => false,
+                        'on' => __('Yes', 'porto'),
+                        'off' => __('No', 'porto'),
+                    ),
+                    array(
+                        'id'=>'footer-main-bg-gcolor',
+                        'type' => 'color_gradient',
+                        'title' => __('Background Gradient Color', 'porto'),
+                        'required' => array('footer-main-bg-gradient','equals',true),
                         'default' => array(
                             'from' => '',
                             'to' => ''
@@ -2336,6 +2383,7 @@ if (!class_exists('Redux_Framework_porto_settings')) {
                         'id' => "minicart-effect",
                         'type' => 'button_set',
                         'title' => __('Popup Effect', 'porto'),
+                        'required' => array('show-minicart','equals',true),
                         'options' => array(
                             '' => __('None', 'porto'),
                             'effect-fadein-up' => __('Fade In Up', 'porto'),
@@ -2418,6 +2466,16 @@ if (!class_exists('Redux_Framework_porto_settings')) {
                         'default' => true,
                         'on' => __('Yes', 'porto'),
                         'off' => __('No', 'porto'),
+                    ),
+                    array(
+                        'id' => "sticky-header-effect",
+                        'type' => 'button_set',
+                        'title' => __('Sticky Header Effect', 'porto'),
+                        'options' => array(
+                            '' => __('None', 'porto'),
+                            'reveal' => __('Reveal', 'porto'),
+                        ),
+                        'default' => ''
                     ),
                     array(
                         'id'=>'1',
@@ -2662,7 +2720,7 @@ if (!class_exists('Redux_Framework_porto_settings')) {
                         'title' => __('Show Content Type Name in Singular', 'porto'),
                         'default' => false,
                         'required' => array('show-pagetitle','equals','1'),
-                        'description' => __('Show Content Type Name in post, portfolio, member, etc.', 'porto'),
+                        'description' => __('Show Content Type Name in single content type.', 'porto'),
                         'on' => __('Yes', 'porto'),
                         'off' => __('No', 'porto'),
                     ),
@@ -2715,6 +2773,17 @@ if (!class_exists('Redux_Framework_porto_settings')) {
                         'required' => array('show-breadcrumbs','equals','1'),
                         'on' => __('Yes', 'porto'),
                         'off' => __('No', 'porto'),
+                    ),
+                    array(
+                        'id'=>'breadcrumbs-delimiter',
+                        'type' => 'button_set',
+                        'title' => __('Breadcrumbs Delimiter', 'porto'),
+                        'required' => array('show-breadcrumbs','equals','1'),
+                        'options' => array(
+                            '' => __('/', 'porto'),
+                            'delimiter-2' => __('>', 'porto'),
+                        ),
+                        'default' => ''
                     ),
                 )
             );
@@ -3474,6 +3543,12 @@ if (!class_exists('Redux_Framework_porto_settings')) {
                         'default' => 'Our <strong>Projects</strong>'
                     ),
                     array(
+                        'id'=>'portfolio-sub-title',
+                        'type' => 'textarea',
+                        'title' => __('Page Sub Title', 'porto'),
+                        'default' => ''
+                    ),
+                    array(
                         'id'=>'portfolio-archive-layout',
                         'type' => 'image_select',
                         'title' => __('Page Layout', 'porto'),
@@ -3985,6 +4060,12 @@ if (!class_exists('Redux_Framework_porto_settings')) {
                         'default' => 'Meet the <strong>Team</strong>'
                     ),
                     array(
+                        'id'=>'member-sub-title',
+                        'type' => 'textarea',
+                        'title' => __('Page Sub Title', 'porto'),
+                        'default' => ''
+                    ),
+                    array(
                         'id'=>'member-archive-layout',
                         'type' => 'image_select',
                         'title' => __('Page Layout', 'porto'),
@@ -4002,6 +4083,14 @@ if (!class_exists('Redux_Framework_porto_settings')) {
                         'id'=>'member-archive-sticky-sidebar',
                         'type' => 'switch',
                         'title' => __('Enable Sticky Sidebar', 'porto'),
+                        'default' => false,
+                        'on' => __('Yes', 'porto'),
+                        'off' => __('No', 'porto')
+                    ),
+                    array(
+                        'id'=>'member-archive-ajax',
+                        'type' => 'switch',
+                        'title' => __('Enable Ajax Load', 'porto'),
                         'default' => false,
                         'on' => __('Yes', 'porto'),
                         'off' => __('No', 'porto')
@@ -4056,7 +4145,18 @@ if (!class_exists('Redux_Framework_porto_settings')) {
                         'options' => array(
                             "" => array('alt' => __('Type 1', 'porto'), 'img' => porto_options_uri.'/images/member_archive_view_1.jpg'),
                             "2" => array('alt' => __('Type 2', 'porto'), 'img' => porto_options_uri.'/images/member_archive_view_2.jpg'),
+                            "3" => array('alt' => __('Type 3', 'porto'), 'img' => porto_options_uri.'/images/member_archive_view_3.jpg'),
                         )
+                    ),
+                    array(
+                        'id'=>'member-image-size',
+                        'type' => 'button_set',
+                        'title' => __('Member Image Size', 'porto'),
+                        'options' => array(
+                            "" => __("Static", 'porto'),
+                            "full" => __("Full", 'porto'),
+                        ),
+                        'default' => ''
                     ),
                     array(
                         'id'=>'member-archive-readmore',
@@ -4256,6 +4356,12 @@ if (!class_exists('Redux_Framework_porto_settings')) {
                         'type' => 'text',
                         'title' => __('Page Title', 'porto'),
                         'default' => 'Frequently Asked <strong>Questions</strong>'
+                    ),
+                    array(
+                        'id'=>'faq-sub-title',
+                        'type' => 'textarea',
+                        'title' => __('Page Sub Title', 'porto'),
+                        'default' => ''
                     ),
                     array(
                         'id'=>'faq-cat-orderby',

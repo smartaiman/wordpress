@@ -392,6 +392,7 @@ if ($id || $name) {
         }
 
         $shortcodes_custom_css = get_post_meta( get_the_ID(), '_wpb_shortcodes_custom_css', true );
+        $shortcodes_custom_css .= get_post_meta( get_the_ID(), 'custom_css', true );
         if ( ! empty( $shortcodes_custom_css ) ) {
             $output .= '<style type="text/css">';
             $output .= $shortcodes_custom_css;
@@ -417,6 +418,13 @@ if ($id || $name) {
             $output .= '</div>';
 
         $output .= '</div>';
+
+        $shortcodes_custom_js = get_post_meta( get_the_ID(), 'custom_js_body', true );
+        if ( ! empty( $shortcodes_custom_js ) ) {
+            $output .= '<script type="text/javascript">';
+            $output .= $shortcodes_custom_js;
+            $output .= '</script>';
+        }
 
         echo $output;
     }

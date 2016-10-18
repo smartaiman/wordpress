@@ -1,5 +1,5 @@
 <?php
-$output = $title = $view = $overview = $socials = $number = $cat = $cats = $items_desktop = $items_tablets = $items_mobile = $items_row = $slider_config = $show_nav = $show_nav_hover = $nav_pos = $nav_type = $show_dots = $animation_type = $animation_duration = $animation_delay = $el_class = '';
+$output = $title = $view = $overview = $socials = $number = $cat = $cats = $items_desktop = $items_tablets = $items_mobile = $items_row = $slider_config = $show_nav = $show_nav_hover = $nav_pos = $nav_type = $show_dots = $ajax_load = $animation_type = $animation_duration = $animation_delay = $el_class = '';
 extract(shortcode_atts(array(
     'title' => '',
     'view' => 'classic',
@@ -18,6 +18,7 @@ extract(shortcode_atts(array(
     'nav_pos' => '',
     'nav_type' => '',
     'show_dots' => false,
+    'ajax_load' => false,
     'animation_type' => '',
     'animation_duration' => 1000,
     'animation_delay' => 0,
@@ -39,6 +40,8 @@ if ($slider_config) {
 $options['lg'] = (int)$items_desktop;
 $options['md'] = (int)$items_tablets;
 $options['sm'] = (int)$items_mobile;
+if ($ajax_load)
+    $options['loop'] = false;
 $options = json_encode($options);
 
 $items_row = (int)$items_row;
@@ -79,14 +82,32 @@ if ($posts->have_posts()) {
 
     $output .= porto_shortcode_widget_title( array( 'title' => $title, 'extraclass' => '' ) );
 
-    global $porto_member_view, $porto_member_overview, $porto_member_socials;
+    global $porto_member_view, $porto_member_overview, $porto_member_socials, $porto_member_ajax_load;
 
     $porto_member_view = $view;
     $porto_member_overview = $overview ? 'yes' : 'no';
     $porto_member_socials = $socials ? 'yes' : 'no';
+    $porto_member_ajax_load = $ajax_load ? 'yes' : 'no';
 
     ob_start();
     ?>
+
+    <?php if ($ajax_load) : ?><div class="page-members"><?php endif; ?>
+
+    <?php if ($ajax_load) : ?>
+        <div id="memberAjaxBox" class="ajax-box">
+            <div class="bounce-loader">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+            <div class="ajax-box-content" id="memberAjaxBoxContent"></div>
+            <?php if (function_exists('porto_title_archive_name') && porto_title_archive_name('member')) : ?>
+                <div class="hide ajax-content-append"><h4 class="m-t-sm m-b-lg"><?php echo sprintf( __( 'More %s:', 'porto-shortcodes' ), porto_title_archive_name('member') ); ?></h4></div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
     <div class="row">
         <div class="member-carousel porto-carousel owl-carousel<?php echo esc_attr($carousel_class) ?>" data-plugin-options="<?php echo esc_attr($options) ?>">
             <?php
@@ -106,10 +127,13 @@ if ($posts->have_posts()) {
             ?>
         </div>
     </div>
+
+    <?php if ($ajax_load) : ?></div><?php endif; ?>
+
     <?php
     $output .= ob_get_clean();
 
-    $porto_member_view = $porto_member_overview = $porto_member_socials = '';
+    $porto_member_view = $porto_member_overview = $porto_member_socials = $porto_member_ajax_load = '';
 
     $output .= '</div>';
 
