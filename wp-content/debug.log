@@ -13244,3 +13244,20 @@ Stack trace:
 [18-Oct-2016 13:51:16 UTC] PHP Notice:  Undefined index: icl_post_language in /var/www/staging/wp-content/plugins/sitepress-multilingual-cms/inc/import-xml.php on line 41
 [18-Oct-2016 13:58:00 UTC] PHP Notice:  Undefined index: HTTP_HOST in /var/www/staging/wp-content/plugins/Ultimate_VC_Addons/admin/admin.php on line 78
 [18-Oct-2016 14:50:01 UTC] PHP Warning:  Invalid argument supplied for foreach() in /var/www/staging/wp-admin/includes/ajax-actions.php on line 2895
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: category-ajax in /var/www/staging/wp-content/themes/porto/functions.php on line 458
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: product-thumbs-count in /var/www/staging/wp-content/themes/porto/functions.php on line 471
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: product-zoom in /var/www/staging/wp-content/themes/porto/functions.php on line 472
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: product-zoom-mobile in /var/www/staging/wp-content/themes/porto/functions.php on line 473
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: product-image-popup in /var/www/staging/wp-content/themes/porto/functions.php on line 474
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: zoom-type in /var/www/staging/wp-content/themes/porto/functions.php on line 475
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: zoom-scroll in /var/www/staging/wp-content/themes/porto/functions.php on line 476
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: zoom-lens-size in /var/www/staging/wp-content/themes/porto/functions.php on line 477
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: zoom-lens-shape in /var/www/staging/wp-content/themes/porto/functions.php on line 478
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: zoom-contain-lens in /var/www/staging/wp-content/themes/porto/functions.php on line 479
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: zoom-lens-border in /var/www/staging/wp-content/themes/porto/functions.php on line 480
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: zoom-border-color in /var/www/staging/wp-content/themes/porto/functions.php on line 481
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: zoom-type in /var/www/staging/wp-content/themes/porto/functions.php on line 482
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: zoom-border in /var/www/staging/wp-content/themes/porto/functions.php on line 482
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/header/header_10.php on line 6
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 20:13:05 UTC] PHP Notice:  Undefined index: catalog-enable in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 1768
