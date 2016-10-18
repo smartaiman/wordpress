@@ -5432,3 +5432,27 @@
 [18-Oct-2016 01:26:27 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
 [18-Oct-2016 01:26:28 UTC] PHP Strict Standards:  Redefining already defined constructor for class PORTO_WXR_Parser_Regex in /var/www/staging/wp-content/themes/porto/inc/plugins/importer/parsers.php on line 431
 [18-Oct-2016 01:26:28 UTC] PHP Notice:  Undefined index: icl_post_language in /var/www/staging/wp-content/plugins/sitepress-multilingual-cms/inc/import-xml.php on line 41
+[18-Oct-2016 01:36:20 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/header/header_1.php on line 4
+[18-Oct-2016 01:36:21 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:36:21 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:36:53 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/header/header_1.php on line 4
+[18-Oct-2016 01:36:53 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:36:53 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:42:05 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/header/header_1.php on line 4
+[18-Oct-2016 01:42:05 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:42:05 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:42:22 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/header/header_1.php on line 4
+[18-Oct-2016 01:42:22 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:42:22 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:47:50 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/header/header_1.php on line 4
+[18-Oct-2016 01:47:50 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:47:50 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:48:08 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/header/header_1.php on line 4
+[18-Oct-2016 01:48:08 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:48:08 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:53:35 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/header/header_1.php on line 4
+[18-Oct-2016 01:53:35 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:53:35 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:59:20 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/header/header_1.php on line 4
+[18-Oct-2016 01:59:20 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 01:59:20 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
