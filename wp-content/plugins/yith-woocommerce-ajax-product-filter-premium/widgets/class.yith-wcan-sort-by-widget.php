@@ -71,11 +71,14 @@ if ( ! class_exists( 'YITH_WCAN_Sort_By_Widget' ) ) {
 
         public function widget( $args, $instance ) {
             global $wp_query;
-
             extract( $instance );
             extract( $args );
 
             $_attributes_array = yit_wcan_get_product_taxonomy();
+
+            if( ! yith_wcan_can_be_displayed() ){
+                return;
+            }
 
             if ( apply_filters( 'yith_wcan_is_search', is_search() ) ) {
                 return;
@@ -85,7 +88,7 @@ if ( ! class_exists( 'YITH_WCAN_Sort_By_Widget' ) ) {
                 return;
             }
 
-            if ( 1 == $wp_query->found_posts || ! woocommerce_products_will_display() ) {
+            if ( empty( $wp_query->found_posts ) ) {
                 return;
             }
 
@@ -174,7 +177,8 @@ if ( ! class_exists( 'YITH_WCAN_Sort_By_Widget' ) ) {
 
         public function widget_title( $title, $instance, $id_base ) {
             $span_class = apply_filters( 'yith_wcan_dropdown_class', 'widget-dropdown' );
-            $title = ! empty( $instance['dropdown'] ) ? $title . '<span class="' . $span_class .'" data-toggle="' . $instance['dropdown_type'] . '"></span>' : $title;
+            $dropdown_type = apply_filters( 'yith_wcan_dropdown_type', $instance['dropdown_type'], $instance );
+            $title = ! empty( $instance['dropdown'] ) ? $title . '<span class="' . $span_class .'" data-toggle="' . $dropdown_type . '"></span>' : $title;
 
             return $title;
         }

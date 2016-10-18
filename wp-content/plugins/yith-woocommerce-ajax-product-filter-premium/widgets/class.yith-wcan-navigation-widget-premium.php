@@ -246,7 +246,8 @@ if ( !class_exists( 'YITH_WCAN_Navigation_Widget_Premium' ) ) {
 
         public function widget_title( $title, $instance, $id_base ) {
             $span_class = apply_filters( 'yith_wcan_dropdown_class', 'widget-dropdown' );
-            $span_html  =  sprintf( '<span class="%s" data-toggle="%s"></span>', $span_class, ! empty( $instance['dropdown_type'] ) ? $instance['dropdown_type'] : 'open' );
+            $dropdown_type = apply_filters( 'yith_wcan_dropdown_type', $instance['dropdown_type'], $instance );
+            $span_html  =  sprintf( '<span class="%s" data-toggle="%s"></span>', $span_class, ! empty( $dropdown_type ) ? $dropdown_type : 'open' );
             $title      = ! empty( $instance['dropdown'] ) ? $title . ' ' . $span_html : $title;
             return $title;
         }

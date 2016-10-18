@@ -47,7 +47,7 @@ if ( ! class_exists( 'YITH_WCAN_Frontend_Premium' ) ) {
                     'wc_price_filter_slider'                => yith_wcan_get_option( 'yith_wcan_enable_ajax_price_filter_slider' ),
                     'wc_price_filter_slider_in_ajax'        => yith_wcan_get_option( 'yith_wcan_enable_slider_in_ajax' ),
                     'wc_price_filter_dropdown'              => yith_wcan_get_option( 'yith_wcan_enable_dropdown_price_filter' ),
-                    'wc_price_filter_dropdown_style'        => yith_wcan_get_option( 'yith_wcan_dropdown_style' ),
+                    'wc_price_filter_dropdown_style'        => apply_filters( 'yith_wcan_dropdown_type', yith_wcan_get_option( 'yith_wcan_dropdown_style' ) ),
                     'wc_price_filter_dropdown_widget_class' => yith_wcan_get_option( 'yith_wcan_ajax_widget_title_class', 'h3.widget-title' ),
                     'price_filter_dropdown_class'           => apply_filters( 'yith_wcan_dropdown_class', 'widget-dropdown' ),
                     'ajax_pagination_enabled'               => yith_wcan_get_option( 'yith_wcan_enable_ajax_shop_pagination', 'no' ),

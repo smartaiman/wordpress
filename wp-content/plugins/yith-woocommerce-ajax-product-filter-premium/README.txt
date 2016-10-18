@@ -4,11 +4,16 @@ Contributors: yithemes
 Tags: woocommerce, widget, ajax, ajax filtered nav, ajax navigation, ajax filtered navigation
 Requires at least: 4.0
 Tested up to: 4.6.1
-Stable tag: 3.0.11
+Stable tag: 3.0.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Changelog =
+
+= 3.0.12 =
+
+* Added: yith_wcan_dropdown_type hook
+* Fixed: Plugin doesn't hide the Filter by price, filter by stock/on-sale, filter sort if no products was found
 
 = 3.0.11 =
 
