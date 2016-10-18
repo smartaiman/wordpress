@@ -5456,3 +5456,4 @@
 [18-Oct-2016 01:59:20 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/header/header_1.php on line 4
 [18-Oct-2016 01:59:20 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
 [18-Oct-2016 01:59:20 UTC] PHP Notice:  Undefined index: logo-overlay in /var/www/staging/wp-content/themes/porto/inc/functions/layout.php on line 14
+[18-Oct-2016 03:31:20 UTC] PHP Notice:  Undefined variable: climits in /var/www/staging/wp-includes/query.php on line 3296
