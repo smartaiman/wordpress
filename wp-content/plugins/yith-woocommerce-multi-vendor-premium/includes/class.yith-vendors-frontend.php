@@ -62,6 +62,9 @@ if ( ! class_exists( 'YITH_Vendors_Frontend' ) ) {
 
             /* Support to Adventure Tours Product Type */
             class_exists( 'WC_Tour_WP_Query' ) && add_filter( 'yith_wcmv_vendor_get_products_query_args', array( $this, 'add_wc_tour_query_type' ) );
+            
+            /* Body Classes */
+            add_filter( 'body_class', array( $this, 'body_class' ), 20 );
         }
 
         /**
@@ -178,19 +181,19 @@ if ( ! class_exists( 'YITH_Vendors_Frontend' ) ) {
             );
 
             if ( $to_exclude ) {
-                $tax_query = array(
-                    array(
-                        'taxonomy' => YITH_Vendors()->get_taxonomy_name(),
-                        'field'    => 'id',
-                        'terms'    => apply_filters( 'yith_wcmv_to_exclude_terms_in_loop', $to_exclude ),
-                        'operator' => 'NOT IN' //use NOT IN in query args to include the super admin products
-                    )
+                $vendor_tax_query = array(
+                    'taxonomy' => YITH_Vendors()->get_taxonomy_name(),
+                    'field'    => 'id',
+                    'terms'    => apply_filters( 'yith_wcmv_to_exclude_terms_in_loop', $to_exclude ),
+                    'operator' => 'NOT IN' //use NOT IN in query args to include the super admin products
                 );
 
                 if( $set ){
-                    $query->set( 'tax_query', $tax_query );
+                    $current_tax_query = isset( $query->query_vars['tax_query'] ) ? $query->query_vars['tax_query'] : array();
+                    $current_tax_query[] = $vendor_tax_query;
+                    $query->set( 'tax_query', $current_tax_query );
                 } else {
-                    return $tax_query;
+                    return array( $vendor_tax_query );
                 }
             }
         }
@@ -314,6 +317,29 @@ if ( ! class_exists( 'YITH_Vendors_Frontend' ) ) {
         public function add_wc_tour_query_type( $args ){
             $args['wc_query'] = 'tours';
             return $args;
+        }
+        
+        /**
+         * Add body classes on frontend 
+         * 
+         * @param array $classes
+         * @return array body classes array 
+         *               
+         * @since 1.9.18
+         * @author Andrea Grillo <andrea.grillo@yithemes.com>
+         */
+        public function body_class( $classes ){
+            if( is_user_logged_in() ){
+                $vendor = yith_get_vendor( 'current', 'user' );
+                if( $vendor->is_valid() ){
+                    $classes[] = 'yith_wcmv_user_is_vendor';
+                }
+
+                else {
+                    $classes[] = 'yith_wcmv_user_is_not_vendor';
+                }
+            }
+            return $classes;
         }
     }
 }

@@ -666,7 +666,23 @@ if ( ! class_exists ( 'YITH_Vendor' ) ) {
             if ( 'suborder' == $type ) {
                 $query = $wpdb->prepare ( "SELECT DISTINCT ID FROM {$wpdb->posts} WHERE post_parent!=%d AND post_type=%s AND post_author=%d", 0, 'shop_order', $this->get_owner () );
                 if ( $status ) {
-                    $query .= $wpdb->prepare ( " AND post_status=%s", $status );
+                    if( is_array( $status) ){
+                        $post_status_in = '';
+                        $count          = count($status);
+                        $i              = 1;
+                        foreach( $status as $stati ){
+                            $post_status_in .= "'{$stati}'";
+                            if( $i < $count ){
+                                $post_status_in .= ',';
+                            }
+                            $i++;
+                        }
+                        $query .= " AND post_status IN (" . $post_status_in . ")";
+                    }
+                    
+                    else {
+                        $query .= $wpdb->prepare ( " AND post_status=%s", $status );
+                    }
                 }
             }
 

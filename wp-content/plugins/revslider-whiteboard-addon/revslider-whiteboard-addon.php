@@ -4,7 +4,7 @@ Plugin Name: Slider Revolution Whiteboard Add-on
 Plugin URI: http://www.themepunch.com/
 Description: Create Hand-Drawn Presentations that are understandable, memorable & engaging
 Author: ThemePunch
-Version: 1.0.3
+Version: 1.0.4
 Author URI: http://themepunch.com
 */
 
@@ -16,7 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'WHITEBOARD_PLUGIN_URL', str_replace('index.php','',plugins_url( 'index.php', __FILE__ )));
 define( 'WHITEBOARD_PLUGIN_PATH', plugin_dir_path(__FILE__) );
 define( 'WHITEBOARD_FILE_PATH', __FILE__ );
-define( 'WHITEBOARD_VERSION', '1.0.3');
+define( 'WHITEBOARD_VERSION', '1.0.4');
 
 
 require_once(WHITEBOARD_PLUGIN_PATH.'includes/base.class.php');

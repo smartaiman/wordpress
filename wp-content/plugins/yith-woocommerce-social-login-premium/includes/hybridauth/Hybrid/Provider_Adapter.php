@@ -163,6 +163,7 @@ class Hybrid_Provider_Adapter {
 			Hybrid_Auth::storage()->set("hauth_session.{$this->id}.hauth_return_to", $this->params["hauth_return_to"]);
 		}
 		if (isset($this->params["login_done"])) {
+			
 			Hybrid_Auth::storage()->set("hauth_session.{$this->id}.hauth_endpoint", $this->params["login_done"]);
 		}
 		Hybrid_Auth::storage()->set("hauth_session.{$this->id}.id_provider_params", $this->params);

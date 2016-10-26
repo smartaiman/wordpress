@@ -237,6 +237,18 @@ ul.products li .by-vendor-name-link:after {
     display: block;
 }
 
+/* Become a vendor */
+.become-a-vendor.multi-vendor-style #customer_login > div:first-of-type,
+.become-a-vendor.multi-vendor-style #customer_login .login,
+.become-a-vendor.multi-vendor-style #customer_login h2 {
+    display: none;
+}
+
+.become-a-vendor.multi-vendor-style #customer_login > div:last-of-type {
+    width: 100%;
+    float: none;
+}
+
 /* Repsonsive */
 
 @media (max-width: 767px) {

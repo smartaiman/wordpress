@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitea5526f224e4d65c1f284250e90538a6
+class ComposerStaticInitc30053a51ee5263452335210f259eb3c
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -87,6 +87,7 @@ class ComposerStaticInitea5526f224e4d65c1f284250e90538a6
         'WCML_Multi_Currency_Reports' => __DIR__ . '/../..' . '/inc/currencies/class-wcml-multi-currency-reports.php',
         'WCML_Multi_Currency_Resources' => __DIR__ . '/../..' . '/inc/currencies/class-wcml-multi-currency-resources.php',
         'WCML_Multi_Currency_Shipping' => __DIR__ . '/../..' . '/inc/currencies/class-wcml-multi-currency-shipping.php',
+        'WCML_Multi_Currency_Shipping_Legacy' => __DIR__ . '/../..' . '/inc/currencies/class-wcml-multi-currency-shipping-legacy.php',
         'WCML_Multi_Currency_Table_Rate_Shipping' => __DIR__ . '/../..' . '/inc/currencies/class-wcml-multi-currency-table-rate-shipping.php',
         'WCML_Multi_Currency_UI' => __DIR__ . '/../..' . '/inc/template-classes/multi-currency/class-wcml-multi-currency-ui.php',
         'WCML_Not_Translatable_Attributes' => __DIR__ . '/../..' . '/inc/template-classes/class-wcml-not-translatable-attributes.php',
@@ -154,10 +155,10 @@ class ComposerStaticInitea5526f224e4d65c1f284250e90538a6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitea5526f224e4d65c1f284250e90538a6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitea5526f224e4d65c1f284250e90538a6::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitea5526f224e4d65c1f284250e90538a6::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitea5526f224e4d65c1f284250e90538a6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc30053a51ee5263452335210f259eb3c::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc30053a51ee5263452335210f259eb3c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitc30053a51ee5263452335210f259eb3c::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitc30053a51ee5263452335210f259eb3c::$classMap;
 
         }, null, ClassLoader::class);
     }

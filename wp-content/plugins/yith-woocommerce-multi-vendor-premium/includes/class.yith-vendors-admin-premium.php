@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  */
 if ( ! class_exists( 'YITH_Vendors_Admin_Premium' ) ) {
+    
 
     class YITH_Vendors_Admin_Premium extends YITH_Vendors_Admin {
 
@@ -620,7 +621,8 @@ if ( ! class_exists( 'YITH_Vendors_Admin_Premium' ) ) {
                         'vendor_admins' => array(
                             'selected'  => $this->format_vendor_admins_for_select2( $vendor ),
                             'value'     => implode( ',', array_diff( $vendor->get_admins(), array( $owner->ID ) ) )
-                        )
+                        ),
+                        'vendor_can_add_admins' => apply_filters( 'yith_wcmv_vendor_can_add_admins', 'yes' == get_option( 'yith_wpv_vendors_ahop_admins_cap', 'no' ) ? true : false )
                     );
                     break;
 
@@ -1011,18 +1013,19 @@ if ( ! class_exists( 'YITH_Vendors_Admin_Premium' ) ) {
                 global $post;
                 $meta_value = get_post_meta( $post->ID, '_product_commission', true );
 
-                $args = array(
-                    'field_args' => array(
-                        'id'                => 'yith_wpv_product_commission',
-                        'label'             => __( 'Product commission', 'yith-woocommerce-product-vendors' ),
-                        'desc_tip'          => 'true',
-                        'description'       => __( 'You can set a specific commission for a single product. Keep this field blank or zero to use the vendor commission', 'yith-woocommerce-product-vendors' ),
-                        'value'             => $meta_value ? $meta_value : '',
-                        'type'              => 'number',
-                        'custom_attributes' => array(
-                            'step' => 0.1,
-                            'min'  => 0,
-                            'max'  => 100
+                $args = apply_filters( 'yith_wcmv_product_commission_field_args', array(
+                        'field_args' => array(
+                            'id'                => 'yith_wpv_product_commission',
+                            'label'             => __( 'Product commission', 'yith-woocommerce-product-vendors' ),
+                            'desc_tip'          => 'true',
+                            'description'       => __( 'You can set a specific commission for a single product. Keep this field blank or zero to use the vendor commission', 'yith-woocommerce-product-vendors' ),
+                            'value'             => $meta_value ? $meta_value : '',
+                            'type'              => 'number',
+                            'custom_attributes' => array(
+                                'step' => 0.1,
+                                'min'  => 0,
+                                'max'  => 100
+                            )
                         )
                     )
                 );
@@ -1358,7 +1361,7 @@ if ( ! class_exists( 'YITH_Vendors_Admin_Premium' ) ) {
          */
         public function filter_reviews_list( $query ) {
 
-            $current_screen = get_current_screen();
+            $current_screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 
             if( ! empty( $current_screen ) && 'edit-comments' != $current_screen->id ){
                 return;

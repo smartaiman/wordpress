@@ -22,6 +22,7 @@ if ( ! defined( 'YITH_WPV_VERSION' ) ) {
  */
 
 if ( ! class_exists( 'YITH_Vendors_Frontend_Premium' ) ) {
+    
 
     /**
      * Class YITH_Vendors_Frontend
@@ -29,6 +30,7 @@ if ( ! class_exists( 'YITH_Vendors_Frontend_Premium' ) ) {
      * @author Andrea Grillo <andrea.grillo@yithemes.com>
      */
     class YITH_Vendors_Frontend_Premium extends YITH_Vendors_Frontend {
+        
 
         /**
          * Constructor
@@ -77,6 +79,9 @@ if ( ! class_exists( 'YITH_Vendors_Frontend_Premium' ) ) {
 
             /* Load Shortcodes */
             class_exists( 'YITH_Multi_Vendor_Shortcodes' ) && add_action( 'init', 'YITH_Multi_Vendor_Shortcodes::load', 20 );
+
+            /* Body Class */
+            add_filter( 'body_class', array( $this, 'body_class' ) );
 
             parent::__construct();
         }
@@ -308,7 +313,10 @@ if ( ! class_exists( 'YITH_Vendors_Frontend_Premium' ) ) {
 
                 /* Vacation Module */
                 if( $vendor->is_on_vacation() ){
-                    yith_wcpv_get_template( 'store-vacation', array( 'vacation_message' => $vendor->vacation_message ), 'woocommerce/loop' );
+                    /* Support for MultiLingua plugins */
+                    $vendor_vacation_message = call_user_func( '__', $vendor->vacation_message, 'yith-woocommerce-product-vendors' );
+                    $args = array( 'vacation_message' => $vendor_vacation_message );
+                    yith_wcpv_get_template( 'store-vacation', $args, 'woocommerce/loop' );
                 }
 
                 /* Vendor Description */
@@ -423,8 +431,11 @@ if ( ! class_exists( 'YITH_Vendors_Frontend_Premium' ) ) {
             if ( $enabled ) {
                 $args = array(
                     'is_vat_require'                    => YITH_Vendors()->is_vat_require(),
-                    'is_terms_and_conditions_require'   => YITH_Vendors()->is_terms_and_conditions_require()
+                    'is_terms_and_conditions_require'   => YITH_Vendors()->is_terms_and_conditions_require(),
+                    'is_become_a_vendor_page'           => $this->is_become_a_vendor_page(),
+                    'become_a_vendor_style'             => get_option( 'yith_wpv_become_a_vendor_style', 'myaccount' ),
                 );
+
                 yith_wcpv_get_template( 'vendor-registration', $args, 'woocommerce/myaccount' );
             }
         }
@@ -835,6 +846,9 @@ if ( ! class_exists( 'YITH_Vendors_Frontend_Premium' ) ) {
             return $show;
         }
 
+        /**
+         * 
+         */
         public function switch_customer_to_vendor(){
             $current_user_id = get_current_user_id();
             do_action( 'yith_wcmv_before_become_a_vendor', $current_user_id );
@@ -857,6 +871,37 @@ if ( ! class_exists( 'YITH_Vendors_Frontend_Premium' ) ) {
                     }
                 }
             }
+        }
+
+        /**
+         * Check if current page is the become a vendor page
+         *
+         * @since    1.9.16
+         * @author   Andrea Grillo <andrea.grillo@yithemes.com>
+         * @return  bool  true if the current page is the become a vendor page, false otherwise
+         */
+        public function is_become_a_vendor_page(){
+            return is_page( get_option( 'yith_wpv_become_a_vendor_page_id' ) );
+        }
+
+        /**
+         * Add a body class(es)
+         *
+         * @param $classes The classes array
+         *
+         * @author Andrea Grillo <andrea.grillo@yithemes.com>
+         * @since  1.9.16
+         * @return array
+         */
+        public function body_class( $classes ) {
+            if ( $this->is_become_a_vendor_page() ) {
+                $become_a_vendor_style = get_option( 'yith_wpv_become_a_vendor_style', 'myaccount' );
+                $classes[] = 'become-a-vendor';
+                if( 'multivendor' == $become_a_vendor_style ){
+                    $classes[] = 'multi-vendor-style';    
+                }
+            }
+            return $classes;
         }
     }
 }

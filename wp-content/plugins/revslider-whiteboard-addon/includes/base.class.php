@@ -98,7 +98,7 @@ class rs_whiteboard_base {
 	}
 	
 	public static function load_plugin_textdomain(){
-		load_plugin_textdomain('rs_whiteboard', false, WHITEBOARD_PLUGIN_PATH . 'languages/');
+		load_plugin_textdomain('rs_whiteboard', false, 'revslider-whiteboard-addon/languages/');
 	}
 
 	/**

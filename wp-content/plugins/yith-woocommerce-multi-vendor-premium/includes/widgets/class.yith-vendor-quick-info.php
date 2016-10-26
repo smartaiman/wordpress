@@ -184,6 +184,8 @@ if ( ! class_exists( 'YITH_Vendor_Quick_Info_Widget' ) ) {
                     $vendor_owner = get_user_by( 'id', absint( $vendor->get_owner() ) );
                     $to           = $vendor_owner instanceof WP_User ? sanitize_email( $vendor_owner->user_email ) : false;
                 }
+                
+                error_log( print_r( $_POST['quick_info'], true ) );
 
                 $subject        = sanitize_text_field( $_POST['quick_info']['subject'] );
                 $message        = sanitize_text_field( $_POST['quick_info']['message'] );
@@ -192,7 +194,7 @@ if ( ! class_exists( 'YITH_Vendor_Quick_Info_Widget' ) ) {
                 $headers[]      = "From: {$from} <{$from_email}>";
                 $widget_options = get_option( 'widget_yith-vendor-quick-info' );
 
-                if( $widget_options[ $this->id ]['cc_to_admin'] ){
+                if( $widget_options[ $this->number ]['cc_to_admin'] ){
                     $admin_name     = get_option( 'woocommerce_email_from_name' );
                     $admin_email    = get_option( 'woocommerce_email_from_address' );
                     if( $admin_email && $admin_name ){

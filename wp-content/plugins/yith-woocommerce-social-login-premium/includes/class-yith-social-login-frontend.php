@@ -81,6 +81,8 @@ if( ! class_exists( 'YITH_WC_Social_Login_Frontend' ) ){
         public function social_buttons( $template_part = '', $is_shortcode = false, $atts = array() ) {
             $enabled_social = YITH_WC_Social_Login()->enabled_social;
             $template_part  = empty( $template_part ) ? 'social-buttons' : $template_part;
+
+
             if ( $is_shortcode ) {
                 ob_start();
             }
@@ -95,7 +97,7 @@ if( ! class_exists( 'YITH_WC_Social_Login_Frontend' ) ){
             $args = wp_parse_args( $atts, $args );
 
             if ( !is_user_logged_in() && !empty( $enabled_social ) ) {
-                yit_plugin_get_template( YITH_YWSL_DIR, $template_part . '.php', $args );
+               wc_get_template( $template_part . '.php', $args,  '', YITH_YWSL_TEMPLATE_PATH.'/');
             }
 
             if ( $is_shortcode ) {

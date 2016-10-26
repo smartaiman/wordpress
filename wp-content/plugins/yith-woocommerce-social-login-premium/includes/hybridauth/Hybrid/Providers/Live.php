@@ -29,6 +29,7 @@ class Hybrid_Providers_Live extends Hybrid_Provider_Model_OAuth2 {
 	 * {@inheritdoc}
 	 */
 	function initialize() {
+		$this->scope = apply_filters( 'yith_ywsl_live_scope', $this->scope);
 		parent::initialize();
 
 		// Provider api end-points

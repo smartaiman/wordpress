@@ -155,6 +155,17 @@ return array(
             'desc_tip' => __('This sets the page where add the "become a vendor" form.', 'yith-woocommerce-product-vendors'),
         ),
 
+        'frontpage_become_a_vendor_style' => array(
+            'title'   => __( "Become a vendor page style", 'yith-woocommerce-product-vendors' ),
+            'id'      => 'yith_wpv_become_a_vendor_style',
+            'type'    => 'select',
+            'options' => array(
+                'myaccount'   => __( 'My Account Style: with login form and "Register as a vendor" checkbox', 'yith-woocommerce-product-vendors' ),
+                'multivendor' => __( 'MultiVendor Style: Show only become a vendor form', 'yith-woocommerce-product-vendors' ),
+            ),
+            'default' => 'myaccount'
+        ),
+
         'frontpage_become_a_vendor_end' => array(
             'type' => 'sectionend',
         ),

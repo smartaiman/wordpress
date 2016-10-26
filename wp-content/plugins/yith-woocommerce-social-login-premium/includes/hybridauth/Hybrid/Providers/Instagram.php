@@ -18,6 +18,7 @@ class Hybrid_Providers_Instagram extends Hybrid_Provider_Model_OAuth2
 	*/
 	function initialize()
 	{
+		$this->scope = apply_filters( 'yith_ywsl_instagram_scope', $this->scope);
 		parent::initialize();
 
 		// Provider api end-points

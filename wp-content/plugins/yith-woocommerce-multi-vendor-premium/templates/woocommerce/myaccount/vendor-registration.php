@@ -17,17 +17,22 @@ $store_name         = ! empty( $_POST['vendor-name'] )              ? sanitize_t
 $store_location     = ! empty( $_POST['vendor-location'] )          ? sanitize_text_field( $_POST['vendor-location'] ) : '';
 $store_email        = ! empty( $_POST['vendor-email'] )             ? sanitize_email( $_POST['vendor-email'] ) : '';
 $store_telephone    = ! empty( $_POST['vendor-telephone'] )         ? sanitize_text_field( $_POST['vendor-telephone'] ) : '';
-$vendor_check       = ! empty( $_POST['vendor-register'] )          ? sanitize_text_field( $_POST['vendor-register'] ) : '';
 $vat                = ! empty( $_POST['vendor-vat'] )               ? sanitize_text_field( $_POST['vendor-vat'] ) : '';
+$vendor_check       = ! empty( $_POST['vendor-register'] )          ? sanitize_text_field( $_POST['vendor-register'] ) : '';
 $register_text      = __( 'Register as a vendor', 'yith-woocommerce-product-vendors' );
+
 ?>
 
-<label for="vendor-register" class="inline vendor-register-label">
-    <input name="vendor-register" type="checkbox" id="vendor-register" value="yes" <?php checked( $vendor_check, 'yes' )?>>
-    <?php echo apply_filters( 'yith_wcmv_register_as_vendor_text', $register_text ) ?>
-</label>
+<?php if( 'myaccount' == $become_a_vendor_style || ! $is_become_a_vendor_page ) : ?>
+    <label for="vendor-register" class="inline vendor-register-label">
+        <input name="vendor-register" type="checkbox" id="vendor-register" value="yes" <?php checked( $vendor_check, 'yes' )?>>
+        <?php echo apply_filters( 'yith_wcmv_register_as_vendor_text', $register_text ) ?>
+    </label>
+<?php else : ?>
+    <input name="vendor-register" type="hidden" id="vendor-register" value="yes" >
+<?php endif; ?>
 
-<div id="yith-vendor-registration" style="display: <?php echo 'yes' == $vendor_check ? 'block' : 'none' ?>;">
+<div id="yith-vendor-registration" style="display: <?php echo 'yes' == $vendor_check || ( $is_become_a_vendor_page && 'multivendor' == $become_a_vendor_style) ? 'block' : 'none' ?>;">
     <p class="form-row form-row-wide">
         <label for="vendor-owner-firstname"><?php _e( 'Owner First Name *', 'yith-woocommerce-product-vendors' )?></label>
         <input type="text" class="input-text" name="vendor-owner-firstname" id="vendor-owner-firstname" value="<?php echo $firstname ?>">

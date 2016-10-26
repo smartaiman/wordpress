@@ -51,6 +51,8 @@ if ( ! class_exists( 'YITH_Vendor_Vacation' ) ) {
             /* Add to cart validation on vacation */
             add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'avoid_add_to_cart' ), 10, 3 );
 
+            add_action( 'woocommerce_single_product_summary', array( $this, 'add_vacation_template' ), 25 );
+
         }
 
         /**
@@ -141,14 +143,8 @@ if ( ! class_exists( 'YITH_Vendor_Vacation' ) ) {
             if ( is_singular( 'product' ) && preg_match( '/single-product\/add-to-cart\/(\S+).php/', $template_name ) ) {
                 $vendor = yith_get_vendor( 'current', 'product' );
 
-                if ( $vendor->is_on_vacation() ) {
-                    if ( 'disabled' == $vendor->vacation_selling ) {
-                        $located = wc_locate_template( 'single-product/store-vacation.php', WC()->template_path(), YITH_WPV_TEMPLATE_PATH . '/woocommerce/' );
-                    }
-
-                    elseif ( 'enabled' == $vendor->vacation_selling ) {
-                        add_action( 'woocommerce_before_template_part', array( $this, 'add_vacation_template' ), 10, 4 );
-                    }
+                if ( $vendor->is_on_vacation() && 'disabled' == $vendor->vacation_selling ) {
+                    $located = wc_locate_template( 'single-product/store-vacation.php', WC()->template_path(), YITH_WPV_TEMPLATE_PATH . '/woocommerce/' );
                 }
             }
             return $located;
@@ -157,18 +153,13 @@ if ( ! class_exists( 'YITH_Vendor_Vacation' ) ) {
         /**
          * Add vacation part to add to cart template
          *
-         * @param $template_name
-         * @param $template_path
-         * @param $located
-         * @param $args
-         *
          * @return void
          *
          * @since    1.7
          * @author   Andrea Grillo <andrea.grillo@yithemes.com>
          */
-        public function add_vacation_template( $template_name, $template_path, $located, $args ){
-            if( is_singular( 'product' ) && preg_match( '/single-product\/add-to-cart\/(\S+).php/', $template_name ) ){
+        public function add_vacation_template(){
+            if( is_singular( 'product' ) ){
                 $vendor = yith_get_vendor( 'current', 'product' );
                 $vendor->is_on_vacation() && 'enabled' == $vendor->vacation_selling && yith_wcpv_get_template( 'store-vacation', array( 'vendor' => $vendor ), 'woocommerce/single-product' );
             }

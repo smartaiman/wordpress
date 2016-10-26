@@ -93,6 +93,10 @@ if ( ! class_exists( 'YITH_Report_Vendors_Sales' ) ) {
 				return;
 			}
 
+			if( ! isset( $report_data[ $vendor_id ] ) ) {
+				$report_data[ $vendor_id ]['sales'] = $report_data[ $vendor_id ]['items_number'] = 0;
+			}
+
 			$legend   = array();
 
 			$legend[] = array(
@@ -253,12 +257,9 @@ if ( ! class_exists( 'YITH_Report_Vendors_Sales' ) ) {
 				</div>
 				<?php
 			} elseif( isset( $this->report_data['series'] ) ) {
-//                $vendor_id = array_shift( $this->vendor_ids );
 				// Prepare data for report
 				$vendor_item_counts  = $this->prepare_chart_data( $this->report_data['series'][ $this->vendor_ids ], 'order_date', 'qty', $this->chart_interval, $this->start_date, $this->chart_groupby );
 				$vendor_item_amounts = $this->prepare_chart_data( $this->report_data['series'][ $this->vendor_ids ], 'order_date', 'commission', $this->chart_interval, $this->start_date, $this->chart_groupby );
-
-
 
 				// Encode in json format
 				$chart_data = json_encode( array(
@@ -430,12 +431,21 @@ if ( ! class_exists( 'YITH_Report_Vendors_Sales' ) ) {
 						continue;
 					}
 
-					$items_number++;
-					$amount += $commission->get_amount();
+					$order = $commission->get_order();
+					/**
+					 * WC return start date and end date in midnight form.
+					 * To compare it with wc order date I need to convert
+					 * order date in midnight form too.
+					 */
+					$order_date = $order instanceof WC_Order ? strtotime( 'midnight', strtotime( $order->order_date ) ) : false;
+					$is_valid_commission = $order_date && $order_date >= $this->start_date && $order_date <= $this->end_date;
+
+					if ( $is_valid_commission ) {
+						$items_number++;
+						$amount += $commission->get_amount();
+					}
 
 					/* === Chart Data === */
-					$order = $commission->get_order();
-					$item = $commission->get_item();
 					$series = new stdClass();
 					$series->order_date = $order->order_date;
 					$series->qty = 1;

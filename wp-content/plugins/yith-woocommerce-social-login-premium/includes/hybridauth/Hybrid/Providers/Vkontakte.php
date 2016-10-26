@@ -47,7 +47,7 @@ class Hybrid_Providers_Vkontakte extends Hybrid_Provider_Model_OAuth2
 	function initialize()
 	{
 		parent::initialize();
-
+		$this->scope = apply_filters( 'yith_ywsl_vk_scope', $this->scope);
 		// Provider api end-points
 		$this->api->api_base_url   = 'https://api.vk.com/method/';
 		$this->api->authorize_url  = "https://api.vk.com/oauth/authorize";

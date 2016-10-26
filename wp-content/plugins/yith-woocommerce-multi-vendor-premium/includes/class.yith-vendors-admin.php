@@ -134,6 +134,7 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
 
             /* Order management */
             add_filter( 'request', array( $this, 'filter_order_list' ), 10, 1 );
+            add_action( 'admin_head', array( $this, 'count_processing_order' ), 5 );
 
             /* Add Vendors Page Link in WP Dashboard */
             add_action( 'admin_menu', array( $this, 'admin_vendor_link' ) );
@@ -151,6 +152,9 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
 
             /* Essential Grid Support */
             add_action( 'add_meta_boxes', array( $this, 'remove_ess_grid_metabox' ), 20 );
+
+            /* WooCommerce Status Dashboard Widget */
+            add_filter( 'woocommerce_dashboard_status_widget_top_seller_query', array( $this, 'dashboard_status_widget_top_seller_query' ) );
         }
 
         /**
@@ -1622,6 +1626,58 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
             }
 
             return $links;
+        }
+
+        /**
+         * Filter TopSeller query for WooCommerce Dashboard Widget
+         *
+         * @param Array $query
+         *
+         * @since 1.9.16
+         * @author Andrea Grillo <andrea.grillo@yithemes.com>
+         *
+         * @return Array
+         */
+        public function dashboard_status_widget_top_seller_query( $query ){
+            $query['where']  .= "AND posts.post_parent = 0";
+            return $query;
+        }
+
+        /**
+         * Hakc WooCommerce order count
+         * 
+         * @author Andrea Grillo <andrea.grillo@yithemes.com>
+         * 
+         * @since 1.9.16
+         * @return false if cached value is set
+         */
+        public function count_processing_order(){
+            global $wpdb;
+
+            $count = 0;
+            $status = 'wc-processing';
+            $order_statuses = array_keys( wc_get_order_statuses() );
+
+            if ( ! in_array( $status, $order_statuses ) ) {
+                return 0;
+            }
+
+            $cache_key = WC_Cache_Helper::get_cache_prefix( 'orders' ) . $status;
+            $cache_group = 'yith_wcmv';
+
+            $cached = wp_cache_get( $cache_group . '_' . $cache_key, $cache_group );
+
+            if( $cached ){
+                return 0;
+            }
+
+            foreach ( wc_get_order_types( 'order-count' ) as $type ) {
+                $query = "SELECT COUNT( * ) FROM {$wpdb->posts} WHERE post_type = %s AND post_status = %s AND post_parent = 0";
+                $count += $wpdb->get_var( $wpdb->prepare( $query, $type, $status ) );
+            }
+
+            wp_cache_set( $cache_key, $count, 'counts' );
+            wp_cache_set( $cache_group . '_' . $cache_key, true, $cache_group );
         }
     }
 }

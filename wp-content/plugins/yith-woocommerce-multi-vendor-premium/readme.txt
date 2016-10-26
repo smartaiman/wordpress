@@ -4,7 +4,7 @@ Contributors: yithemes
 Tags: product vendors, vendors, vendor, multi store, multi vendor, multi seller, woocommerce product vendors, woocommerce multi vendor, commission rate, seller, shops, vendor shop, vendor system, woo vendors, wc vendors, e-commerce, yit, yith, yithemes
 Requires at least: 4.0
 Tested up to: 4.6.1
-Stable tag: 1.9.15
+Stable tag: 1.9.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,11 +12,34 @@ Multi vendor e-commerce is a new idea of e-commerce platform that is becoming mo
 
 == Changelog ==
 
+= 1.9.16 =
+
+* Added: Body class yith_wcmv_user_is_vendor if current logged in user is a vendor
+* Added: Body class yith_wcmv_user_is_vendor if current logged in user is not a vendor
+* Added: yith_wcmv_product_commission_field_args hook
+* Added: Option to remove the "Register as a vendor" and login form from "Become a vendor" page
+* Added: Enable vendors to add admins
+* Fixed: Unable to filter by attributes with pending vendor profile and YITH WooCommerce Ajax Product Filter plugin
+* Fixed: Wrong processing order count in WordPress menu
+* Fixed: Data range doesn't works in "Commissions by vendor" report
+* Fixed: Can't translate vendor vacation module with multi lingual plugins
+* Fixed: Double vacation message on variable products
+* Fixed: Prevent error on activation for add_cap and WP_Role object
+* Fixed: Website admin can't receive copy of quick info email
+* Fixed: Order sync option doesn't work
+* Fixed: Vendor order can't trigger correct action after order status changed
+* Fixed: Shipping and Delivery event doesn't added in to calendar
+* Fixed: Call undefined function get_current_screen() on plugin activation
+* Fixed: Sales by Vendor reports doesn't exclude on-hold, cancelled and refunded orders
+
 = 1.9.15 =
 
+* Added: Support to YITH WooCommerce SMS Notifications
+* Added: Support to YITH WooCommerce Bulk Product Editing
 * Added: Resend order email for vendor in order detail page
 * Fixed: Conflict between product limit and other custom post type
 * Fixed: User can't add chat macro if user limit are enabled
+
 
 = 1.9.14 =
 

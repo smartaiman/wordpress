@@ -196,7 +196,7 @@ if( ! class_exists( 'YITH_WC_Social_Login_Premium' ) ){
          * @author   Emanuela Castorina
          */
         function social_unlink() {
-            if ( !isset( $_REQUEST['nonce_social'] ) || !isset( $_REQUEST['provider'] ) || !wp_verify_nonce( $_POST['nonce_social'], 'unlink-social-' . $_REQUEST['provider'] ) ) {
+            if (  ( defined( 'DOING_AJAX' ) &&  DOING_AJAX ) || !isset( $_REQUEST['nonce_social'] ) || !isset( $_REQUEST['provider'] ) || !wp_verify_nonce( $_POST['nonce_social'], 'unlink-social-' . $_REQUEST['provider'] ) ) {
                 return;
             }
 

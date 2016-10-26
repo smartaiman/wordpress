@@ -1,6 +1,6 @@
 /********************************************
  * REVOLUTION 5.0+ EXTENSION - WHITEBOARD
- * @version: 1.0.2 (16.03.2016)
+ * @version: 2.0 (20.10.2016)
  * @requires jquery.themepunch.revolution.js
  * @author ThemePunch
 *********************************************/
@@ -17,7 +17,8 @@ var _R = jQuery.fn;
 jQuery.extend(true,_R, {
 	rsWhiteBoard: function(el) {
 		return this.each(function() {	
-			var opt = jQuery(this).data('opt');			
+			var opt = this.opt;
+			
 			jQuery(this).on('revolution.slide.onloaded',function() {
 				init(opt);
 			});			
@@ -81,8 +82,9 @@ var init = function(opt) {
 			}
 
 			//obj.layer.css({border:"1px dashed rgba(0,0,0,0.3)"})
-
-			var hand = obj.layersettings._pw.find('.wb-thehand');
+			
+			var _d = obj.layer.data(),
+				hand = jQuery(_d._pw).find('.wb-thehand');
 
 			if (hand.length>0) {
 				var wb = hand.data('wb');				
@@ -91,28 +93,26 @@ var init = function(opt) {
 				var wb = jQuery.extend(true,{},obj.layersettings.whiteboard);				
 			}
 			
+
 			// ATTACH HAND TO THE RIGHT ELEMENT
 			if (obj.eventtype=="enterstage") {
 				if (jQuery(obj.layer).is(':visible')===false) return;
 				if (!obj.layer.hasClass("handadded")) {
 					obj.layer.addClass("handadded");
-						obj.layersettings.handEffect="on";							 	
+						obj.layersettings.handEffect="on";												
 				 		if (wb.handadded!=true) 
 							attachHandTo(opt,obj,wb);							
 						animateHand(obj,wb);
-				}
-				
-				
-			}			
+				}								
+			}		
 			if (obj.eventtype=="enteredstage") {
 				if (obj.layer.hasClass("handadded") && !obj.layer.hasClass("handremoved")) {				
 					obj.layer.addClass("handremoved");
 					obj.layersettings.handEffect="off";
-					if (moveBetweenStages(opt,obj,wb)==false) {
+					if (moveBetweenStages(opt,obj,wb)==false) {						
 						moveoutHand(opt,obj,wb);
 					}
-				}
-				
+				}				
 			}
 
 			if (obj.eventtype=="leavestage") {
@@ -128,19 +128,21 @@ var init = function(opt) {
 *********************************************************/
 
 var lookForNextLayer = function(obj) {
-	var retobj = {};
+	var retobj = {},
+			_d = obj.layer.data();
 
 	retobj.obj = "";
 	retobj.startat=9999999;
 
 	
-	obj.layersettings._li.find('.tp-caption').each(function() {
-		var c = jQuery(this);
+	jQuery(_d._li).find('.tp-caption').each(function() {
+		var c = jQuery(this),
+			_ = c.data();
 		
-		if (c.data('active')!=true && c.data('whiteboard')!=undefined && c.data('whiteboard')["hand_function"]!="move") {
-			if (parseInt(c.data('start'),0)<retobj.startat) {
+		if (_.active!=true && _.whiteboard!=undefined && _.whiteboard["hand_function"]!="move") {
+			if (parseInt(_.frames[0].delay,0)<retobj.startat) {
 				retobj.obj = c;
-				retobj.startat = parseInt(c.data('start'),0);
+				retobj.startat = parseInt(_.frames[0].delay,0);
 			}
 		}
 	});
@@ -155,18 +157,23 @@ var lookForNextLayer = function(obj) {
 ****************************************/
 var moveBetweenStages = function(opt,obj,wb) {
 	var ret = false,
-		hand = obj.layersettings._pw.find('.wb-thehand');
-		
-	if (obj.layersettings.whiteboard.goto_next_layer==="on" && obj.layersettings.whiteboard.hand_function!="move" && opt.c.find('.wb-between-stations').length==0) {
+		_ = obj.layer.data(),
+		hand = jQuery(_._pw).find('.wb-thehand');
+			
+	if (_.whiteboard.goto_next_layer==="on" && _.whiteboard.hand_function!="move" && opt.c.find('.wb-between-stations').length==0) {
 		// IF HAND HAS TO MOVE TO NEXT POSSIBLE ITEM
-		var nextobj = lookForNextLayer(obj);				
+
+		var nextobj = lookForNextLayer(obj);			
 		if (nextobj!=undefined && nextobj.obj.length>0) {
-			var hi = hand.find('.wb-hand-inner'),
-				s = nextobj.startat/1000 - (obj.layersettings.timeline._totalDuration),
-				pos = obj.layersettings._pw.position(),
+			var hi = hand.find('.wb-hand-inner'),	
+				le = _.timeline!=undefined && _.timeline._labels!=undefined &&  _.timeline._labels.frame_0_end!=undefined ? _.timeline._labels.frame_0_end : 0,
+				s = nextobj.startat/1000 - le,
+				pos = jQuery(_._pw).position(),
 				posnew = nextobj.obj.data('_pw').position(),
 				wasinstaticlayer = hand.closest('.tp-static-layers').length>0 ? true : false;
 
+
+			
 			
 			hand.appendTo(opt.ul);
 			hand.addClass("wb-between-stations")
@@ -176,10 +183,9 @@ var moveBetweenStages = function(opt,obj,wb) {
 				hand.css({zIndex:100});		
 			wb.handEffect = "off";
 
+			
 			punchgs.TweenLite.fromTo(hand,s,{top:pos.top, left:pos.left},{top:posnew.top,left:posnew.left});
-			punchgs.TweenLite.to(hi,s,{x:0,y:0,onComplete:function() {
-				hand.remove();
-			}});
+			punchgs.TweenLite.to(hi,s,{x:0,y:0,onComplete:function() {	hand.remove(); }});
 			ret = true;
 		} 
 	}
@@ -196,7 +202,8 @@ var rotateHand = function(hand_inner, obj, _) {
 	if (_.handEffect=="off" || _.handadded!=true) return;
 
 	
-	var  elheight = _.maxwave || obj.layersettings.eoh,
+	var _d = obj.layer.data(),
+		elheight = _.maxwave || _d.eoh,
 		 ang = parseInt(_.hand_angle,0) || 10;
 		 ro = _.hand_function=="write" || _.hand_function=="draw" ? Math.random()*ang - (ang/2) : 0;		
 	_.rotatespeed = _.rotatespeed || 0.05;
@@ -207,20 +214,21 @@ var rotateHand = function(hand_inner, obj, _) {
 
 var jitterHand = function(hand_inner, obj, _) {	
 	if (_.handEffect=="off" || _.handadded!=true) return;	
-	
+	var 	_d = obj.layer.data();
+
 	if (_.jitter_direction == "horizontal") {
-		var	elwidth = _.maxwave || obj.layersettings.eow*_.jitter_distance_horizontal,
-			eloffset = obj.layersettings.eow*_.jitter_offset_horizontal;	
+
+		var	elwidth = _.maxwave || _d.eow*_.jitter_distance_horizontal,
+			eloffset = _d.eow*_.jitter_offset_horizontal;	
 					
 		if (elwidth == 0) return;
 		_.current_x_offset = _.current_x_offset || 0;
 		_.lastwave =  Math.random()*elwidth+eloffset;
-		_.jitterspeed = _.jitterspeed || 0.05;	
-		
+		_.jitterspeed = _.jitterspeed || 0.05;			
 		_.jittering_anim = punchgs.TweenLite.to(hand_inner,_.jitterspeed,{x:_.lastwave,ease:punchgs.Power3.easeOut,onComplete:function(){jitterHand(hand_inner,obj,_)}});
 	
 	} else {
-		var	elheight = _.maxwave || obj.layersettings.eoh;
+		var	elheight = _.maxwave || _d.eoh;
 		
 		if (elheight == 0) return;
 		_.current_y_offset = _.current_y_offset || 0;
@@ -238,7 +246,8 @@ var attachHandTo = function(opt,obj,wb) {
 	
 	// SET DEFAULTS
 	var o = wb.hand_function=="move" ? opt.whiteboard.movehand : opt.whiteboard.writehand,				
-		element = o.markup;
+		element = o.markup,
+		_d = obj.layer.data();
 
 	
 	wb.hand_full_rotation = wb.hand_full_rotation || 0;
@@ -248,10 +257,10 @@ var attachHandTo = function(opt,obj,wb) {
 	wb.hand_y_offset = parseInt(wb.hand_y_offset,0) || 0;
 
 	// ADD THE HAND TO THE LAYER
-	jQuery(element).appendTo(obj.layersettings._pw); 
+	jQuery(element).appendTo(jQuery(_d._pw)); 
 	wb.handadded = true;	
 
-	var hand = obj.layersettings._pw.find('.wb-thehand'),
+	var hand = jQuery(_d._pw).find('.wb-thehand'),
 		hand_inner = hand.find('.wb-hand-inner'),
 		hand_image = hand.find('.wb-hand-image');
 
@@ -261,10 +270,12 @@ var attachHandTo = function(opt,obj,wb) {
 }
 
 var animateHand = function(obj,wb) {
-	var hand = obj.layersettings._pw.find('.wb-thehand'),
+	var _d = obj.layer.data(),
+		hand = jQuery(_d._pw).find('.wb-thehand'),
 		hand_inner = hand.find('.wb-hand-inner'),
 		hand_image = hand.find('.wb-hand-image'),
 		tween = punchgs.TweenLite.getTweensOf(obj.layer);
+		
 		
 	
 	// SET LOOP ANIMATION
@@ -272,12 +283,13 @@ var animateHand = function(obj,wb) {
 		case "write":
 		case "draw":
 			
-			var s = obj.layersettings.speed;
-								
+			var s = _d.frames[obj.frame_index].speed/1000;
+			
 			// IF IT IS A TEXT, WRITE TEXT
-			if (obj.layersettings.splitin != undefined && obj.layersettings.splitin!="none") {					
+			if (_d.splittext!= undefined && _d.splittext!="none") {					
 				
 				wb.tweens = obj.layersettings.timeline.getChildren(true,true,false);
+
 				
 				jQuery.each(wb.tweens,function(i,tw) {	
 
@@ -285,9 +297,8 @@ var animateHand = function(obj,wb) {
 						var el = jQuery(this.target),
 							w=el.width(),
 							h=el.height();
-						
-
-						if 	(el.html().length>0 && el.html().charCodeAt(0)!=9 && el.html().charCodeAt(0)!=10) {										
+										
+						if 	(el!==undefined && el.html() !==undefined && el.html().length>0 && el.html().charCodeAt(0)!=9 && el.html().charCodeAt(0)!=10) {										
 							var pos = el.position(),
 								pa = el.parent(),
 								papa = pa.parent(),								
@@ -339,19 +350,20 @@ var animateHand = function(obj,wb) {
 
 
 			 } else {			 	
-				var dishor = (obj.layersettings.eow*wb.jitter_distance_horizontal),
-					offhor = (obj.layersettings.eow*wb.jitter_offset_horizontal),
-					disver = (obj.layersettings.eoh*wb.jitter_distance),
-					offver = (obj.layersettings.eoh*wb.jitter_offset);
+				var dishor = (_d.eow*wb.jitter_distance_horizontal),
+					offhor = (_d.eow*wb.jitter_offset_horizontal),
+					disver = (_d.eoh*wb.jitter_distance),
+					offver = (_d.eoh*wb.jitter_offset);
 					
 					wb.rotatespeed = wb.hand_angle_repeat !== undefined ? (parseFloat(s)/parseFloat(wb.hand_angle_repeat)) : s>1 ? s/6 : s>0.5 ? s/6 : s / 3;
 					wb.jitterspeed = wb.jitter_repeat !== undefined ? (parseFloat(s)/parseFloat(wb.jitter_repeat)) : s>1 ? s/6 : s>0.5 ? s/6 : s / 3;
 					
-					
+
 			 	if (wb.hand_direction=="right_to_left")	{
-			 		var xf = obj.layersettings.eow-offhor,
+			 		var xf = _d.eow-offhor,
 			 			xt = xf - dishor;
-			 		punchgs.TweenLite.fromTo(hand_inner,s,{x:xf},{x:xt , ease:obj.layersettings.ease,onComplete:function() {
+
+			 		punchgs.TweenLite.fromTo(hand_inner,s,{x:xf},{x:xt , ease:obj.layersettings.frames[0].ease,onComplete:function() {
 				 		wb.handEffect="off";
 				 	}});			 	
 				}
@@ -359,15 +371,16 @@ var animateHand = function(obj,wb) {
 			 	if (wb.hand_direction=="top_to_bottom") {
 			 		var yf = offver,
 			 			yt = yf + disver;	
-			 		punchgs.TweenLite.fromTo(hand_inner,s,{y:yf},{y:yt, ease:obj.layersettings.ease,onComplete:function() {
+
+			 		punchgs.TweenLite.fromTo(hand_inner,s,{y:yf},{y:yt, ease:obj.layersettings.frames[0].ease,onComplete:function() {
 				 		wb.handEffect="off";
 				 	}});
 				 	wb.jitter_direction = "horizontal";
 			 	} else
 			 	if (wb.hand_direction=="bottom_to_top") {
-			 		var yf = obj.layersettings.eoh-offver,
+			 		var yf = _d.eoh-offver,
 			 			yt = yf - disver;
-			 		punchgs.TweenLite.fromTo(hand_inner,s,{y:yf},{y:yt, ease:obj.layersettings.ease,onComplete:function() {
+			 		punchgs.TweenLite.fromTo(hand_inner,s,{y:yf},{y:yt, ease:obj.layersettings.frames[0].ease,onComplete:function() {
 				 		wb.handEffect="off";
 				 		
 				 	}});			 
@@ -375,7 +388,7 @@ var animateHand = function(obj,wb) {
 			 	} else { 	
 			 		var xf = offhor,
 			 			xt = xf + dishor;			 		
-				 	punchgs.TweenLite.fromTo(hand_inner,s,{x:xf},{x:xt, ease:obj.layersettings.ease,onComplete:function() {
+				 	punchgs.TweenLite.fromTo(hand_inner,s,{x:xf},{x:xt, ease:obj.layersettings.frames[0].ease,onComplete:function() {
 				 		wb.handEffect="off";
 				 	}});
 				 }				 	
@@ -389,8 +402,9 @@ var animateHand = function(obj,wb) {
 
 		case "move":
 			// PUT HANDS WRAPPER IN POSITION
-			hand.data('outspeed',obj.layersettings.speed);
-			hand.data('outease',obj.layersettings.ease);
+
+			hand.data('outspeed',obj.layersettings.frames[obj.layersettings.frames.length-1].speed/1000);
+			hand.data('outease',obj.layersettings.frames[obj.layersettings.frames.length-1].ease);
 
 			tween[0].eventCallback("onUpdate",function(obj) {
 				var style = this.target.style,
@@ -416,26 +430,29 @@ var animateHand = function(obj,wb) {
 **************************************/
 var moveoutHand = function(opt,obj,wb) {		
 	
-	var hand = obj.layersettings._pw.find('.wb-thehand'),
+	var _d = obj.layer.data(),
+		hand = jQuery(_d._pw).find('.wb-thehand'),
 		pos = hand.data('pos') || {x:0, y:0},
 		tl = hand.position() || {top:0,left:0},
-		sp = hand.data('outspeed') || 2,
+		sp = _d.frames[obj.layersettings.frames.length-1].speed/1000 || 2,
+		ea = _d.frames[obj.layersettings.frames.length-1].ease,
 		alp = pos.x==0 && pos.y==0 ? 0 : 1;
 
 	sp = sp*0.5;
 
 	
+
 	if (wb.hand_function!="move") {
-		var handoffset = obj.layersettings._pw.position(),
+		var handoffset = jQuery(_d._pw).position(),
 			slideroffset = opt.c.offset();
 		
-		tl.left = wb.hand_type=="right" ? opt.c.width() -  handoffset.left + obj.layersettings.eow :  0  - handoffset.left-obj.layersettings.eow;
+		tl.left = wb.hand_type=="right" ? opt.c.width() -  handoffset.left + _d.eow :  0  - handoffset.left-_d.eow;
 		tl.top = opt.c.height();		
-				
 
 	}
 
-	punchgs.TweenLite.to(hand,sp,{top:tl.top, left:tl.left,autoAlpha:alp,x:pos.x, y:pos.y,ease:hand.data('outease'),onComplete:function() {
+	punchgs.TweenLite.to(hand,sp,{top:tl.top, left:tl.left,autoAlpha:alp,x:pos.x, y:pos.y,ease:ea,onComplete:function() {
+
 		hand.remove();
 		wb.handadded = false;
 	}});

@@ -85,11 +85,11 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
             /* Add shipping addresses to vendor email */
             add_filter( 'woocommerce_order_needs_shipping_address', array( $this, 'order_needs_shipping_address' ), 10, 3 );
 
-            $sync_enabled = get_option ( 'yith_wpv_vendors_option_order_synchronization', 'yes' );
+            $sync_enabled = 'yes' == get_option ( 'yith_wpv_vendors_option_order_synchronization', 'yes' ) ? true : false;
 
             if ( $sync_enabled ) {
                 /* SubOrder Sync */
-                add_action ( 'woocommerce_order_status_changed', array ( $this, 'suborder_status_synchronization' ), 10, 3 );
+                add_action ( 'woocommerce_order_status_changed', array ( $this, 'suborder_status_synchronization' ), 30, 3 );
                 /* Order Meta Synchronization */
                 add_action ( 'woocommerce_process_shop_order_meta', array ( $this, 'suborder_meta_synchronization' ), 65, 2 );
                 /* Commission  Synchronization */

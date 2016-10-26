@@ -109,7 +109,9 @@ function yith_vendors_update_db_1_0_6() {
     if ( $vendors_db_option && version_compare( $vendors_db_option, '1.0.6', '<' ) ) {
         $vendor_role_name = YITH_Vendors()->get_role_name();
         $vendor_role = get_role( $vendor_role_name );
-        $vendor_role->add_cap( 'edit_posts' );
+        if( $vendor_role instanceof WP_Role ){
+            $vendor_role->add_cap( 'edit_posts' );    
+        }
     }
     update_option( 'yith_product_vendors_db_version', '1.0.6' );
 }

@@ -20,6 +20,7 @@ if ( ! defined( 'YITH_WPV_VERSION' ) ) {
 }
 
 if ( ! class_exists( 'YITH_Report_Vendors_Sales' ) ) {
+    
 
     class YITH_Report_Vendors_Sales extends WC_Admin_Report {
 
@@ -258,8 +259,6 @@ if ( ! class_exists( 'YITH_Report_Vendors_Sales' ) ) {
                 $vendor_item_counts  = $this->prepare_chart_data( $this->report_data['series'][ $this->vendor_ids ], 'order_date', 'qty', $this->chart_interval, $this->start_date, $this->chart_groupby );
                 $vendor_item_amounts = $this->prepare_chart_data( $this->report_data['series'][ $this->vendor_ids ], 'order_date', 'line_total', $this->chart_interval, $this->start_date, $this->chart_groupby );
 
-
-
                 // Encode in json format
                 $chart_data = json_encode( array(
                     'vendor_item_counts'  => array_values( $vendor_item_counts ),
@@ -413,6 +412,7 @@ if ( ! class_exists( 'YITH_Report_Vendors_Sales' ) ) {
             $report_data    = array();
             $series         = array();
             $current_range = YITH_Reports()->get_current_date_range();
+            $allowed_order_statuses = array( 'completed', 'processing' );
 
             $this->calculate_current_range( $current_range );
 
@@ -429,7 +429,7 @@ if ( ! class_exists( 'YITH_Report_Vendors_Sales' ) ) {
                      * order date in midnight form too.
                      */
                     $order_date = $order instanceof WC_Order ? strtotime( 'midnight', strtotime( $order->order_date ) ) : false;
-                    if ( $order_date && $order_date >= $this->start_date && $order_date <= $this->end_date ) {
+                    if ( $order_date && in_array( $order->get_status(), $allowed_order_statuses ) && $order_date >= $this->start_date && $order_date <= $this->end_date ) {
                         $vendor_product_ids = $vendor->get_products();
                         $order_items        = $order->get_items();
                         foreach ( $order_items as $order_item ) {
@@ -461,4 +461,5 @@ if ( ! class_exists( 'YITH_Report_Vendors_Sales' ) ) {
             $this->set_report_data( $report_data );
         }
     }
+    
 }

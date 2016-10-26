@@ -1,19 +1,24 @@
 /********************************************
  * REVOLUTION 5.2.6 EXTENSION - PARALLAX
- * @version: 1.5 (23.06.2016)
+ * @version: 2.0.1 (24.10.2016)
  * @requires jquery.themepunch.revolution.js
  * @author ThemePunch
 *********************************************/
 (function($) {
-
+"use strict";
 var _R = jQuery.fn.revolution,
-	_ISM = _R.is_mobile();
+	_ISM = _R.is_mobile(),
+	extension = {	alias:"Parallax Min JS",
+					name:"revolution.extensions.parallax.min.js",
+					min_core: "5.3",
+					version:"2.0.1"
+			  };
 
 jQuery.extend(true,_R, {	
 	
 	checkForParallax : function(container,opt) {
 
-		
+		if (_R.compare_version(extension).check==="stop") return false;
 		var _ = opt.parallax;
 
 		if (_.done) return;
@@ -59,7 +64,7 @@ jQuery.extend(true,_R, {
 			setDDDInContainer(jQuery(this));						
 		});
 
-		if (_.type=="3D" || _.type=="3d" && opt.c.find('.tp-static-layers').length>0) {
+		if ((_.type=="3D" || _.type=="3d") && opt.c.find('.tp-static-layers').length>0) {
 			punchgs.TweenLite.set(opt.c.find('.tp-static-layers'),{top:0, left:0,width:"100%",height:"100%"});
 			setDDDInContainer(opt.c.find('.tp-static-layers'));
 		}
@@ -179,7 +184,7 @@ jQuery.extend(true,_R, {
 							else 								
 								punchgs.TweenLite.to(t,0.5,{force3D:"auto",rotationY:0, rotationX:0, z:0,ease:punchgs.Power3.easeOut,overwrite:"all"});
 						else 
-							punchgs.TweenLite.to(t,0.5,{force3D:"auto",rotationY:0,z:0,x:0,y:0, rotationX:0, z:0,ease:punchgs.Power3.easeOut,overwrite:"all"});
+							punchgs.TweenLite.to(t,0.5,{force3D:"auto",rotationY:0,x:0,y:0, rotationX:0, z:0,ease:punchgs.Power3.easeOut,overwrite:"all"});
 																	
 						if (event.type=="mouseleave")
 						 	punchgs.TweenLite.to(jQuery(this),3.8,{z:0, ease:punchgs.Power3.easeOut});
@@ -228,7 +233,7 @@ jQuery.extend(true,_R, {
 						if (opt.sliderType==="carousel") sctor = ".tp-revslider-slidesli .dddwrapper, .tp-revslider-slidesli .dddwrapper-layer, .tp-static-layers .dddwrapper-layer";
 						opt.c.find(sctor).each(function() {			
 							var t = jQuery(this),
-								pl = _.levels[_.levels.length-1]/200
+								pl = _.levels[_.levels.length-1]/200,
 								offsh =	diffh * pl,
 								offsv =	diffv * pl*3,
 								offrv = opt.conw == 0 ? 0 :  Math.round((diffh / opt.conw * pl)*500) || 0,
@@ -253,7 +258,7 @@ jQuery.extend(true,_R, {
 								else 								
 									punchgs.TweenLite.to(t,0.5,{force3D:"auto",rotationY:0, rotationX:0, z:0,ease:punchgs.Power3.easeOut,overwrite:"all"});
 							else 
-								punchgs.TweenLite.to(t,0.5,{force3D:"auto",rotationY:0,z:0,x:0,y:0, rotationX:0, z:0,ease:punchgs.Power3.easeOut,overwrite:"all"});
+								punchgs.TweenLite.to(t,0.5,{force3D:"auto",rotationY:0,z:0,x:0,y:0, rotationX:0, ease:punchgs.Power3.easeOut,overwrite:"all"});
 																	
 							if (event.type=="mouseleave")
 							 	punchgs.TweenLite.to(jQuery(this),3.8,{z:0, ease:punchgs.Power3.easeOut});
@@ -296,7 +301,7 @@ jQuery.extend(true,_R, {
 	//	-	SET POST OF SCROLL PARALLAX	-
 	scrollHandling : function(opt,fromMouse) {	
 		opt.lastwindowheight = opt.lastwindowheight || window.innerHeight;
-		
+		opt.conh = opt.conh===0 || opt.conh===undefined ? opt.infullscreenmode ? opt.minHeight : opt.c.height() : opt.conh;
 		if (opt.lastscrolltop==window.scrollY && !opt.duringslidechange && !fromMouse) return false;		
 		punchgs.TweenLite.delayedCall(0.2,saveLastScroll,[opt,window.scrollY]);
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YIT WooCommerce Social Login\n"
-"POT-Creation-Date: 2016-07-22 14:40+0200\n"
-"PO-Revision-Date: 2016-07-22 14:40+0200\n"
+"POT-Creation-Date: 2016-10-25 13:55+0200\n"
+"PO-Revision-Date: 2016-10-25 13:55+0200\n"
 "Last-Translator: \n"
 "Language-Team: Yithemes <plugins@yithemes.com>\n"
 "Language: it_IT\n"
@@ -179,71 +179,6 @@ msgstr "Utente non connesso al provider."
 #: ../includes/class-yith-social-login.php:547
 msgid "Provider does not support this feature."
 msgstr "Il provider non supporta questa funzionalità."
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:90
-msgctxt "Post Type General Name"
-msgid "Email Templates"
-msgstr ""
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:91
-msgctxt "Post Type Singular Name"
-msgid "Email Template"
-msgstr ""
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:92
-msgid "Email Template"
-msgstr ""
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:93
-msgid "Parent Item:"
-msgstr ""
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:94
-msgid "All Email Templates"
-msgstr ""
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:95
-msgid "View Email Templates"
-msgstr ""
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:96
-#: ../includes/class-yith-wc-abandoned-cart-email.php:97
-msgid "Add New Email Template"
-msgstr ""
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:98
-msgid "Edit Email Template"
-msgstr ""
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:99
-msgid "Update Email Template"
-msgstr ""
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:100
-msgid "Search Email Template"
-msgstr ""
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:101
-msgid "Not found"
-msgstr ""
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:102
-msgid "Not found in Trash"
-msgstr ""
-
-#: ../includes/class-yith-wc-abandoned-cart-email.php:105
-msgid "Email Templates"
-msgstr ""
-
-#: ../includes/class.yith-wc-abandoned-cart-email.php:30
-msgid "Recover Abandoned Cart Email"
-msgstr ""
-
-#: ../includes/class.yith-wc-abandoned-cart-email.php:31
-msgid ""
-"This is the email sent to the customer from the admin with the YITH "
-"WooCommerce Recover Abandoned Cart plugin"
-msgstr ""
 
 #: ../init.php:56
 msgid ""

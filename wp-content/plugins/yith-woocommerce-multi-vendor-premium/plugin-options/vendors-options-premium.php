@@ -237,6 +237,28 @@ return array(
             'vendors_editor_end'              => array(
                 'type' => 'sectionend',
             ),
+
+            'vendor_shop_admins_start' => array(
+                'type' => 'sectionstart',
+            ),
+
+            'vendor_shop_admins_title'            => array(
+                'title' => __( 'Shop Admins', 'yith-woocommerce-product-vendors' ),
+                'type'  => 'title',
+                'desc'  => '',
+            ),
+
+            'vendor_shop_admins_title_cap'       => array(
+                'title'   => __( 'Enable vendors to add admins', 'yith-woocommerce-product-vendors' ),
+                'type'    => 'checkbox',
+                'desc'    => __( 'Thanks to this option, your vendors will be able to assign shop admins for their own shop page. Please, be careful while using this option, because this way your vendors will be able to see all users registered to the entire store, first name, last name and email address and this could be a violation of their own privacy. We always recommend you enable this option only if necessary. Alternatively, your vendors will be able to see who the admins of their shop page are and make a request to the global admin to have them added.', 'yith-woocommerce-product-vendors' ),
+                'id'      => 'yith_wpv_vendors_ahop_admins_cap',
+                'default' => 'no'
+            ),
+
+            'vendor_shop_admins_end' => array(
+                'type' => 'sectionend',
+            ),
         ),
     ),
 );

@@ -25,6 +25,9 @@ class Hybrid_Providers_Google extends Hybrid_Provider_Model_OAuth2 {
 	 * {@inheritdoc}
 	 */
 	function initialize() {
+
+		$this->scope = apply_filters( 'yith_ywsl_google_scope', $this->scope);
+
 		parent::initialize();
 
 		// Provider api end-points

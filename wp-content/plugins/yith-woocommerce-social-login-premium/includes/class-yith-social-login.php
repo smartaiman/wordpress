@@ -645,11 +645,12 @@ if( ! class_exists( 'YITH_WC_Social_Login' ) ){
 		 * @return void
 		 * @author Emanuela Castorina <emanuela.castorina@yithemes.com>
 		 */
-		public function logout(){
-			
-			session_destroy();
+		public function logout() {
+			if ( isset( $_SESSION ) ) {
+				session_destroy();
+			}
 			clearstatcache();
-			unset($this->hybridauth);
+			unset( $this->hybridauth );
 
 		}
 

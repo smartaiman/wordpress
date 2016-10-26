@@ -3,8 +3,8 @@
 Contributors: yithemes
 Tags: social login, login, connect with social, woocommerce connect
 Requires at least: 3.5.1
-Tested up to: 4.2
-Stable tag: 1.0.9
+Tested up to: 4.6.x
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,6 +12,15 @@ YITH WooCommerce Social login is a plugin that allows you to login to your e-com
 
 
 == Changelog ==
+= 1.1.0 - Released on Oct 25, 2016 =
+* Added: 'yith_ywsl_facebook_scope' filter to change the default Facebook permissions
+* Added: 'yith_ywsl_google_scope' filter to change the default Google permissions
+* Added: 'yith_ywsl_vk_scope' filter to change the default Vkontakte permissions
+* Added: 'yith_ywsl_live_scope' filter to change the default Live permissions
+* Added: 'yith_ywsl_instagram_scope' filter to change the default Instagram permissions
+* Fixed: shortcode 'yith_wc_social_login'
+
+
 = 1.0.9 - Released on Jul 22, 2016 =
 * Added: Spanish translation
 * Added: Italian translation

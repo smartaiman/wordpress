@@ -2,7 +2,7 @@
 /*
 Plugin Name: YITH WooCommerce Social Login Premium
 Description: YITH WooCommerce Social Premium login is a plugin that allows you to login to your e-commerce site through your Facebook or Twitter or Google+ and others social networks account.
-Version: 1.0.9
+Version: 1.1.0
 Author: YITHEMES
 Author URI: http://yithemes.com/
 Text Domain: yith-woocommerce-social-login
@@ -63,7 +63,7 @@ if ( !function_exists( 'yith_ywsl_install_woocommerce_admin_notice' ) ) {
 if ( defined( 'YITH_YWSL_VERSION' ) ) {
 	return;
 } else {
-	define( 'YITH_YWSL_VERSION', '1.0.9' );
+	define( 'YITH_YWSL_VERSION', '1.1.0' );
 }
 
 if ( !defined( 'YITH_YWSL_PREMIUM' ) ) {
